@@ -19,14 +19,21 @@
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
+    "cytoscape": "^3.19.1",
     "docusaurus-lunr-search": "^2.1.14",
+    "docusaurus-plugin-relative-paths": "^1.0.0",
     "file-loader": "^6.2.0",
+    "fs": "^0.0.1-security",
     "mdx-mermaid": "^1.1.0",
     "mermaid": "^8.13.0",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "url-loader": "^4.1.1"
+    "remark-backlinks": "file://home/gol2cob/gitp/remark-backlinks",
+    "remark-capitalize": "^1.1.0",
+    "remark-wiki-link": "0.0.4",
+    "url-loader": "^4.1.1",
+    "walk-sync": "^3.0.0"
   },
   "browserslist": {
     "production": [

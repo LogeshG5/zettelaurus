@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# This tool is used to convert documents created with Foam VS Code extention to Docusaurus understandable format
+
+# Convert [[wikilinks]] to md links
+# Convert spaces to - in md references section
+# Replace all spaces to dashes in all file names
+
+
+SOURCE_DIR="$1"
+DEST_DIR="$2"
+
+
+slugify(){
+  echo "$1" | sed 's/ /-/g'
+}
+
+find_file(){
+  DIR=$1
+  FILE=$2
+  cd "$DIR" >/dev/null
+  echo `find . -iname "$FILE.md*" -type f`
+  cd - >/dev/null
+}
+
+is_dir_exist(){
+  if [ ! -d $1 ] 
+  then 
+    echo "Directory $SOURCE_DIR DOES NOT exists." 
+    return 1
+  else
+    return 0
+  fi
+}
+
+slugify_file(){
+  # Replace all spaces in file names with -
+  dir=$(dirname "$1")
+  file=$(basename "$1")
+  dashed_file="$dir/$(echo $file | sed 's/ /-/g' | tr A-Z a-z )"
+  # small_letter_file="$(echo $dashed_file | tr A-Z a-z)"
+ mv "$1" "$dashed_file" 2>/dev/null
+  # mv $dashed_file $small_letter_file
+}
+
+remove_references_section(){
+  # Delete all lines from begin]: to end]:
+  sed -i '/begin\]:/,/end\]:/d' "$1"
+}
+
+add_references_section(){
+  CURRENTFILEDIR=$(dirname "$1")
+  # echo "Add reference for file $1 $CURRENTFILEDIR"
+  # Grep all wiki links
+  WIKILINKS=""
+  # WIKILINKS=$(grep -Eo '\[\[([a-zA-Z0-9 -]*)\]\]' "$1" | sed -e 's/\[\[//' -e 's/\]\]//')
+  grep -Eoq '\[\[([a-zA-Z0-9 -]*)\]\]' "$1" || return 0
+  echo "[//begin]: #" >> "$1"
+  while IFS= read -r WIKILINK; do
+    SLUGLINK=`slugify "$WIKILINK"`
+    FOUNDFILE=`find_file "$CURRENTFILEDIR" $SLUGLINK`
+    # echo ":::$WIKILINK $SLUGLINK ::file=$FOUNDFILE" 
+    echo "[$WIKILINK]: $FOUNDFILE \"$WIKILINK\"" >> "$1"
+  done <<< $(grep -Eo '\[\[([a-zA-Z0-9 -]*)\]\]' "$1" | sed -e 's/\[\[//' -e 's/\]\]//')
+  echo "[//end]: #" >> "$1"
+}
+
+change_wiki_brackets(){
+  # convert [[]] to []
+  # _ used instead of /, content inside [[xx]] is captured and replaced with [\1]
+  sed -e 's_\[\[\([A-Za-z0-9 -]*\)\]\]_[\1]_g' -i "$1";  
+  # another variation -E 's_\[\[([[:alnum:] -]+?)\]\]_[\1]_g'
+}
+
+# Check if source is valid
+is_dir_exist $SOURCE_DIR || exit -1
+
+# Create destination
+mkdir -p $DEST_DIR
+
+cp -r $SOURCE_DIR/* $DEST_DIR
+
+cd $DEST_DIR
+
+# Slugify files in destination
+find . -name "*.md" -type f -print0 | while read -d $'\0' file; do
+  slugify_file "$file"
+done
+
+# Update references section
+find . -name "*.md" -type f -print0 | while read -d $'\0' file; do
+
+  remove_references_section "$file"
+  
+  # add_references_section "$file"
+
+  # change_wiki_brackets "$file"
+
+done
+

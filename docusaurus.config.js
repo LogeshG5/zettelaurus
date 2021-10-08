@@ -1,29 +1,49 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const path = require('path');
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: 'Wiki',
   tagline: 'Dinosaurs are cool',
-  url: 'http://localhost:3030/',
+  url: 'http://localhost:3000/',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'facebook', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
-  plugins: [require.resolve('docusaurus-lunr-search')],
+  customFields: { graph: path.resolve(__dirname, '.docusaurus/cy.json'), },
+  plugins: [require.resolve('docusaurus-lunr-search'), 'docusaurus-plugin-relative-paths', path.resolve(__dirname, 'plugins', 'docusaurus-plugin-logesh')],
   presets: [
     [
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          remarkPlugins: [require('mdx-mermaid')],
+          remarkPlugins: [
+            require('mdx-mermaid'),
+            [require('remark-wiki-link'),
+            {
+              pageResolver: (pageName) => {
+                const slug = pageName.replace(/ /g, '-').toLowerCase(); // use this if your files are sluggified
+                const walkSync = require("walk-sync");
+                let paths = walkSync("docs/", { globs: ["**/" + slug + ".md*"] });
+                paths = paths.map(path => path.replace(".mdx", ""));
+                paths = paths.map(path => path.replace(".md", ""));
+                // paths = paths.map(path => path.replace(" ", "%20")); // taken care automatically
+                return paths;
+              },
+              hrefTemplate: (permalink) => { return `/docs/${permalink}`; },
+            }
+            ],
+            require('remark-capitalize'),
+            require('remark-backlinks'),
+          ],
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+          // editUrl: 'file:///C:/Users/gol2cob/Documents/Wiki',
         },
         blog: {
           showReadingTime: true,
@@ -36,6 +56,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         },
       }),
     ],
+
   ],
 
   themeConfig:
@@ -54,7 +75,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             position: 'left',
             label: 'Tutorial',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'graph',
+            label: 'Graph',
+            position: 'left',
+          },
+          { to: '/blog', label: 'Blog', position: 'left' },
           // {
           //   href: 'https://github.com/facebook/docusaurus',
           //   label: 'GitHub',
