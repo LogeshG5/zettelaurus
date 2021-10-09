@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
-const cytoscape = require("cytoscape");
+import cytoscape from 'cytoscape';
+import coseBilkent from 'cytoscape-cose-bilkent';
+
+cytoscape.use(coseBilkent);
 
 
 function init_graph() {
@@ -10,6 +13,7 @@ function init_graph() {
     // initial viewport state:
     zoom: 3,
     pan: { x: 0, y: 0 },
+    wheelSensitivity: 0.3,
   });
 
   return cy;
@@ -21,13 +25,13 @@ function setStyle(cy) {
     'content': 'data(name)',
     'text-valign': 'center',
     'color': 'black',
-    'font-size': '8px',
+    'font-size': '12px',
     'text-outline-width': 0,
     'text-outline-color': '#888',
     'background-color': '#ffdead',
     'background-opacity': '0.2',
-    'width': '9px',
-    'height': '9px',
+    "width": "13px",
+    "height": "13px",
     'text-valign': 'bottom',
     'text-halign': 'center'
   });
@@ -38,8 +42,8 @@ function setStyle(cy) {
     'target-arrow-color': 'black',
     'source-arrow-color': 'black',
     'text-outline-color': 'black',
-    'width': '10px',
-    'height': '10px'
+    'width': '14px',
+    'height': '14px'
   });
 
   cy.style().selector('edge').style({ 'width': 1, 'line-color': '#ffdead' }).update();
@@ -95,23 +99,14 @@ function show_graph(graph) {
   var cy = init_graph();
   setStyle(cy);
   registerEvents(cy);
+
   cy.json(graph);
 
   var layout = cy.layout({
-    name: 'cose',
+    name: 'cose-bilkent',
+    nodeDimensionsIncludeLabels: true,
   });
-  cy.viewport({
-    zoom: 2,
-    pan: { x: 100, y: 100 }
-  });
-  var clusters = cy.elements().markovClustering({
-    attributes: [
-      function (edge) { return edge.data('closeness'); }
-    ]
-  });
-
   layout.run();
-
 }
 
 
