@@ -72,6 +72,17 @@ change_wiki_brackets(){
   # another variation -E 's_\[\[([[:alnum:] -]+?)\]\]_[\1]_g'
 }
 
+remove_end_punctuations_in_bullets(){
+  sed -e '/\* /s/\.$\|\.[ ]*$//' -i "$1";
+  sed -e '/\- /s/\.$\|\.[ ]*$//' -i "$1";
+}
+
+capitalize_first_letter_in_bullets(){
+  sed -e '/\* /s/* \(.\)/* \U\1/' -i "$1";
+  sed -e '/\- /s/- \(.\)/- \U\1/' -i "$1";
+}
+ 
+
 # Check if source is valid
 is_dir_exist $SOURCE_DIR || exit -1
 
@@ -87,14 +98,16 @@ find . -name "*.md" -type f -print0 | while read -d $'\0' file; do
   slugify_file "$file"
 done
 
-# Update references section
 find . -name "*.md" -type f -print0 | while read -d $'\0' file; do
 
+  # Update references section
   remove_references_section "$file"
-  
   # add_references_section "$file"
 
   # change_wiki_brackets "$file"
+  
+  remove_end_punctuations_in_bullets "$file"
+  capitalize_first_letter_in_bullets "$file"
 
 done
 

@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './HomepageFeatures.module.css';
-import cytoscape from 'cytoscape';
-import coseBilkent from 'cytoscape-cose-bilkent';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
-cytoscape.use(coseBilkent);
+if (ExecutionEnvironment.canUseDOM) {
+  var cytoscape = require('cytoscape');
+  var euler = require('cytoscape-euler');
+  // import cytoscape from 'cytoscape';
+  // import euler from 'cytoscape-euler';
+  // import coseBilkent from 'cytoscape-cose-bilkent';
+  // import fcose from 'cytoscape-fcose';
+  // import euler from 'cytoscape-euler';
+}
 
+const NodeState = {
+  ALL: 1,
+  HOVERED: 2,
+  SELECTED: 3,
+};
+var nodeState = NodeState.ALL;
 
 function init_graph() {
+  cytoscape.use(euler);
   var cy = cytoscape({
     container: document.getElementById('cy'),
     // initial viewport state:
@@ -15,7 +30,6 @@ function init_graph() {
     pan: { x: 0, y: 0 },
     wheelSensitivity: 0.3,
   });
-
   return cy;
 }
 
@@ -54,18 +68,67 @@ function setStyle(cy) {
   cy.style().selector('edge.semitransp').style({ 'opacity': '0.2' }).update();
 
 }
-function registerEvents(cy) {
 
+function hideOthers(cy, target) {
+  var sel = target;
+  cy.elements().difference(sel.outgoers().union(sel.incomers())).not(sel).addClass('semitransp');
+}
+function showAll(cy) {
+  cy.elements().removeClass('semitransp');
+}
+
+function registerEvents(cy) {
+  /*
+stateDiagram-v2
+    [*] --> NodeAll
+    NodeAll --> NodeHovered : mouseover
+    NodeHovered --> NodeSelected : nodeclick
+    NodeSelected --> NodeAll : panclick
+    NodeHovered --> NodeAll : mouseout
+    NodeSelected --> NodeAll : nodeclick
+  */
   cy.on('mouseover', 'node', function (e) {
-    var sel = e.target;
-    cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
-    sel.addClass('highlight').outgoers().addClass('highlight');
+    if (nodeState == NodeState.ALL) {
+      hideOthers(cy, e.target);
+      nodeState = NodeState.HOVERED;
+    }
   });
 
   cy.on('mouseout', 'node', function (e) {
-    var sel = e.target;
-    cy.elements().removeClass('semitransp');
-    sel.removeClass('highlight').outgoers().removeClass('highlight');
+    if (nodeState == NodeState.HOVERED) {
+      showAll(cy);
+      nodeState = NodeState.ALL;
+    }
+  });
+
+  var previouslySelectedNodeId;
+  var selectedNodeId;
+  cy.on('click', 'node', function (e) {
+    previouslySelectedNodeId = selectedNodeId;
+    selectedNodeId = e.target.id();
+    if (nodeState == NodeState.HOVERED || nodeState == NodeState.ALL) {
+      hideOthers(cy, e.target);
+      nodeState = NodeState.SELECTED;
+    }
+    else if (nodeState == NodeState.SELECTED) {
+      if (previouslySelectedNodeId == selectedNodeId) {
+        showAll(cy);
+        nodeState = NodeState.ALL;
+      }
+      else {
+        showAll(cy);
+        hideOthers(cy, e.target);
+        nodeState = NodeState.SELECTED;
+      }
+    }
+
+  });
+  cy.on('tap', function (e) {
+    if (e.target === cy) {
+      console.log('tap on background');
+      showAll(cy);
+      nodeState = NodeState.ALL;
+    }
   });
 
   var tappedBefore;
@@ -93,9 +156,15 @@ function registerEvents(cy) {
 
     }
   });
+
+  document.addEventListener("keypress", function (e) {
+    showAll(cy);
+    nodeState = NodeState.ALL;
+  });
 }
 
 function show_graph(graph) {
+
   var cy = init_graph();
   setStyle(cy);
   registerEvents(cy);
@@ -103,12 +172,13 @@ function show_graph(graph) {
   cy.json(graph);
 
   var layout = cy.layout({
-    name: 'cose-bilkent',
+    name: 'euler',
+    randomize: true,
     nodeDimensionsIncludeLabels: true,
+    animate: false,
   });
   layout.run();
 }
-
 
 export default class GraphVisualization extends Component {
 
@@ -126,10 +196,32 @@ export default class GraphVisualization extends Component {
       <section className={styles.features}>
         <div className="main-wrapper">
           <div className="row" >
-            <div id="cy" style={{ width: "100%", height: "900px" }} ></div>
+            <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
           </div>
         </div>
       </section >
     );
   }
 }
+
+// https://dev.to/christo_pr/render-dangerous-content-with-react-2j7j
+// https://github.com/facebook/Docusaurus/blob/4553afda2bdb68db2f5f014a117cf93e81014037/lib/core/nav/SideNav.js#L36-L46
+// export default function render({ graph }) {
+//   return (
+//     <section className={styles.features}>
+//       <BrowserOnly>
+//         {() => {
+//           <div className="main-wrapper">
+//             <div className="row" >
+//               <div>Hello</div>
+//               <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
+//             </div>
+//             <script
+//               dangerouslySetInnerHTML={{ __html: show_graph(graph) }}
+//             />
+//           </div>;
+//         }}
+//       </BrowserOnly>
+//     </section >
+//   );
+// }

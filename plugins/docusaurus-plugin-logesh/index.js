@@ -61,36 +61,43 @@ module.exports = function (context, opts) {
 
       let mdFiles = walkSync(docsDir, { globs: ["**/*.md*"] });
       let cy = initCy();
-      wikis = [];
+      // wikis = [];
+      let wikis = {};
 
       // Collect all wikis data
-      mdFiles.forEach(function (filePath) {
+      mdFiles.forEach(function (filePath, i) {
         let fileName = fileNameWithoutExtension(filePath)
         const title = getTitle(fileName);
         const slug = sluggify(fileName);
         const url = context.siteConfig.url + "docs/" + filePath.replace(".md", "");
 
-        wikis.push({ path: filePath, title: title, slug: slug, url: url });
+        // wikis.push({ path: filePath, title: title, slug: slug, url: url });
+        wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };
       });
 
       // Add Nodes to Graph
-      wikis.forEach(function (name) {
-        cy.add({ data: { id: name.slug, name: name.title, href: name.url } });
-      });
+      // wikis.forEach(function (wiki) {
+      for (const [slug, wiki] of Object.entries(wikis)) {
+        cy.add({ data: { id: wiki.id, name: wiki.title, href: wiki.url } });
+      }
+      // });
 
       // Add Edges to Graph
-      wikis.forEach(function (node) {
-        const wikilinks = getWikiLinks(docsDir + node.path);
+      // wikis.forEach(function (wiki) {
+      for (const [slug, sourceWiki] of Object.entries(wikis)) {
+        const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
         wikilinks.forEach(function (wikilink) {
-          const slug = wikilink[1].replace(/ /g, '-').toLowerCase();
+          const slug = sluggify(wikilink[1]);
+          const linkedWiki = wikis[slug];
           try {
-            cy.add({ data: { id: 'edge_' + node.slug + "_" + slug, source: node.slug, target: slug } });
+            cy.add({ data: { id: 'e-' + sourceWiki.id + "-" + linkedWiki.id, source: sourceWiki.id, target: linkedWiki.id } });
           }
           catch (error) {
             // console.log("Broken Link: " + error);
           }
         });
-      });
+      }
+      // });
 
       let graphContents = JSON.stringify(cy.json());
       const cyjsonFile = context.generatedFilesDir + '/cy.json';

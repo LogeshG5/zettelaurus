@@ -39,7 +39,7 @@ const path = require('path');
             }
             ],
             require('remark-capitalize'),
-            require('remark-backlinks'),
+            // require('remark-backlinks'),
           ],
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
@@ -76,7 +76,7 @@ const path = require('path');
             label: 'Tutorial',
           },
           {
-            href: 'graph',
+            href: '/graph',
             label: 'Graph',
             position: 'left',
           },

@@ -5,8 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
-import GraphVisualization from '../components/GraphVisualization';
-import { LoadContext, Props } from '@docusaurus/types';
+
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -29,7 +28,6 @@ function HomepageHeader() {
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
-  const { graph_json } = useDocusaurusContext().siteConfig.customFields.graph;
 
   return (
     <Layout
@@ -37,8 +35,6 @@ export default function Home() {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
-        <GraphVisualization />
-        <HomepageFeatures />
 
       </main>
     </Layout>
