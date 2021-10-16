@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# This tool is used to convert documents created with Foam VS Code extention to Docusaurus understandable format
+
+# Convert [[wikilinks]] to md links
+# Convert spaces to - in md references section
+# Replace all spaces to dashes in all file names
+
+SOURCE_DIR=$1
+DEST_DIR=$2
+
+mkdir -p $DEST_DIR
+
+cp -r $SOURCE_DIR $DEST_DIR
+
+for file in $DEST_DIR/**/*.md; do 
+   # convert [[]] to []
+   # _ used instead of /, content inside [[xx]] is captured and replaced with [\1]
+   sed -e 's_\[\[\([A-Za-z0-9 -]*\)\]\]_[\1]_g' -i "$file";  
+   # another variation -E 's_\[\[([[:alnum:] -]+?)\]\]_[\1]_g'
+   
+   # Convert spaces to - in link references
+   # | used insted of /, spaces after every word after ]: is replaced with -,
+   # last - is unnecessary, so changing back to space 
+   sed -e ':a' -e 's|]: \([A-Za-z0-9 -]*\) |]: \1-|;t a' -e 's/-"/ "/' -i "$file"
+done
+
+
+# Replace all spaces in file names with -
+for file in $DEST_DIR/**/*.md; do mv "$file" "$(echo $file | sed 's/ - /_/g ; s/ /-/g')" 2>/dev/null; done
