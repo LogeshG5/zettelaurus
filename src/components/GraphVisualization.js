@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import FuzzySearch from 'fuzzy-search';
 
 if (ExecutionEnvironment.canUseDOM) {
   var cytoscape = require('cytoscape');
@@ -27,7 +28,7 @@ class GraphUI {
     this.style = this.cy.style();
   }
 
-  getCy(){
+  getCy() {
     return this.cy;
   }
 
@@ -78,6 +79,10 @@ class GraphUI {
     layout.run();
   }
 
+  fadeAll() {
+    this.cy.elements().addClass('semitransp');
+  }
+
   fadeOthers(ele) {
     this.cy.elements().difference(ele.outgoers().union(ele.incomers())).not(ele).addClass('semitransp');
   }
@@ -88,24 +93,32 @@ class GraphUI {
 
   showAll() {
     this.cy.elements().removeClass('semitransp');
+    this.cy.elements().removeClass('highlight-ring');
   }
 
   hoverNode(ele) {
     this.fadeOthers(ele);
   }
 
-  selectNode(ele, center=false) {
+  selectNode(ele, center = false) {
     this.showAll();
     this.cy.elements().removeClass('highlight-ring');
     this.fadeOthers(ele);
     ele.addClass('highlight-ring');
-    if(center) this.cy.center(ele);
+    if (center) this.cy.center(ele);
   }
 
   previewNode(ele) {
     this.cy.elements().removeClass('highlight-preview');
     ele.addClass('highlight-preview');
+    ele.removeClass('semitransp');
     ele.outgoers().removeClass('semitransp');
+  }
+
+  fuzzyPreviewNode(ele) {
+    this.cy.elements().removeClass('highlight-preview');
+    ele.addClass('highlight-ring');
+    ele.removeClass('semitransp');
   }
 
   showAllNodes() {
@@ -143,7 +156,8 @@ class GraphStateMachine {
     this.cy.on('tap', (ele) => this.tapBackground(ele));
     this.cy.on('tap', (ele) => this.tap(ele));
     this.cy.on('doubletap', (ele) => this.doubletap(ele));
-    document.addEventListener("keypress", (key) => this.keypress(key));
+    document.addEventListener("keydown", (key) => this.keydown(key));
+    document.getElementById("nodeSearch").addEventListener("input", (key) => this.nodeSearchChanged(key));
   }
 
   selectNode(ele, center) {
@@ -280,7 +294,7 @@ class GraphStateMachine {
       tappedNow.trigger('doubletap', [ele.target]);
       this.tappedBefore = null;
     } else {
-      this.tappedTimeout = setTimeout( () => { this.tappedBefore = null; }, 300);
+      this.tappedTimeout = setTimeout(() => { this.tappedBefore = null; }, 300);
       this.tappedBefore = tappedNow;
     }
   }
@@ -296,7 +310,19 @@ class GraphStateMachine {
   }
 
   keypress(key) {
-    if (key.key == 'j') {
+
+  }
+
+  keydown(key) {
+
+    if (document.activeElement.id == "nodeSearch") return;
+
+    if (key.key == '/') {
+      key.preventDefault();
+      document.getElementById("nodeSearch").focus();
+      return;
+    }
+    else if (key.key == 'j') {
       this.previewNext();
     }
     else if (key.key == 'k') {
@@ -311,6 +337,17 @@ class GraphStateMachine {
     else if (key.key == 'o') {
       this.openUrl();
     }
+  }
+
+  nodeSearchChanged(e) {
+    const text = e.target.value;
+    if (text.length < 3) return;
+    var fuzzy = new FuzzySearch(this.cy.json().elements.nodes, ['data.name'], {
+      caseSensitive: false,
+    });
+    var result = fuzzy.search(text);
+    this.ui.fadeAll();
+    result.forEach((ele) => { this.ui.fuzzyPreviewNode(this.cy.$('#' + ele.data.id)); console.log(ele.data.name) });
   }
 }
 
@@ -349,6 +386,7 @@ export default class GraphVisualization extends Component {
   render() {
     return (
       <Layout title="Graph">
+        <div><input type="search" id="nodeSearch" name="nodeSearch" /></div>
         <GraphLayout />
       </Layout>
     );
