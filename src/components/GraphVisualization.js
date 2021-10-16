@@ -1,17 +1,117 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import styles from './HomepageFeatures.module.css';
+import Layout from '@theme/Layout';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 if (ExecutionEnvironment.canUseDOM) {
   var cytoscape = require('cytoscape');
-  var euler = require('cytoscape-euler');
-  // import cytoscape from 'cytoscape';
-  // import euler from 'cytoscape-euler';
-  // import coseBilkent from 'cytoscape-cose-bilkent';
-  // import fcose from 'cytoscape-fcose';
-  // import euler from 'cytoscape-euler';
+  var fcose = require('cytoscape-fcose');
+  var layoutUtilities = require('cytoscape-layout-utilities');
+}
+
+class GraphUI {
+
+  constructor() {
+
+    cytoscape.use(fcose);
+    cytoscape.use(layoutUtilities);
+    this.layoutName = 'fcose';
+
+    this.cy = cytoscape({
+      container: document.getElementById('cy'),
+      zoom: 3,
+      pan: { x: 0, y: 0 },
+      wheelSensitivity: 0.3,
+    });
+
+    this.style = this.cy.style();
+  }
+
+  getCy(){
+    return this.cy;
+  }
+
+  setStyle() {
+
+    this.style.selector('node').style({
+      'content': 'data(name)',
+      'text-valign': 'center',
+      'color': 'black',
+      'font-size': '12px',
+      'text-outline-width': 0,
+      'text-outline-color': '#888',
+      'background-color': '#ffdead',
+      'background-opacity': '0.2',
+      "width": "13px",
+      "height": "13px",
+      'text-valign': 'bottom',
+      'text-halign': 'center'
+    });
+    this.style.selector(':selected').style({
+      'background-color': '#ffa500',
+      'background-opacity': '0.5',
+      'width': '14px',
+      'height': '14px'
+    });
+    this.style.selector('node.highlight').style({ 'background-color': '#ffa500', }).update();
+    this.style.selector('node.highlight-ring').style({ 'background-color': '#ff8c00', 'border-width': '1', 'border-color': '#ff8c00' }).update();
+    this.style.selector('node.highlight-preview').style({ 'background-color': '#ff8c00', }).update();
+    this.style.selector('node.semitransp').style({ 'opacity': '0.2' }).update();
+
+    this.style.selector('edge').style({ 'width': 1, 'line-color': '#ffdead' }).update();
+    this.style.selector('edge.highlight').style({ 'target-arrow-color': '#ffa500', 'line-color': '#ffdead', }).update();
+    this.style.selector('edge.semitransp').style({ 'opacity': '0.2' }).update();
+
+  }
+
+  runLayout(graph) {
+
+    this.cy.json(graph);
+
+    var layout = this.cy.layout({
+      name: this.layoutName,
+      randomize: true,
+      packComponents: true,
+      nodeDimensionsIncludeLabels: true,
+      animate: false,
+    });
+    layout.run();
+  }
+
+  fadeOthers(ele) {
+    this.cy.elements().difference(ele.outgoers().union(ele.incomers())).not(ele).addClass('semitransp');
+  }
+
+  fade(ele) {
+    ele.outgoers().addClass('semitransp');
+  }
+
+  showAll() {
+    this.cy.elements().removeClass('semitransp');
+  }
+
+  hoverNode(ele) {
+    this.fadeOthers(ele);
+  }
+
+  selectNode(ele, center=false) {
+    this.showAll();
+    this.cy.elements().removeClass('highlight-ring');
+    this.fadeOthers(ele);
+    ele.addClass('highlight-ring');
+    if(center) this.cy.center(ele);
+  }
+
+  previewNode(ele) {
+    this.cy.elements().removeClass('highlight-preview');
+    ele.addClass('highlight-preview');
+    ele.outgoers().removeClass('semitransp');
+  }
+
+  showAllNodes() {
+    this.showAll();
+  }
+
 }
 
 const NodeState = {
@@ -19,165 +119,220 @@ const NodeState = {
   HOVERED: 2,
   SELECTED: 3,
 };
-var nodeState = NodeState.ALL;
 
-function init_graph() {
-  cytoscape.use(euler);
-  var cy = cytoscape({
-    container: document.getElementById('cy'),
-    // initial viewport state:
-    zoom: 3,
-    pan: { x: 0, y: 0 },
-    wheelSensitivity: 0.3,
-  });
-  return cy;
-}
+class GraphStateMachine {
 
-function setStyle(cy) {
+  previouslySelectedNodeId;
+  selectedNodeId;
+  selectedNodeHistory = [];
+  tappedBefore;
+  tappedTimeout;
+  focusedChildren = [];
+  focusedChildIndex = 0;
+  nodeState = NodeState.ALL;
 
-  cy.style().selector('node').style({
-    'content': 'data(name)',
-    'text-valign': 'center',
-    'color': 'black',
-    'font-size': '12px',
-    'text-outline-width': 0,
-    'text-outline-color': '#888',
-    'background-color': '#ffdead',
-    'background-opacity': '0.2',
-    "width": "13px",
-    "height": "13px",
-    'text-valign': 'bottom',
-    'text-halign': 'center'
-  });
-  cy.style().selector(':selected').style({
-    'background-color': '#FFA500',
-    'background-opacity': '0.5',
-    'line-color': 'black',
-    'target-arrow-color': 'black',
-    'source-arrow-color': 'black',
-    'text-outline-color': 'black',
-    'width': '14px',
-    'height': '14px'
-  });
+  constructor(cy, ui) {
+    this.cy = cy;
+    this.ui = ui;
+  }
 
-  cy.style().selector('edge').style({ 'width': 1, 'line-color': '#ffdead' }).update();
+  registerEvents() {
+    this.cy.on('mouseover', 'node', (ele) => this.mouseover(ele));
+    this.cy.on('mouseout', 'node', (ele) => this.mouseout(ele));
+    this.cy.on('click', 'node', (ele) => this.click(ele));
+    this.cy.on('tap', (ele) => this.tapBackground(ele));
+    this.cy.on('tap', (ele) => this.tap(ele));
+    this.cy.on('doubletap', (ele) => this.doubletap(ele));
+    document.addEventListener("keypress", (key) => this.keypress(key));
+  }
 
-  cy.style().selector('node.highlight').style({ 'background-color': '#FFA500', }).update();
-  cy.style().selector('node.semitransp').style({ 'opacity': '0.2' }).update();
-  cy.style().selector('edge.highlight').style({ 'target-arrow-color': '#FFA500', 'line-color': '#ffdead', }).update();
-  cy.style().selector('edge.semitransp').style({ 'opacity': '0.2' }).update();
+  selectNode(ele, center) {
+    this.ui.selectNode(ele, center);
+    this.selectedNodeHistory.push(ele);
+    this.nodeState = NodeState.SELECTED;
+    // populate children
+    this.focusedChildren = ele.outgoers((ele) => ele.isNode());
+    this.focusedChildIndex = 0;
+  }
 
-}
+  showAllNodes() {
+    this.ui.showAllNodes();
+    this.nodeState = NodeState.ALL;
+  }
 
-function hideOthers(cy, target) {
-  var sel = target;
-  cy.elements().difference(sel.outgoers().union(sel.incomers())).not(sel).addClass('semitransp');
-}
-function showAll(cy) {
-  cy.elements().removeClass('semitransp');
-}
+  hoverNode(ele) {
+    this.ui.hoverNode(ele);
+    this.nodeState = NodeState.HOVERED;
+  }
 
-function registerEvents(cy) {
-  /*
-stateDiagram-v2
-    [*] --> NodeAll
-    NodeAll --> NodeHovered : mouseover
-    NodeHovered --> NodeSelected : nodeclick
-    NodeSelected --> NodeAll : panclick
-    NodeHovered --> NodeAll : mouseout
-    NodeSelected --> NodeAll : nodeclick
-  */
-  cy.on('mouseover', 'node', function (e) {
-    if (nodeState == NodeState.ALL) {
-      hideOthers(cy, e.target);
-      nodeState = NodeState.HOVERED;
+  incIndex(index) {
+    return ((index + 1) % this.focusedChildren.length);
+  }
+
+  decIndex(index) {
+    return (index == 0) ? this.focusedChildren.length - 1 : (index - 1);
+  }
+
+  incFocusedIndex() {
+    this.focusedChildIndex = (this.focusedChildIndex + 1) % this.focusedChildren.length;
+  }
+
+  decFocusedIndex() {
+    this.focusedChildIndex = (this.focusedChildIndex == 0) ? this.focusedChildren.length - 1 : (this.focusedChildIndex - 1);
+  }
+
+  previewNext() {
+    if (this.focusedChildren.length == 0) {
+      return;
     }
-  });
-
-  cy.on('mouseout', 'node', function (e) {
-    if (nodeState == NodeState.HOVERED) {
-      showAll(cy);
-      nodeState = NodeState.ALL;
+    else if (this.focusedChildren.length == 1) {
+      this.ui.previewNode(this.focusedChildren[0]);
+      return;
     }
-  });
+    const index = this.focusedChildIndex % this.focusedChildren.length;
+    const prev_index = (index == 0) ? this.focusedChildren.length - 1 : index - 1;
+    this.ui.fade(this.focusedChildren[prev_index]);
+    this.ui.previewNode(this.focusedChildren[index]);
+    this.focusedChildIndex = this.incIndex(this.focusedChildIndex);
+  }
 
-  var previouslySelectedNodeId;
-  var selectedNodeId;
-  cy.on('click', 'node', function (e) {
-    previouslySelectedNodeId = selectedNodeId;
-    selectedNodeId = e.target.id();
-    if (nodeState == NodeState.HOVERED || nodeState == NodeState.ALL) {
-      hideOthers(cy, e.target);
-      nodeState = NodeState.SELECTED;
+  previewPrev() {
+    if (this.focusedChildren.length == 0) {
+      return;
     }
-    else if (nodeState == NodeState.SELECTED) {
-      if (previouslySelectedNodeId == selectedNodeId) {
-        showAll(cy);
-        nodeState = NodeState.ALL;
+    else if (this.focusedChildren.length == 1) {
+      this.ui.previewNode(this.focusedChildren[0]);
+      return;
+    }
+    this.focusedChildIndex = this.decIndex(this.focusedChildIndex);
+    const prev_index = this.focusedChildIndex % this.focusedChildren.length;
+    const index = (this.focusedChildIndex == 0) ? this.focusedChildren.length - 1 : (this.focusedChildIndex - 1);
+    this.ui.fade(this.focusedChildren[prev_index]);
+    this.ui.previewNode(this.focusedChildren[index]);
+  }
+
+  selectNext() {
+    if (this.focusedChildren.length == 0) {
+      return;
+    }
+    const index = this.decIndex(this.focusedChildIndex);
+    this.selectNode(this.focusedChildren[index], true);
+  }
+
+  selectPrev() {
+    if (this.selectedNodeHistory.length < 2) return;
+    this.selectedNodeHistory.pop();
+    this.selectNode(this.selectedNodeHistory.pop(), true);
+  }
+
+  openUrl() {
+    if (this.selectedNodeHistory.length < 1) return;
+    this.doubletap(this.selectedNodeHistory[this.selectedNodeHistory.length - 1]);
+    window.open(this.selectedNodeHistory[this.selectedNodeHistory.length - 1].data('href'));
+  }
+
+  /* Callbacks */
+
+  mouseover(ele) {
+    if (this.nodeState == NodeState.ALL) {
+      this.hoverNode(ele.target);
+    }
+  }
+
+  mouseout(ele) {
+    if (this.nodeState == NodeState.HOVERED) {
+      this.showAllNodes();
+    }
+  }
+
+  click(e) {
+    this.previouslySelectedNodeId = this.selectedNodeId;
+    this.selectedNodeId = e.target.id();
+
+    if (this.nodeState == NodeState.HOVERED || this.nodeState == NodeState.ALL) {
+      this.selectNode(e.target);
+    }
+    else if (this.nodeState == NodeState.SELECTED) {
+      if (this.previouslySelectedNodeId == this.selectedNodeId) {
+        this.showAllNodes();
       }
       else {
-        showAll(cy);
-        hideOthers(cy, e.target);
-        nodeState = NodeState.SELECTED;
+        this.showAllNodes();
+        this.selectNode(e.target);
       }
     }
 
-  });
-  cy.on('tap', function (e) {
-    if (e.target === cy) {
-      console.log('tap on background');
-      showAll(cy);
-      nodeState = NodeState.ALL;
-    }
-  });
+  }
 
-  var tappedBefore;
-  var tappedTimeout;
-  cy.on('tap', function (event) {
-    var tappedNow = event.target;
-    if (tappedTimeout && tappedBefore) {
-      clearTimeout(tappedTimeout);
+  tapBackground(e) {
+    // tapped on background
+    if (e.target === this.cy) {
+      this.showAllNodes();
     }
-    if (tappedBefore === tappedNow) {
-      tappedNow.trigger('doubleTap');
-      tappedBefore = null;
+  }
+
+  tap(ele) {
+    var tappedNow = ele.target;
+    if (this.tappedTimeout && this.tappedBefore) {
+      clearTimeout(this.tappedTimeout);
+    }
+    if (this.tappedBefore === tappedNow) {
+      tappedNow.trigger('doubletap', [ele.target]);
+      this.tappedBefore = null;
     } else {
-      tappedTimeout = setTimeout(function () { tappedBefore = null; }, 300);
-      tappedBefore = tappedNow;
+      this.tappedTimeout = setTimeout( () => { this.tappedBefore = null; }, 300);
+      this.tappedBefore = tappedNow;
     }
-  });
+  }
 
-  cy.on('doubleTap', 'node', function () {
+  doubletap(ele) {
     try { // your browser may block popups
-      if (this.selected() == true) {
-        window.open(this.data('href'));
+      if (ele.target.selected() == true) {
+        window.open(ele.target.data('href'));
       }
     } catch (e) { // fall back on url change
 
     }
-  });
+  }
 
-  document.addEventListener("keypress", function (e) {
-    showAll(cy);
-    nodeState = NodeState.ALL;
-  });
+  keypress(key) {
+    if (key.key == 'j') {
+      this.previewNext();
+    }
+    else if (key.key == 'k') {
+      this.previewPrev();
+    }
+    else if (key.key == 'h') {
+      this.selectPrev();
+    }
+    else if (key.key == 'l') {
+      this.selectNext();
+    }
+    else if (key.key == 'o') {
+      this.openUrl();
+    }
+  }
 }
 
 function show_graph(graph) {
 
-  var cy = init_graph();
-  setStyle(cy);
-  registerEvents(cy);
+  const ui = new GraphUI();
+  ui.setStyle();
 
-  cy.json(graph);
+  var cy = ui.getCy();
 
-  var layout = cy.layout({
-    name: 'euler',
-    randomize: true,
-    nodeDimensionsIncludeLabels: true,
-    animate: false,
-  });
-  layout.run();
+  const sm = new GraphStateMachine(cy, ui);
+  sm.registerEvents();
+
+  ui.runLayout(graph);
+}
+
+function GraphLayout() {
+  return (
+    <section>
+      <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
+    </section>
+  );
 }
 
 export default class GraphVisualization extends Component {
@@ -193,35 +348,10 @@ export default class GraphVisualization extends Component {
 
   render() {
     return (
-      <section className={styles.features}>
-        <div className="main-wrapper">
-          <div className="row" >
-            <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
-          </div>
-        </div>
-      </section >
+      <Layout title="Graph">
+        <GraphLayout />
+      </Layout>
     );
   }
 }
 
-// https://dev.to/christo_pr/render-dangerous-content-with-react-2j7j
-// https://github.com/facebook/Docusaurus/blob/4553afda2bdb68db2f5f014a117cf93e81014037/lib/core/nav/SideNav.js#L36-L46
-// export default function render({ graph }) {
-//   return (
-//     <section className={styles.features}>
-//       <BrowserOnly>
-//         {() => {
-//           <div className="main-wrapper">
-//             <div className="row" >
-//               <div>Hello</div>
-//               <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
-//             </div>
-//             <script
-//               dangerouslySetInnerHTML={{ __html: show_graph(graph) }}
-//             />
-//           </div>;
-//         }}
-//       </BrowserOnly>
-//     </section >
-//   );
-// }
