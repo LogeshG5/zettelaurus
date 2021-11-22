@@ -15,7 +15,11 @@ const path = require('path');
   organizationName: 'facebook', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
   customFields: { graph: path.resolve(__dirname, '.docusaurus/cy.json'), },
-  plugins: [require.resolve('docusaurus-lunr-search'), 'docusaurus-plugin-relative-paths', path.resolve(__dirname, 'plugins', 'docusaurus-plugin-logesh')],
+  plugins: [
+    // 'docusaurus-plugin-relative-paths',
+    require.resolve('docusaurus-lunr-search'),
+    path.resolve(__dirname, 'plugins', 'docusaurus-plugin-logesh'),
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',

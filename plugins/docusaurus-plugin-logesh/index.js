@@ -42,7 +42,7 @@ function getWikiLinks(filePath) {
 // A JavaScript function that returns an object.
 // `context` is provided by Docusaurus. Example: siteConfig can be accessed from context.
 // `opts` is the user-defined options.
-module.exports = function (context, opts) {
+module.exports = function(context, opts) {
   // Merge defaults with user-defined options.
 
   return {
@@ -65,7 +65,7 @@ module.exports = function (context, opts) {
       let wikis = {};
 
       // Collect all wikis data
-      mdFiles.forEach(function (filePath, i) {
+      mdFiles.forEach(function(filePath, i) {
         let fileName = fileNameWithoutExtension(filePath)
         const title = getTitle(fileName);
         const slug = sluggify(fileName);
@@ -86,7 +86,7 @@ module.exports = function (context, opts) {
       // wikis.forEach(function (wiki) {
       for (const [slug, sourceWiki] of Object.entries(wikis)) {
         const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
-        wikilinks.forEach(function (wikilink) {
+        wikilinks.forEach(function(wikilink) {
           const slug = sluggify(wikilink[1]);
           const linkedWiki = wikis[slug];
           try {
@@ -98,10 +98,12 @@ module.exports = function (context, opts) {
         });
       }
       // });
-
+      if (!fs.existsSync(context.generatedFilesDir)) {
+        fs.mkdirSync(context.generatedFilesDir);
+      }
       let graphContents = JSON.stringify(cy.json());
       const cyjsonFile = context.generatedFilesDir + '/cy.json';
-      fs.writeFile(cyjsonFile, graphContents, function (err) {
+      fs.writeFile(cyjsonFile, graphContents, function(err) {
         if (err) throw err;
       });
       return cyjsonFile;
