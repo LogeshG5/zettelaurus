@@ -43,6 +43,13 @@ const path = require('path');
             }
             ],
             require('remark-capitalize'),
+              [
+                require("@akebifiky/remark-simple-plantuml"),
+                { baseUrl: "http://127.0.0.1:8000/plantuml/svg" }
+                /* start plantuml local server 
+                   java -jar plantuml.jar -picoweb:8000:127.0.0.1
+                   */
+              ],
             // require('remark-backlinks'),
           ],
           sidebarPath: require.resolve('./sidebars.js'),
