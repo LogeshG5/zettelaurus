@@ -8,6 +8,11 @@ const DEFAULT_OPTIONS = {
   // Some defaults.
 };
 
+var slugMethod = function sluggify(filepath) {
+  const slug = filepath.replace(/ /g, '-').toLowerCase();
+  return slug;
+}
+
 function initCy() {
   var cy = cytoscape({});
   return cy;
@@ -25,10 +30,6 @@ function getTitle(pathNoExt) {
   return title;
 }
 
-function sluggify(filePath) {
-  const slug = filePath.replace(/ /g, '-').toLowerCase();
-  return slug;
-}
 
 function getWikiLinks(filePath) {
   var fileContents = fs.readFileSync(filePath, "utf-8");
@@ -46,7 +47,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
   mdFiles.forEach(function(filePath, i) {
     const fileName = fileNameWithoutExtension(filePath)
     const title = getTitle(fileName);
-    const slug = sluggify(fileName);
+    const slug = slugMethod(fileName);
     const url = docsUrl + filePath.replace(".md", "");
 
     wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };
@@ -62,7 +63,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
   for (const [_, sourceWiki] of Object.entries(wikis)) {
     const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
     wikilinks.forEach(function(wikilink) {
-      const slug = sluggify(wikilink[1]);
+      const slug = slugMethod(wikilink[1]);
       const linkedWiki = wikis[slug];
       try {
         cy.add({ data: { id: 'e-' + sourceWiki.id + "-" + linkedWiki.id, source: sourceWiki.id, target: linkedWiki.id } });
@@ -97,6 +98,10 @@ module.exports = function(context, opts) {
       // The loadContent hook is executed after siteConfig and env has been loaded.
       // This is also executed after every file changes during hot reload
       // You can return a JavaScript object that will be passed to contentLoaded hook.
+
+      if (typeof (opts.slugMethod) === typeof (Function)) {
+        slugMethod = opts.slugMethod;
+      }
 
       let docsDir = context.siteDir + "/docs/";
       const docsUrl = context.siteConfig.url + "docs/";

@@ -8,6 +8,27 @@ const path = require("path");
 const docsDir = "docs";
 
 /**
+ * Method to get the corresponding md file name for a given wikilink
+ * 
+ * @param {string} wikilink The text between [[]] in an md file
+ * Returns the file name corresponding to [[wiki link]]
+ */
+function sluggifyWikilink(wikilink) {
+  /** 
+   * [[Some Fancy Title]] gets converted to 'some-fancy-title'
+   * so there should be some-fancy-title.md file in docs
+   */
+  const slug = wikilink.replace(/ /g, '-').toLowerCase();
+  return slug;
+
+  /** 
+   * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
+   * so there should be 'Some Fancy Title.md' file in docs
+   */
+  // return wikilink;
+}
+
+/**
  * Wiki might be under a subdirectory and the file name might be sluggified
  * Enable remark-wiki-link plugin to find such md files
  * 
@@ -15,7 +36,7 @@ const docsDir = "docs";
  * Returns list of paths to help resolve a [[wiki link]]
  */
 function wikilinkToUrl(wikilink) {
-  const slug = wikilink.replace(/ /g, "-").toLowerCase();
+  const slug = sluggifyWikilink(wikilink);
   const walkSync = require("walk-sync");
   let paths = walkSync(docsDir, {
     globs: ["**/" + slug + ".md*"],
@@ -48,10 +69,9 @@ function toDocsUrl(permalink) {
     favicon: "img/favicon.ico",
     organizationName: "facebook", // Usually your GitHub org/user name.
     projectName: "docusaurus", // Usually your repo name.
-    customFields: { graph: path.resolve(__dirname, ".docusaurus/cy.json") },
     plugins: [
       require.resolve("docusaurus-lunr-search"),
-      path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
+      [path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"), { slugMethod: sluggifyWikilink }],
       'plugin-image-zoom'
     ],
     presets: [
