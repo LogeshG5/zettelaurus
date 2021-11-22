@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import FuzzySearch from 'fuzzy-search';
+import React, { Component } from "react";
+import Layout from "@theme/Layout";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import FuzzySearch from "fuzzy-search";
 
 if (ExecutionEnvironment.canUseDOM) {
-  var cytoscape = require('cytoscape');
-  var fcose = require('cytoscape-fcose');
-  var layoutUtilities = require('cytoscape-layout-utilities');
+  var cytoscape = require("cytoscape");
+  var fcose = require("cytoscape-fcose");
+  var layoutUtilities = require("cytoscape-layout-utilities");
 }
 
 class GraphUI {
-
   constructor() {
-
     cytoscape.use(fcose);
     cytoscape.use(layoutUtilities);
-    this.layoutName = 'fcose';
+    this.layoutName = "fcose";
 
     this.cy = cytoscape({
-      container: document.getElementById('cy'),
+      container: document.getElementById("cy"),
       zoom: 3,
       pan: { x: 0, y: 0 },
       wheelSensitivity: 0.3,
@@ -33,40 +30,56 @@ class GraphUI {
   }
 
   setStyle() {
-
-    this.style.selector('node').style({
-      'content': 'data(name)',
-      'text-valign': 'center',
-      'color': 'black',
-      'font-size': '12px',
-      'text-outline-width': 0,
-      'text-outline-color': '#888',
-      'background-color': '#ffdead',
-      'background-opacity': '0.2',
-      "width": "13px",
-      "height": "13px",
-      'text-valign': 'bottom',
-      'text-halign': 'center'
+    this.style.selector("node").style({
+      content: "data(name)",
+      "text-valign": "center",
+      color: "black",
+      "font-size": "12px",
+      "text-outline-width": 0,
+      "text-outline-color": "#888",
+      "background-color": "#ffdead",
+      "background-opacity": "0.2",
+      width: "13px",
+      height: "13px",
+      "text-valign": "bottom",
+      "text-halign": "center",
     });
-    this.style.selector(':selected').style({
-      'background-color': '#ffa500',
-      'background-opacity': '0.5',
-      'width': '14px',
-      'height': '14px'
+    this.style.selector(":selected").style({
+      "background-color": "#ffa500",
+      "background-opacity": "0.5",
+      width: "14px",
+      height: "14px",
     });
-    this.style.selector('node.highlight').style({ 'background-color': '#ffa500', }).update();
-    this.style.selector('node.highlight-ring').style({ 'background-color': '#ff8c00', 'border-width': '1', 'border-color': '#ff8c00' }).update();
-    this.style.selector('node.highlight-preview').style({ 'background-color': '#ff8c00', }).update();
-    this.style.selector('node.semitransp').style({ 'opacity': '0.2' }).update();
+    this.style
+      .selector("node.highlight")
+      .style({ "background-color": "#ffa500" })
+      .update();
+    this.style
+      .selector("node.highlight-ring")
+      .style({
+        "background-color": "#ff8c00",
+        "border-width": "1",
+        "border-color": "#ff8c00",
+      })
+      .update();
+    this.style
+      .selector("node.highlight-preview")
+      .style({ "background-color": "#ff8c00" })
+      .update();
+    this.style.selector("node.semitransp").style({ opacity: "0.2" }).update();
 
-    this.style.selector('edge').style({ 'width': 1, 'line-color': '#ffdead' }).update();
-    this.style.selector('edge.highlight').style({ 'target-arrow-color': '#ffa500', 'line-color': '#ffdead', }).update();
-    this.style.selector('edge.semitransp').style({ 'opacity': '0.2' }).update();
-
+    this.style
+      .selector("edge")
+      .style({ width: 1, "line-color": "#ffdead" })
+      .update();
+    this.style
+      .selector("edge.highlight")
+      .style({ "target-arrow-color": "#ffa500", "line-color": "#ffdead" })
+      .update();
+    this.style.selector("edge.semitransp").style({ opacity: "0.2" }).update();
   }
 
   runLayout(graph) {
-
     this.cy.json(graph);
 
     var layout = this.cy.layout({
@@ -80,51 +93,57 @@ class GraphUI {
   }
 
   fadeAll() {
-    this.cy.elements().addClass('semitransp');
+    this.cy.elements().addClass("semitransp");
   }
 
   fadeOthers(ele) {
-    this.cy.elements().difference(ele.outgoers().union(ele.incomers())).not(ele).addClass('semitransp');
+    this.cy
+      .elements()
+      .difference(ele.outgoers().union(ele.incomers()))
+      .not(ele)
+      .addClass("semitransp");
   }
 
   fade(ele) {
-    ele.outgoers().addClass('semitransp');
+    ele.outgoers().addClass("semitransp");
   }
 
   showAll() {
-    this.cy.elements().removeClass('semitransp');
-    this.cy.elements().removeClass('highlight-ring');
+    this.cy.elements().removeClass("semitransp");
+    this.cy.elements().removeClass("highlight-ring");
   }
 
   hoverNode(ele) {
     this.fadeOthers(ele);
   }
 
-  selectNode(ele, center = false) {
+  selectNode(ele) {
     this.showAll();
-    this.cy.elements().removeClass('highlight-ring');
+    this.cy.elements().removeClass("highlight-ring");
     this.fadeOthers(ele);
-    ele.addClass('highlight-ring');
-    if (center) this.cy.center(ele);
+    ele.addClass("highlight-ring");
+  }
+
+  putNodeInCenter(ele) {
+    this.cy.center(ele);
   }
 
   previewNode(ele) {
-    this.cy.elements().removeClass('highlight-preview');
-    ele.addClass('highlight-preview');
-    ele.removeClass('semitransp');
-    ele.outgoers().removeClass('semitransp');
+    this.cy.elements().removeClass("highlight-preview");
+    ele.addClass("highlight-preview");
+    ele.removeClass("semitransp");
+    ele.outgoers().removeClass("semitransp");
   }
 
   fuzzyPreviewNode(ele) {
-    this.cy.elements().removeClass('highlight-preview');
-    ele.addClass('highlight-ring');
-    ele.removeClass('semitransp');
+    this.cy.elements().removeClass("highlight-preview");
+    ele.addClass("highlight-ring");
+    ele.removeClass("semitransp");
   }
 
   showAllNodes() {
     this.showAll();
   }
-
 }
 
 const NodeState = {
@@ -134,7 +153,6 @@ const NodeState = {
 };
 
 class GraphStateMachine {
-
   previouslySelectedNodeId;
   selectedNodeId;
   selectedNodeHistory = [];
@@ -150,18 +168,20 @@ class GraphStateMachine {
   }
 
   registerEvents() {
-    this.cy.on('mouseover', 'node', (ele) => this.mouseover(ele));
-    this.cy.on('mouseout', 'node', (ele) => this.mouseout(ele));
-    this.cy.on('click', 'node', (ele) => this.click(ele));
-    this.cy.on('tap', (ele) => this.tapBackground(ele));
-    this.cy.on('tap', (ele) => this.tap(ele));
-    this.cy.on('doubletap', (ele) => this.doubletap(ele));
+    this.cy.on("mouseover", "node", (ele) => this.mouseover(ele));
+    this.cy.on("mouseout", "node", (ele) => this.mouseout(ele));
+    this.cy.on("click", "node", (ele) => this.click(ele));
+    this.cy.on("tap", (ele) => this.tapBackground(ele));
+    this.cy.on("tap", (ele) => this.tap(ele));
+    this.cy.on("doubletap", (ele) => this.doubletap(ele));
     document.addEventListener("keydown", (key) => this.keydown(key));
-    document.getElementById("nodeSearch").addEventListener("input", (key) => this.nodeSearchChanged(key));
+    document
+      .getElementById("nodeSearch")
+      .addEventListener("input", (key) => this.nodeSearchChanged(key));
   }
 
-  selectNode(ele, center) {
-    this.ui.selectNode(ele, center);
+  selectNode(ele) {
+    this.ui.selectNode(ele);
     this.selectedNodeHistory.push(ele);
     this.nodeState = NodeState.SELECTED;
     // populate children
@@ -180,31 +200,34 @@ class GraphStateMachine {
   }
 
   incIndex(index) {
-    return ((index + 1) % this.focusedChildren.length);
+    return (index + 1) % this.focusedChildren.length;
   }
 
   decIndex(index) {
-    return (index == 0) ? this.focusedChildren.length - 1 : (index - 1);
+    return index == 0 ? this.focusedChildren.length - 1 : index - 1;
   }
 
   incFocusedIndex() {
-    this.focusedChildIndex = (this.focusedChildIndex + 1) % this.focusedChildren.length;
+    this.focusedChildIndex =
+      (this.focusedChildIndex + 1) % this.focusedChildren.length;
   }
 
   decFocusedIndex() {
-    this.focusedChildIndex = (this.focusedChildIndex == 0) ? this.focusedChildren.length - 1 : (this.focusedChildIndex - 1);
+    this.focusedChildIndex =
+      this.focusedChildIndex == 0
+        ? this.focusedChildren.length - 1
+        : this.focusedChildIndex - 1;
   }
 
   previewNext() {
     if (this.focusedChildren.length == 0) {
       return;
-    }
-    else if (this.focusedChildren.length == 1) {
+    } else if (this.focusedChildren.length == 1) {
       this.ui.previewNode(this.focusedChildren[0]);
       return;
     }
     const index = this.focusedChildIndex % this.focusedChildren.length;
-    const prev_index = (index == 0) ? this.focusedChildren.length - 1 : index - 1;
+    const prev_index = index == 0 ? this.focusedChildren.length - 1 : index - 1;
     this.ui.fade(this.focusedChildren[prev_index]);
     this.ui.previewNode(this.focusedChildren[index]);
     this.focusedChildIndex = this.incIndex(this.focusedChildIndex);
@@ -213,14 +236,16 @@ class GraphStateMachine {
   previewPrev() {
     if (this.focusedChildren.length == 0) {
       return;
-    }
-    else if (this.focusedChildren.length == 1) {
+    } else if (this.focusedChildren.length == 1) {
       this.ui.previewNode(this.focusedChildren[0]);
       return;
     }
     this.focusedChildIndex = this.decIndex(this.focusedChildIndex);
     const prev_index = this.focusedChildIndex % this.focusedChildren.length;
-    const index = (this.focusedChildIndex == 0) ? this.focusedChildren.length - 1 : (this.focusedChildIndex - 1);
+    const index =
+      this.focusedChildIndex == 0
+        ? this.focusedChildren.length - 1
+        : this.focusedChildIndex - 1;
     this.ui.fade(this.focusedChildren[prev_index]);
     this.ui.previewNode(this.focusedChildren[index]);
   }
@@ -230,19 +255,25 @@ class GraphStateMachine {
       return;
     }
     const index = this.decIndex(this.focusedChildIndex);
-    this.selectNode(this.focusedChildren[index], true);
+    this.selectNode(this.focusedChildren[index]);
+    this.ui.putNodeInCenter(ele);
   }
 
   selectPrev() {
     if (this.selectedNodeHistory.length < 2) return;
     this.selectedNodeHistory.pop();
-    this.selectNode(this.selectedNodeHistory.pop(), true);
+    this.selectNode(this.selectedNodeHistory.pop());
+    this.ui.putNodeInCenter(ele);
   }
 
   openUrl() {
     if (this.selectedNodeHistory.length < 1) return;
-    this.doubletap(this.selectedNodeHistory[this.selectedNodeHistory.length - 1]);
-    window.open(this.selectedNodeHistory[this.selectedNodeHistory.length - 1].data('href'));
+    this.doubletap(
+      this.selectedNodeHistory[this.selectedNodeHistory.length - 1]
+    );
+    window.open(
+      this.selectedNodeHistory[this.selectedNodeHistory.length - 1].data("href")
+    );
   }
 
   /* Callbacks */
@@ -263,19 +294,19 @@ class GraphStateMachine {
     this.previouslySelectedNodeId = this.selectedNodeId;
     this.selectedNodeId = e.target.id();
 
-    if (this.nodeState == NodeState.HOVERED || this.nodeState == NodeState.ALL) {
+    if (
+      this.nodeState == NodeState.HOVERED ||
+      this.nodeState == NodeState.ALL
+    ) {
       this.selectNode(e.target);
-    }
-    else if (this.nodeState == NodeState.SELECTED) {
+    } else if (this.nodeState == NodeState.SELECTED) {
       if (this.previouslySelectedNodeId == this.selectedNodeId) {
         this.showAllNodes();
-      }
-      else {
+      } else {
         this.showAllNodes();
         this.selectNode(e.target);
       }
     }
-
   }
 
   tapBackground(e) {
@@ -291,50 +322,45 @@ class GraphStateMachine {
       clearTimeout(this.tappedTimeout);
     }
     if (this.tappedBefore === tappedNow) {
-      tappedNow.trigger('doubletap', [ele.target]);
+      tappedNow.trigger("doubletap", [ele.target]);
       this.tappedBefore = null;
     } else {
-      this.tappedTimeout = setTimeout(() => { this.tappedBefore = null; }, 300);
+      this.tappedTimeout = setTimeout(() => {
+        this.tappedBefore = null;
+      }, 300);
       this.tappedBefore = tappedNow;
     }
   }
 
   doubletap(ele) {
-    try { // your browser may block popups
+    try {
+      // your browser may block popups
       if (ele.target.selected() == true) {
-        window.open(ele.target.data('href'));
+        window.open(ele.target.data("href"));
       }
-    } catch (e) { // fall back on url change
-
+    } catch (e) {
+      // fall back on url change
     }
   }
 
-  keypress(key) {
-
-  }
+  keypress(key) { }
 
   keydown(key) {
-
     if (document.activeElement.id == "nodeSearch") return;
 
-    if (key.key == '/') {
+    if (key.key == "/") {
       key.preventDefault();
       document.getElementById("nodeSearch").focus();
       return;
-    }
-    else if (key.key == 'j') {
+    } else if (key.key == "j") {
       this.previewNext();
-    }
-    else if (key.key == 'k') {
+    } else if (key.key == "k") {
       this.previewPrev();
-    }
-    else if (key.key == 'h') {
+    } else if (key.key == "h") {
       this.selectPrev();
-    }
-    else if (key.key == 'l') {
+    } else if (key.key == "l") {
       this.selectNext();
-    }
-    else if (key.key == 'o') {
+    } else if (key.key == "o") {
       this.openUrl();
     }
   }
@@ -342,17 +368,18 @@ class GraphStateMachine {
   nodeSearchChanged(e) {
     const text = e.target.value;
     if (text.length < 3) return;
-    var fuzzy = new FuzzySearch(this.cy.json().elements.nodes, ['data.name'], {
+    var fuzzy = new FuzzySearch(this.cy.json().elements.nodes, ["data.name"], {
       caseSensitive: false,
     });
     var result = fuzzy.search(text);
     this.ui.fadeAll();
-    result.forEach((ele) => { this.ui.fuzzyPreviewNode(this.cy.$('#' + ele.data.id)); console.log(ele.data.name) });
+    result.forEach((ele) => {
+      this.ui.fuzzyPreviewNode(this.cy.$("#" + ele.data.id));
+    });
   }
 }
 
-function show_graph(graph) {
-
+function showGraph(graphData) {
   const ui = new GraphUI();
   ui.setStyle();
 
@@ -361,35 +388,39 @@ function show_graph(graph) {
   const sm = new GraphStateMachine(cy, ui);
   sm.registerEvents();
 
-  ui.runLayout(graph);
+  ui.runLayout(graphData);
 }
 
 function GraphLayout() {
   return (
     <section>
-      <div id="cy" tabIndex="0" style={{ width: "100%", height: "900px" }} ></div>
+      <div
+        id="cy"
+        tabIndex="0"
+        style={{ width: "100%", height: "900px" }}
+      ></div>
     </section>
   );
 }
 
 export default class GraphVisualization extends Component {
-
   constructor({ graph }) {
-    super(graph)
-    this.graph = graph
+    super(graph);
+    this.graphData = graph;
   }
 
   componentDidMount() {
-    show_graph(this.graph);
+    showGraph(this.graphData);
   }
 
   render() {
     return (
       <Layout title="Graph">
-        <div><input type="search" id="nodeSearch" name="nodeSearch" /></div>
+        <div>
+          <input type="search" id="nodeSearch" name="nodeSearch" />
+        </div>
         <GraphLayout />
       </Layout>
     );
   }
 }
-

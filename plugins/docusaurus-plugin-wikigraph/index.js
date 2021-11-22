@@ -14,10 +14,8 @@ function initCy() {
 }
 
 function fileNameWithoutExtension(filePath) {
-  let fileName = path.basename(filePath);
-  let pathNoExt = fileName.replace(".mdx", "");
-  pathNoExt = pathNoExt.replace(".md", "");
-  return pathNoExt;
+  let fileName = path.parse(path.basename(filePath)).name;
+  return fileName;
 }
 
 function getTitle(pathNoExt) {
@@ -28,7 +26,7 @@ function getTitle(pathNoExt) {
 }
 
 function sluggify(filePath) {
-  var slug = filePath.replace(/ /g, '-').toLowerCase();
+  const slug = filePath.replace(/ /g, '-').toLowerCase();
   return slug;
 }
 
@@ -37,6 +35,48 @@ function getWikiLinks(filePath) {
   const regexp = /\[\[([A-Za-z0-9 -]*)\]\]/g;
   const wikilinks = [...fileContents.matchAll(regexp)];
   return wikilinks;
+}
+
+function createGraph(docsDir, docsUrl, cyJsonFile) {
+  let mdFiles = walkSync(docsDir, { globs: ["**/*.md*"], directories: false });
+  let cy = initCy();
+  let wikis = {};
+
+  // Collect all wikis data
+  mdFiles.forEach(function(filePath, i) {
+    const fileName = fileNameWithoutExtension(filePath)
+    const title = getTitle(fileName);
+    const slug = sluggify(fileName);
+    const url = docsUrl + filePath.replace(".md", "");
+
+    wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };
+  });
+
+  // Add Nodes to Graph
+  for (const [_, wiki] of Object.entries(wikis)) {
+    cy.add({ data: { id: wiki.id, name: wiki.title, href: wiki.url } });
+  }
+
+  // Add Edges to Graph
+  // Get all [[wikilinks]] in an md file and create edges from that md file to wikilink file
+  for (const [_, sourceWiki] of Object.entries(wikis)) {
+    const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
+    wikilinks.forEach(function(wikilink) {
+      const slug = sluggify(wikilink[1]);
+      const linkedWiki = wikis[slug];
+      try {
+        cy.add({ data: { id: 'e-' + sourceWiki.id + "-" + linkedWiki.id, source: sourceWiki.id, target: linkedWiki.id } });
+      }
+      catch (error) {
+        // console.log("Broken Link: " + error);
+      }
+    });
+  }
+  // Write the graph contents into cy.json
+  let graphContents = JSON.stringify(cy.json());
+  fs.writeFile(cyJsonFile, graphContents, function(err) {
+    if (err) throw err;
+  });
 }
 
 // A JavaScript function that returns an object.
@@ -51,62 +91,25 @@ module.exports = function(context, opts) {
     // If you're writing your own local plugin, you will want it to
     // be unique in order not to potentially conflict with imported plugins.
     // A good way will be to add your own project name within.
-    name: 'docusaurus-plugin-logesh',
+    name: 'docusaurus-plugin-wikigraph',
 
     async loadContent() {
       // The loadContent hook is executed after siteConfig and env has been loaded.
+      // This is also executed after every file changes during hot reload
       // You can return a JavaScript object that will be passed to contentLoaded hook.
 
       let docsDir = context.siteDir + "/docs/";
+      const docsUrl = context.siteConfig.url + "docs/";
 
-      let mdFiles = walkSync(docsDir, { globs: ["**/*.md*"] });
-      let cy = initCy();
-      // wikis = [];
-      let wikis = {};
-
-      // Collect all wikis data
-      mdFiles.forEach(function(filePath, i) {
-        let fileName = fileNameWithoutExtension(filePath)
-        const title = getTitle(fileName);
-        const slug = sluggify(fileName);
-        const url = context.siteConfig.url + "docs/" + filePath.replace(".md", "");
-
-        // wikis.push({ path: filePath, title: title, slug: slug, url: url });
-        wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };
-      });
-
-      // Add Nodes to Graph
-      // wikis.forEach(function (wiki) {
-      for (const [slug, wiki] of Object.entries(wikis)) {
-        cy.add({ data: { id: wiki.id, name: wiki.title, href: wiki.url } });
-      }
-      // });
-
-      // Add Edges to Graph
-      // wikis.forEach(function (wiki) {
-      for (const [slug, sourceWiki] of Object.entries(wikis)) {
-        const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
-        wikilinks.forEach(function(wikilink) {
-          const slug = sluggify(wikilink[1]);
-          const linkedWiki = wikis[slug];
-          try {
-            cy.add({ data: { id: 'e-' + sourceWiki.id + "-" + linkedWiki.id, source: sourceWiki.id, target: linkedWiki.id } });
-          }
-          catch (error) {
-            // console.log("Broken Link: " + error);
-          }
-        });
-      }
-      // });
+      // Create dir if not exists
       if (!fs.existsSync(context.generatedFilesDir)) {
         fs.mkdirSync(context.generatedFilesDir);
       }
-      let graphContents = JSON.stringify(cy.json());
-      const cyjsonFile = context.generatedFilesDir + '/cy.json';
-      fs.writeFile(cyjsonFile, graphContents, function(err) {
-        if (err) throw err;
-      });
-      return cyjsonFile;
+      const cyJsonFile = context.generatedFilesDir + '/cy.json';
+
+      createGraph(docsDir, docsUrl, cyJsonFile);
+
+      return cyJsonFile;
     },
 
     async contentLoaded({ content, actions }) {

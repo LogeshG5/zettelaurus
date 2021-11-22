@@ -1,0 +1,14 @@
+{
+  "author": "Logesh",
+  "dependencies": {
+    "cytoscape": "^3.19.1",
+    "title": "^3.4.3",
+    "walk-sync": "^3.0.0"
+  },
+  "description": "Docusaurus plugin to plot graph with wikilinks",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "docusaurus-plugin-wikigraph",
+  "private": true,
+  "version": "1.0.0"
+}
