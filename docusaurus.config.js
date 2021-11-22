@@ -19,6 +19,7 @@ const path = require('path');
     // 'docusaurus-plugin-relative-paths',
     require.resolve('docusaurus-lunr-search'),
     path.resolve(__dirname, 'plugins', 'docusaurus-plugin-logesh'),
+      'plugin-image-zoom'
   ],
   presets: [
     [
