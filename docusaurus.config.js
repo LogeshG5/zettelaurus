@@ -3,38 +3,38 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const path = require("path");
 
 /**
- * directory where to find the md files
- */
+* directory where to find the md files
+*/
 const docsDir = "docs";
 
 /**
- * Method to get the corresponding md file name for a given wikilink
- * 
- * @param {string} wikilink The text between [[]] in an md file
- * Returns the file name corresponding to [[wiki link]]
- */
+* Method to get the corresponding md file name for a given wikilink
+*
+* @param {string} wikilink The text between [[]] in an md file
+* Returns the file name corresponding to [[wiki link]]
+*/
 function sluggifyWikilink(wikilink) {
-  /** 
-   * [[Some Fancy Title]] gets converted to 'some-fancy-title'
-   * so there should be some-fancy-title.md file in docs
-   */
+  /**
+  * [[Some Fancy Title]] gets converted to 'some-fancy-title'
+  * so there should be some-fancy-title.md file in docs
+    */
   const slug = wikilink.replace(/ /g, '-').toLowerCase();
   return slug;
 
-  /** 
-   * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
-   * so there should be 'Some Fancy Title.md' file in docs
-   */
+  /**
+  * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
+  * so there should be 'Some Fancy Title.md' file in docs
+    */
   // return wikilink;
 }
 
 /**
- * Wiki might be under a subdirectory and the file name might be sluggified
- * Enable remark-wiki-link plugin to find such md files
- * 
- * @param {string} wikilink The text between [[]] in an md file
- * Returns list of paths to help resolve a [[wiki link]]
- */
+* Wiki might be under a subdirectory and the file name might be sluggified
+* Enable remark-wiki-link plugin to find such md files
+*
+* @param {string} wikilink The text between [[]] in an md file
+* Returns list of paths to help resolve a [[wiki link]]
+*/
 function wikilinkToUrl(wikilink) {
   const slug = sluggifyWikilink(wikilink);
   const walkSync = require("walk-sync");
@@ -42,157 +42,138 @@ function wikilinkToUrl(wikilink) {
     globs: ["**/" + slug + ".md*"],
     directories: false,
   });
+  if (paths == null || paths.length == 0) {
+    paths = walkSync(docsDir, {
+      globs: ["**/" + wikilink + ".md*"],
+      directories: false,
+    });
+  }
   paths = paths.map((path) => path.replace(".mdx", "").replace(".md", ""));
   return paths;
 }
 
 /**
- * Returns the url to the wiki
- * 
- * @param {string} permalink url to the md file
- * Return the path to the wiki
- */
+* Returns the url to the wiki
+*
+* @param {string} permalink url to the md file
+* Return the path to the wiki
+*/
 function toDocsUrl(permalink) {
   return `/${docsDir}/${permalink}`;
 }
 
-// With JSDoc @type annotations, IDEs can provide config autocompletion
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-(
-  module.exports = {
-    title: "Wiki",
-    tagline: "Dinosaurs are cool",
-    url: "http://localhost:3000/",
-    baseUrl: "/",
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
-    favicon: "img/favicon.ico",
-    organizationName: "facebook", // Usually your GitHub org/user name.
-    projectName: "docusaurus", // Usually your repo name.
-    plugins: [
-      require.resolve("docusaurus-lunr-search"),
-      [path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"), { slugMethod: sluggifyWikilink }],
-      'plugin-image-zoom'
-    ],
-    presets: [
-      [
-        "@docusaurus/preset-classic",
-        /** @type {import('@docusaurus/preset-classic').Options} */
-        ({
-          docs: {
-            remarkPlugins: [
-              require("remark-capitalize"),
-              require("mdx-mermaid"),
-              [
-                require("remark-wiki-link"),
-                {
-                  pageResolver: wikilinkToUrl,
-                  hrefTemplate: toDocsUrl,
-                },
-              ],
-              [
-                require("@akebifiky/remark-simple-plantuml"),
-                { baseUrl: "http://127.0.0.1:8000/plantuml/svg" }
-                /* Ensure to start plantuml local server or replace baseUrl with plantuml online server
-                   java -jar plantuml.jar -picoweb:8000:127.0.0.1
-                */
-              ],
-            ],
-            sidebarPath: require.resolve("./sidebars.js"),
-            // Please change this to your repo.
-            // editUrl: '"https://github.com/facebook/docusaurus/edit/main/website/docs/',
-          },
-          blog: {
-            showReadingTime: true,
-            // Please change this to your repo.
-            editUrl:
-              "https://github.com/facebook/docusaurus/edit/main/website/blog/",
-          },
-          theme: {
-            customCss: require.resolve("./src/css/custom.css"),
-          },
-        }),
-      ],
-    ],
 
-    themeConfig:
-      /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+/**
+* Plugin declarations
+*
+*/
+const lunrSearch = require.resolve("docusaurus-lunr-search");
+const wikiGraph = [
+  path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
+  { slugMethod: sluggifyWikilink }
+];
+const docsEditor = [
+  path.resolve(__dirname, "plugins", "docusaurus-plugin-docs-editor"),
+  {
+    route: 'edit',
+    docs: {
+      // The username that owns the docs, defaults to siteConfig.organizationName
+      owner: '',
+      // The repository that contains the docs, defaults to siteConfig.projectName
+      repo: '',
+      // The path to the docs section in your repository
+      path: 'docs',
+    },
+    static: {
+      // The path to the static content section in your repository
+      path: 'static',
+    },
+  }
+];
+
+const imageZoom = 'plugin-image-zoom';
+const capitalizeTitles = require("remark-capitalize");
+const mermaid = require("mdx-mermaid");
+const wikilink = [
+  require("remark-wiki-link"),
+  {
+    pageResolver: wikilinkToUrl,
+    hrefTemplate: toDocsUrl,
+  },
+];
+const plantuml = [
+  require("@akebifiky/remark-simple-plantuml"),
+  { baseUrl: "http://127.0.0.1:8000/plantuml/svg" }
+  /**
+  * Ensure to start plantuml local server or replace baseUrl with plantuml online server
+  * java -jar plantuml.jar -picoweb:8000:127.0.0.1
+    */
+];
+
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  title: 'Wiki',
+
+  tagline: "Dinosaurs are cool",
+  url: "http://localhost:3000/",
+  baseUrl: "/",
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  organizationName: "Logeshg5", // Usually your GitHub org/user name.
+  projectName: "docusaurus", // Usually your repo name.
+  plugins: [lunrSearch, wikiGraph, imageZoom, docsEditor],
+  presets: [
+    [
+      "@docusaurus/preset-classic",
+      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        navbar: {
-          title: "Wiki",
-          logo: {
-            alt: "My Site Logo",
-            src: "img/logo.svg",
-          },
-          items: [
-            {
-              type: "doc",
-              docId: "intro",
-              position: "left",
-              label: "Tutorial",
-            },
-            {
-              href: "/graph",
-              label: "Graph",
-              position: "left",
-            },
-            { to: "/blog", label: "Blog", position: "left" },
-            // {
-            //   href: 'https://github.com/facebook/docusaurus',
-            //   label: 'GitHub',
-            //   position: 'right',
-            // },
-          ],
+        docs: {
+          remarkPlugins: [mermaid, wikilink, plantuml],
+          sidebarPath: require.resolve("./sidebars.js"),
+          editUrl: 'http://localhost:3000/edit/',
         },
-        // footer: {
-        //   style: 'dark',
-        //   links: [
-        //     {
-        //       title: 'Docs',
-        //       items: [
-        //         {
-        //           label: 'Tutorial',
-        //           to: '/docs/intro',
-        //         },
-        //       ],
-        //     },
-        //     {
-        //       title: 'Community',
-        //       items: [
-        //         {
-        //           label: 'Stack Overflow',
-        //           href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-        //         },
-        //         // {
-        //         //   label: 'Discord',
-        //         //   href: 'https://discordapp.com/invite/docusaurus',
-        //         // },
-        //         // {
-        //         //   label: 'Twitter',
-        //         //   href: 'https://twitter.com/docusaurus',
-        //         // },
-        //       ],
-        //     },
-        //     {
-        //       title: 'More',
-        //       items: [
-        //         {
-        //           label: 'Blog',
-        //           to: '/blog',
-        //         },
-        //         {
-        //           label: 'GitHub',
-        //           href: 'https://github.com/facebook/docusaurus',
-        //         },
-        //       ],
-        //     },
-        //   ],
-        //   copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-        // },
-        prism: {
-          theme: lightCodeTheme,
-          darkTheme: darkCodeTheme,
+        blog: {
+          showReadingTime: true,
+          editUrl: "https://github.com/facebook/docusaurus/edit/main/website/blog/",
+        },
+        theme: {
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
-  }
-);
+    ],
+  ],
+  stylesheets: [
+  ],
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: "Wiki",
+        logo: {
+          alt: "My Site Logo",
+          src: "img/logo.svg",
+        },
+        items: [
+          {
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Wiki",
+          },
+          {
+            href: "/graph",
+            label: "Graph",
+            position: "left",
+          },
+        ],
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+      },
+    }),
+};
+
+module.exports = config;

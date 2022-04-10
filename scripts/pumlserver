@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd `dirname $0`/../docs/
+
+# https://www.npmjs.com/package/water-plant-uml
+water-uml live states -l -d 8000 -r http://127.0.0.1:8000/plantuml -p 8085 

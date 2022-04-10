@@ -39,7 +39,7 @@ slugify_file(){
   file=$(basename "$1")
   dashed_file="$dir/$(echo $file | sed 's/ /-/g' | tr A-Z a-z )"
   # small_letter_file="$(echo $dashed_file | tr A-Z a-z)"
- mv "$1" "$dashed_file" 2>/dev/null
+  mv "$1" "$dashed_file" 2>/dev/null
   # mv $dashed_file $small_letter_file
 }
 
@@ -106,8 +106,8 @@ find . -name "*.md" -type f -print0 | while read -d $'\0' file; do
 
   # change_wiki_brackets "$file"
   
-  remove_end_punctuations_in_bullets "$file"
-  capitalize_first_letter_in_bullets "$file"
+  # remove_end_punctuations_in_bullets "$file"
+  # capitalize_first_letter_in_bullets "$file"
 
 done
 

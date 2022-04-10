@@ -37,6 +37,8 @@
     "react-dom": "^17.0.1",
     "remark-capitalize": "^1.1.0",
     "remark-wiki-link": "0.0.4",
+    "rich-markdown-editor": "^11.20.0",
+    "styled-components": "^5.3.3",
     "url-loader": "^4.1.1",
     "walk-sync": "^3.0.0"
   },
