@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RMEditor from "rich-markdown-editor";
+
 function post(path, params, method = 'post') {
 
   const form = document.createElement('form');
@@ -22,6 +23,19 @@ function post(path, params, method = 'post') {
   form.submit();
 }
 
+async function uploadImage(blob, dir, fileName) {
+  let formData = new FormData();
+  formData.append("dir", dir);
+  formData.append("file", blob, fileName);
+
+  let response = await fetch('http://localhost:8888/upload-file', {
+    method: 'POST',
+    body: formData
+  });
+  let result = await response.json();
+  console.log(result.message);
+}
+
 export default class EditorApp extends React.Component {
   constructor(props) {
     super(props);
@@ -29,15 +43,9 @@ export default class EditorApp extends React.Component {
     this.saveTextCb;
     this.state = { mdText: "" };
 
-    // document.addEventListener('keydown', e => {
-    //   if (e.ctrlKey && e.key === 's') {
-    //     // Prevent the Save dialog to open
-    //     e.preventDefault();
-    //     saveClick();
-    //   }
-    // });
     this.filePath = this.extractFilePath();
     this.loadContent(this.filePath);
+    document.title = "Editor | " + document.title;
   }
 
   componentDidMount() {
@@ -56,7 +64,6 @@ export default class EditorApp extends React.Component {
     const contentPath = `${filePath}.md`;
     return contentPath;
   }
-
 
   loadContent(path) {
     fetch('http://localhost:8888/files/' + path)
@@ -81,9 +88,13 @@ export default class EditorApp extends React.Component {
         onChange={(cb) => this.saveTextCb = cb}
         onSave={(val) => this.saveClick()}
         uploadImage={async file => {
-          console.log(file)
-          // post("http://localhost:8888/post-file", { fileContents: file, filePath: this.filePath.replace(".md", ".jpg"), editUrl: window.location.pathname });
-          return "http://localhost:8888/files/" + this.filePath.replace(".md", ".jpg");
+          let timestamp = (new Date()).toJSON().replaceAll(":", "-");
+          var fileName = this.filePath.replace(".md", "").slice(this.filePath.indexOf("/") + 1) + "-" + timestamp + "-" + file.name;
+          fileName = fileName.toLowerCase().split(" ").join("-");
+          var dir = this.filePath.slice(0, this.filePath.lastIndexOf("/"));
+          console.log(fileName);
+          await uploadImage(file, dir, fileName);
+          return "http://localhost:8888/files/" + dir + "/" + fileName;
         }}
       />
     )
