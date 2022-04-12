@@ -2,4 +2,9 @@
 
 cd `dirname $0`/../
 
+# start upload-service
+
+upload-service/start
+
 yarn start --port 3000
+

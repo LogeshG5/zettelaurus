@@ -1,50 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import RMEditor from "rich-markdown-editor";
 
-function post(path, params, method = 'post') {
-
-  const form = document.createElement('form');
-  form.method = method;
-  form.action = path;
-  // form.enctype = 'multipart/form-data';
-
-  for (const key in params) {
-    if (params.hasOwnProperty(key)) {
-      const hiddenField = document.createElement('input');
-      hiddenField.type = 'hidden';
-      hiddenField.name = key;
-      hiddenField.value = params[key];
-
-      form.appendChild(hiddenField);
-    }
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-}
-
-async function uploadImage(blob, dir, fileName) {
-  let formData = new FormData();
-  formData.append("dir", dir);
-  formData.append("file", blob, fileName);
-
-  let response = await fetch('http://localhost:8888/upload-file', {
-    method: 'POST',
-    body: formData
-  });
-  let result = await response.json();
-  console.log(result.message);
-}
-
 export default class EditorApp extends React.Component {
   constructor(props) {
     super(props);
-    // this.mdText = "";
     this.saveTextCb;
     this.state = { mdText: "" };
-
-    this.filePath = this.extractFilePath();
-    this.loadContent(this.filePath);
+    this.serverUrl = props.options.contentServer;
+    this.path = this.parseFileDetails();
+    this.loadContent(this.path.fullPath);
     document.title = "Editor | " + document.title;
   }
 
@@ -55,48 +19,73 @@ export default class EditorApp extends React.Component {
     this.setState({ mdText: text });
   }
 
-  extractFilePath() {
+  parseFileDetails() {
     const editorBasePath = '/edit/docs/';
-    let filePath = window.location.pathname
+    const url = window.location.pathname
       .slice(editorBasePath.length)
       .replace(/\/$/, '');
-
-    const contentPath = `${filePath}.md`;
-    return contentPath;
+    const fullPath = `${url}.md`;
+    const fileName = url.slice(url.lastIndexOf("/") + 1);
+    let dir = "";
+    if (url.lastIndexOf("/") != -1) {
+      dir = url.slice(0, url.lastIndexOf("/")) + "/";
+    }
+    const dict = { fileName: fileName, fullPath: fullPath, dir: dir };
+    return dict;
   }
 
   loadContent(path) {
-    fetch('http://localhost:8888/files/' + path)
+    fetch(this.serverUrl + "/files/" + path)
       .then(response => response.text()) // Gets the response and returns it as a blob
       .then(blob => {
         this.setMdText(blob);
-        console.log("request content");
       });
+  }
+
+  async uploadFile(blob, dir, fileName) {
+    let formData = new FormData();
+    formData.append("dir", dir);
+    formData.append("file", blob, fileName);
+
+    let response = await fetch(this.serverUrl + '/upload-file', {
+      method: 'POST',
+      body: formData
+    });
+    let result = await response.json();
+    console.log(result.message);
   }
 
   saveClick() {
     let text = this.saveTextCb();
+    // Workaround to remove empty backslash in new line
     text = text.replace(/\\/g, '');
-    post("http://localhost:8888/post-file", { fileContents: text, filePath: this.filePath, editUrl: window.location.pathname });
+    let file = new File([text], this.path.fileName + ".md");
+    this.uploadFile(file, this.path.dir, this.path.fileName + ".md");
+  }
+
+  async uploadImage(file) {
+    let timestamp = (new Date()).toJSON().replaceAll(":", "-");
+    var fileName = this.path.fileName + "-" + timestamp
+      + "-" + file.name;
+    fileName = fileName.toLowerCase().split(" ").join("-");
+    await this.uploadFile(file, this.path.dir, fileName);
+    var uploadedUrl = this.serverUrl + "/files/" + this.path.dir + fileName;
+    return uploadedUrl;
   }
 
   render() {
     return (
-      <RMEditor
-        value={this.state.mdText}
-        readOnly={false}
-        onChange={(cb) => this.saveTextCb = cb}
-        onSave={(val) => this.saveClick()}
-        uploadImage={async file => {
-          let timestamp = (new Date()).toJSON().replaceAll(":", "-");
-          var fileName = this.filePath.replace(".md", "").slice(this.filePath.indexOf("/") + 1) + "-" + timestamp + "-" + file.name;
-          fileName = fileName.toLowerCase().split(" ").join("-");
-          var dir = this.filePath.slice(0, this.filePath.lastIndexOf("/"));
-          console.log(fileName);
-          await uploadImage(file, dir, fileName);
-          return "http://localhost:8888/files/" + dir + "/" + fileName;
-        }}
-      />
+      <div className="container">
+        <div className="row">
+          <RMEditor
+            value={this.state.mdText}
+            readOnly={false}
+            onChange={(cb) => this.saveTextCb = cb}
+            onSave={(val) => this.saveClick()}
+            uploadImage={async (file) => await this.uploadImage(file)}
+          />
+        </div >
+      </div >
     )
   }
 }

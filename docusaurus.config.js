@@ -76,18 +76,7 @@ const docsEditor = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-docs-editor"),
   {
     route: 'edit',
-    docs: {
-      // The username that owns the docs, defaults to siteConfig.organizationName
-      owner: '',
-      // The repository that contains the docs, defaults to siteConfig.projectName
-      repo: '',
-      // The path to the docs section in your repository
-      path: 'docs',
-    },
-    static: {
-      // The path to the static content section in your repository
-      path: 'static',
-    },
+    contentServer: "http://localhost:8888",
   }
 ];
 
