@@ -58,7 +58,7 @@ export default class EditorApp extends React.Component {
   saveClick() {
     let text = this.saveTextCb();
     // Workaround to remove empty backslash in new line
-    text = text.replace(/\\/g, '');
+    text = text.replace(/^\\$/gm, '');
     let file = new File([text], this.path.fileName + ".md");
     this.uploadFile(file, this.path.dir, this.path.fileName + ".md");
   }
