@@ -9,10 +9,12 @@ export default class EditorApp extends React.Component {
     this.serverUrl = props.options.contentServer;
     this.path = this.parseFileDetails();
     this.loadContent(this.path.fullPath);
-    document.title = "Editor | " + document.title;
   }
 
   componentDidMount() {
+    document.title = "Editor | " + document.title;
+    const textEditor = document.getElementsByClassName('ProseMirror')[0];
+    textEditor.style.height = "100vh";
   }
 
   setMdText(text) {
