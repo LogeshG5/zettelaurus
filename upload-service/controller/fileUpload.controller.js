@@ -61,6 +61,17 @@ const downloadFiles = (req, res) => {
   });
 };
 
+const getDirectories = (req, res) => {
+  const walkSync = require("walk-sync");
+  let all = walkSync(__base_dir, {
+    globs: ["**/*"],
+    directories: true,
+    ignore: ['.git'],
+  });
+  let dirs = all.filter(file => file[file.length - 1] == "/");
+  res.status(200).send(dirs);
+};
+
 const postFile = (req, res) => {
   try {
     if (req.body.filePath == undefined) {
@@ -94,4 +105,4 @@ const postFile = (req, res) => {
   }
 };
 
-module.exports = { uploadFile, downloadFiles, getFilesList, postFile };
+module.exports = { uploadFile, downloadFiles, getFilesList, postFile, getDirectories };

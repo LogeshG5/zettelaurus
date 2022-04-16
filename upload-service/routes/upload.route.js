@@ -8,6 +8,8 @@ let routes = (app) => {
 
   router.get("/file", controller.getFilesList)
 
+  router.get("/dirs", controller.getDirectories)
+
   router.get("/files/*", controller.downloadFiles)
 
   router.post("/post-file", controller.postFile)

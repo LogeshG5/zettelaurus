@@ -133,6 +133,9 @@ const config = {
       }),
     ],
   ],
+  customFields: {
+    contentServer: "http://localhost:8888",
+  },
   stylesheets: [
   ],
   themeConfig:
@@ -155,6 +158,11 @@ const config = {
             href: "/graph",
             label: "Graph",
             position: "left",
+          },
+          {
+            href: '/create-new-doc',
+            label: 'Create',
+            position: 'right',
           },
         ],
       },
