@@ -7,7 +7,7 @@
   },
   "description": "Docusaurus plugin to plot graph with wikilinks",
   "license": "MIT",
-  "main": "index.js",
+  "main": "src/index.js",
   "name": "docusaurus-plugin-wikigraph",
   "private": true,
   "version": "1.0.0"

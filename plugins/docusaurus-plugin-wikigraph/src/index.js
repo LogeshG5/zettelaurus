@@ -94,6 +94,10 @@ module.exports = function(context, opts) {
     // A good way will be to add your own project name within.
     name: 'docusaurus-plugin-wikigraph',
 
+    getThemePath() {
+      return path.resolve(__dirname, './theme');
+    },
+
     async loadContent() {
       // The loadContent hook is executed after siteConfig and env has been loaded.
       // This is also executed after every file changes during hot reload
@@ -125,9 +129,9 @@ module.exports = function(context, opts) {
       addRoute(
         {
           path: '/graph',
-          component: '@site/src/components/GraphVisualization.js',
+          component: '@theme/GraphVisualization',
           modules: { graph: content, },
-          exact: true,
+          exact: false,
         });
     },
 
