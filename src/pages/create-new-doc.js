@@ -54,7 +54,7 @@ function HomepageHeader() {
   );
 }
 function populateDirs(url) {
-  fetch(+ "/dirs/")
+  fetch(url + "/dirs/")
     .then(response => response.text()) // Gets the response and returns it as a blob
     .then(blob => {
       const select = document.getElementById('dirs');
