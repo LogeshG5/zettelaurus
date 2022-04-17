@@ -82,7 +82,7 @@ const docsEditor = [
 
 const imageZoom = 'plugin-image-zoom';
 const capitalizeTitles = require("remark-capitalize");
-const mermaid = require("mdx-mermaid");
+// const mermaid = require("mdx-mermaid");
 const wikilink = [
   require("remark-wiki-link"),
   {
@@ -112,14 +112,14 @@ const config = {
   favicon: "img/favicon.ico",
   organizationName: "Logeshg5", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
-  plugins: [lunrSearch, wikiGraph, imageZoom, docsEditor],
+  plugins: [lunrSearch, wikiGraph, docsEditor],
   presets: [
     [
       "@docusaurus/preset-classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          remarkPlugins: [mermaid, wikilink, plantuml],
+          remarkPlugins: [wikilink, plantuml],
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: 'http://localhost:3000/edit/',
         },
@@ -162,6 +162,11 @@ const config = {
           {
             href: '/create-new-doc',
             label: 'Create',
+            position: 'right',
+          },
+          {
+            href: 'http://localhost:8887/',
+            label: 'File Manager',
             position: 'right',
           },
         ],
