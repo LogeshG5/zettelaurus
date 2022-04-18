@@ -4,7 +4,7 @@ cd `dirname $0`/../
 
 # start upload-service
 
-upload-service/start
+node upload-service/index.js --port 8888 --root ./docs/ &
 
 # NPM global mode path
 export NPM_CONFIG_PREFIX=~/.npm-global

@@ -3,8 +3,23 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const app = express();
 
-global.__base_dir = '/home/gol2cob/gitp/docusaurus_wiki/docs/'
-global.__port = 8888;
+var argv = require('yargs/yargs')(process.argv.slice(2))
+  .usage('Usage: $0 [options]')
+  .example('$0 -p 8888 -r /home/user/docs', 'Start server in port 8888 with /home/user/docs as root')
+  .alias('p', 'port')
+  .nargs('p', 1)
+  .describe('p', 'Port to listen')
+  .demandOption(['p'])
+  .alias('r', 'root')
+  .nargs('r', 1)
+  .describe('r', 'Root directory to host files')
+  .demandOption(['r'])
+  .help('h')
+  .alias('h', 'help')
+  .argv;
+
+global.__base_dir = argv.root;
+global.__port = argv.port;
 
 var corsConfig = {
   origin: "http://localhost:3000"
