@@ -1,8 +1,13 @@
 {
   "author": "Logesh",
   "dependencies": {
-    "cytoscape": "^3.19.1",
     "title": "^3.4.3",
+    "cytoscape": "^3.21.1",
+    "cytoscape-fcose": "^2.1.0",
+    "cytoscape-layout-utilities": "^1.1.1",
+    "fs": "^0.0.1-security",
+    "fuzzy-search": "^3.2.1",
+    "react": "^17.0.2",
     "walk-sync": "^3.0.0"
   },
   "description": "Docusaurus plugin to plot graph with wikilinks",
