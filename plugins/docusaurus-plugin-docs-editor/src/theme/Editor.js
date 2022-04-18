@@ -23,16 +23,26 @@ export default class EditorApp extends React.Component {
 
   parseFileDetails() {
     const editorBasePath = '/edit/docs/';
-    const url = window.location.pathname
-      .slice(editorBasePath.length)
-      .replace(/\/$/, '');
-    const fullPath = `${url}.md`;
-    const fileName = url.slice(url.lastIndexOf("/") + 1);
+    let url = window.location.pathname
+      .slice(editorBasePath.length);
+    console.log("url", url);
+    let fullPath = "";
+    let fileName = "";
     let dir = "";
-    if (url.lastIndexOf("/") != -1) {
-      dir = url.slice(0, url.lastIndexOf("/")) + "/";
+    if (url[url.length - 1] == "/") {
+      fullPath = `${url}index.md`;
+      url = url.slice(0, -1);
+      fileName = "index";
+      dir = url + "/";
     }
+    else {
+      fullPath = `${url}.md`;
+      fileName = url.slice(url.lastIndexOf("/") + 1);
+      dir = url.slice(0, url.lastIndexOf("/"));
+    }
+
     const dict = { fileName: fileName, fullPath: fullPath, dir: dir };
+    console.log("dict", dict);
     return dict;
   }
 
@@ -59,8 +69,9 @@ export default class EditorApp extends React.Component {
 
   saveClick() {
     let text = this.saveTextCb();
-    // Workaround to remove empty backslash in new line
-    text = text.replace(/^\\$/gm, '');
+    // Workaround to remove empty backslash in new line and \[\]
+    text = text.replace(/\\/gm, '');
+    text = text.replace(/\r/gm, '');
     let file = new File([text], this.path.fileName + ".md");
     this.uploadFile(file, this.path.dir, this.path.fileName + ".md");
   }
