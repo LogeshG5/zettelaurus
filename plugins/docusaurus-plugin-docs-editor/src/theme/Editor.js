@@ -12,7 +12,7 @@ export default class EditorApp extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "Editor | " + document.title;
+    setTimeout(() => document.title = "Editor | " + this.path.fileName, 1000);
     const textEditor = document.getElementsByClassName('ProseMirror')[0];
     textEditor.style.height = "100vh";
   }
