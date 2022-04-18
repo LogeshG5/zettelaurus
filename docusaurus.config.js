@@ -80,9 +80,6 @@ const docsEditor = [
   }
 ];
 
-const imageZoom = 'plugin-image-zoom';
-const capitalizeTitles = require("remark-capitalize");
-// const mermaid = require("mdx-mermaid");
 const wikilink = [
   require("remark-wiki-link"),
   {
@@ -115,7 +112,7 @@ const config = {
   plugins: [lunrSearch, wikiGraph, docsEditor],
   presets: [
     [
-      "@docusaurus/preset-classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
