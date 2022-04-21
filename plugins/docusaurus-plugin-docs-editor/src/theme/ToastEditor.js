@@ -37,6 +37,8 @@ export default class EditorApp extends React.Component {
         callback(url, 'img');
       });
     });
+    const textEditor = document.getElementsByClassName('auto-height')[0];
+    textEditor.style.width = "100%";
   }
 
   keydown(e) {
@@ -137,7 +139,6 @@ export default class EditorApp extends React.Component {
             initialValue={this.state.mdText}
             previewStyle="tab"
             height="auto"
-            width="100vh"
             initialEditType="wysiwyg"
             useCommandShortcut={true}
             extendedAutolinks={true}
