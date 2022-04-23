@@ -32,6 +32,9 @@
     "remark-wiki-link": "0.0.4",
     "rich-markdown-editor": "^11.20.0",
     "styled-components": "^5.3.5",
+    "title": "^3.4.4",
+    "toastify-js": "^1.11.2",
+    "urijs": "^1.19.11",
     "walk-sync": "^3.0.0"
   },
   "name": "my-wiki",
@@ -47,5 +50,6 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
   },
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "devDependencies": {}
 }

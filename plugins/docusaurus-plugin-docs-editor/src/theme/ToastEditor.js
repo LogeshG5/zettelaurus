@@ -2,6 +2,8 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import React, { useState, useEffect } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 var Editor;
 if (ExecutionEnvironment.canUseDOM) {
   Editor = require('@toast-ui/react-editor').Editor;
@@ -12,7 +14,6 @@ class EditorApp extends React.Component {
     this.serverUrl = props.options.contentServer;
     this.path = this.parseFileDetails();
     this.loadContent(this.path.fullPath);
-    document.addEventListener("keyup", (e) => this.keydown(e));
   }
   content = "";
   dirty = false;
@@ -41,12 +42,19 @@ class EditorApp extends React.Component {
       });
     });
     this.setStyle();
+    this.setEventListeners();
     console.log("mounted");
   }
 
   setStyle() {
     const textEditor = document.getElementsByClassName('auto-height')[0];
     textEditor.style.width = "100%";
+  }
+
+  setEventListeners() {
+    const cnt = document.getElementById("editor-container");
+    cnt.addEventListener("keyup", (e) => this.keydown(e));
+    document.addEventListener("visibilitychange", () => this.saveClick());
   }
 
   keydown(e) {
@@ -57,10 +65,6 @@ class EditorApp extends React.Component {
         const editor = this.editorRef.current.getInstance();
         editor.exec('strike');
       }
-      // level is heading level
-      // editor.exec('heading', { level: 2 });
-      // If you want to fill the text, call insertText API
-      // editor.insertText('heading');
       this.saveClick();
       return true;
     }
@@ -92,9 +96,8 @@ class EditorApp extends React.Component {
     let fullPath = url;
     let fileName = urlarr.pop();
     let dir = urlarr.join("/");
-
     const dict = { fileName: fileName, fullPath: fullPath, dir: dir };
-    console.log("dict", dict);
+    // console.log("dict", dict);
     return dict;
   }
 
@@ -137,6 +140,10 @@ class EditorApp extends React.Component {
       const success = this.uploadFile(file, this.path.dir, this.path.fileName);
       if (success) {
         this.dirty = false;
+        Toastify({ text: "Saved", duration: 1000 }).showToast();
+      }
+      else {
+        Toastify({ text: "Save Failed", duration: 1000 }).showToast();
       }
     }
     else {
@@ -176,7 +183,7 @@ export default function EditorFn(props) {
     <BrowserOnly fallback={<div>Loading...</div>}>
       {() => {
         return (
-          < div className="container" >
+          < div className="container" id="editor-container">
             <div className="row">
               <EditorApp {...props} />
             </div >
