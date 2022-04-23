@@ -1,49 +1,67 @@
-const path = require('path');
+"use strict";
 
-module.exports = function pluginDocsEditor(context, options) {
-  let { baseUrl } = context;
-  if (baseUrl.startsWith('/')) {
-    baseUrl = baseUrl.slice(1);
-  }
-  if (baseUrl.endsWith('/')) {
-    baseUrl = baseUrl.slice(0, -1);
-  }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-  let route = options.route || 'edit';
-  if (route.startsWith('/')) {
-    route = route.slice(1);
-  }
-  if (route.endsWith('/')) {
-    route = route.slice(0, -1);
-  }
+var _path = _interopRequireDefault(require("path"));
 
-  const basePath = baseUrl === '' ? `/${route}` : `/${baseUrl}/${route}`;
+var _urijs = _interopRequireDefault(require("urijs"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function pluginDocsEditor(context, options) {
+  const {
+    siteConfig: {
+      baseUrl,
+      organizationName,
+      projectName
+    }
+  } = context;
+  const defaultOptions = {
+    authorizationMethod: 'GET',
+    contentOwner: organizationName,
+    contentRepo: projectName,
+    contentDocsPath: 'docs',
+    contentStaticPath: 'static',
+    editorPath: 'edit'
+  };
+  const normalizedOptions = Object.assign({}, defaultOptions, options);
+
+  const editorBasePath = _urijs.default.joinPaths(baseUrl, normalizedOptions.editorPath).toString();
 
   return {
     name: 'docusaurus-plugin-docs-editor',
+
     getThemePath() {
-      return path.resolve(__dirname, './theme');
+      return _path.default.resolve(__dirname, './theme');
     },
-    async contentLoaded({ actions }) {
-      const { createData, setGlobalData, addRoute } = actions;
 
-      const optionsPath = await createData(
-        'editor.json',
-        JSON.stringify(options),
-      );
-
+    async contentLoaded({
+      actions
+    }) {
+      const {
+        createData,
+        setGlobalData,
+        addRoute
+      } = actions;
+      const optionsPath = await createData('editor.json', JSON.stringify(normalizedOptions));
       addRoute({
-        path: basePath,
+        path: editorBasePath,
         exact: false,
         component: '@theme/Editor',
         modules: {
-          options: optionsPath,
-        },
+          options: optionsPath
+        }
       });
-
       setGlobalData({
-        route,
+        editorBasePath
       });
-    },
+    }
+
   };
-};
+}
+
+var _default = pluginDocsEditor;
+exports.default = _default;

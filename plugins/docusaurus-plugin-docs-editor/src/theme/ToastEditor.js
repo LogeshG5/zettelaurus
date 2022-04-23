@@ -1,18 +1,22 @@
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import React, { useState, useEffect } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
-
-export default class EditorApp extends React.Component {
+var Editor;
+if (ExecutionEnvironment.canUseDOM) {
+  Editor = require('@toast-ui/react-editor').Editor;
+}
+class EditorApp extends React.Component {
   constructor(props) {
     super(props);
-    this.saveTextCb;
-    this.state = { mdText: "" };
     this.serverUrl = props.options.contentServer;
     this.path = this.parseFileDetails();
     this.loadContent(this.path.fullPath);
-    document.addEventListener("keydown", (e) => this.keydown(e));
+    document.addEventListener("keyup", (e) => this.keydown(e));
   }
-
+  content = "";
+  dirty = false;
+  loaded = false;
   editorRef = React.createRef();
   toolbarItems =
     [
@@ -33,24 +37,37 @@ export default class EditorApp extends React.Component {
     setTimeout(() => document.title = "Editor | " + this.path.fileName, 1000);
     this.editorRef.current?.getInstance().addHook('addImageBlobHook', (blob, callback) => {
       this.uploadImage(blob).then(url => {
-        console.log("url", url);
         callback(url, 'img');
       });
     });
+    this.setStyle();
+    console.log("mounted");
+  }
+
+  setStyle() {
     const textEditor = document.getElementsByClassName('auto-height')[0];
     textEditor.style.width = "100%";
   }
 
   keydown(e) {
-    if (e.ctrlKey && e.key === 's') {
+    if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
+      console.log("pressing save");
       e.preventDefault();
+      if (this.editorRef.current) {
+        const editor = this.editorRef.current.getInstance();
+        editor.exec('strike');
+      }
+      // level is heading level
+      // editor.exec('heading', { level: 2 });
+      // If you want to fill the text, call insertText API
+      // editor.insertText('heading');
       this.saveClick();
       return true;
     }
   }
 
-  setMdText(text) {
-    this.setState({ mdText: text });
+  onChange(event) {
+    this.dirty = true;
   }
 
   createSaveButton() {
@@ -68,24 +85,13 @@ export default class EditorApp extends React.Component {
   }
 
   parseFileDetails() {
-    const editorBasePath = '/edit/docs/';
+    const editorBasePath = '/edit/docs/'; // previously '/edit/docs/'
     let url = window.location.pathname
       .slice(editorBasePath.length);
-    console.log("url", url);
-    let fullPath = "";
-    let fileName = "";
-    let dir = "";
-    if (url[url.length - 1] == "/") {
-      fullPath = `${url}index.md`;
-      url = url.slice(0, -1);
-      fileName = "index";
-      dir = url + "/";
-    }
-    else {
-      fullPath = `${url}.md`;
-      fileName = url.slice(url.lastIndexOf("/") + 1);
-      dir = url.slice(0, url.lastIndexOf("/")); // Fix cant save files in the root like docs/intro.md
-    }
+    let urlarr = url.split("/");
+    let fullPath = url;
+    let fileName = urlarr.pop();
+    let dir = urlarr.join("/");
 
     const dict = { fileName: fileName, fullPath: fullPath, dir: dir };
     console.log("dict", dict);
@@ -96,8 +102,9 @@ export default class EditorApp extends React.Component {
     fetch(this.serverUrl + "/files/" + path)
       .then(response => response.text()) // Gets the response and returns it as a blob
       .then(blob => {
-        this.setMdText(blob);
         this.editorRef.current?.getInstance().setMarkdown(blob);
+        this.content = this.editorRef.current.getInstance().getMarkdown();
+        this.loaded = true;
       });
   }
 
@@ -105,20 +112,36 @@ export default class EditorApp extends React.Component {
     let formData = new FormData();
     formData.append("dir", dir);
     formData.append("file", blob, fileName);
-
-    let response = await fetch(this.serverUrl + '/upload-file', {
+    const url = this.serverUrl + '/upload-file';
+    let response = await fetch(url, {
       method: 'POST',
       body: formData
     });
-    let result = await response.json();
-    console.log(result.message);
+    // let result = await response.json();
+    // console.log(result.message);
+    if (response.ok) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   saveClick() {
+    if (!this.editorRef.current || !this.loaded) return;
     let text = this.editorRef.current?.getInstance().getMarkdown();
     text = text.replaceAll("<br>", "");
-    let file = new File([text], this.path.fileName + ".md");
-    this.uploadFile(file, this.path.dir, this.path.fileName + ".md");
+    if (text !== this.content) {
+      this.content = text;
+      let file = new File([text], this.path.fileName);
+      const success = this.uploadFile(file, this.path.dir, this.path.fileName);
+      if (success) {
+        this.dirty = false;
+      }
+    }
+    else {
+      console.log("upload avoided");
+    }
   }
 
   async uploadImage(file) {
@@ -133,21 +156,32 @@ export default class EditorApp extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <Editor
-            initialValue={this.state.mdText}
-            previewStyle="tab"
-            height="auto"
-            initialEditType="wysiwyg"
-            useCommandShortcut={true}
-            extendedAutolinks={true}
-            ref={this.editorRef}
-            onChange={(cb) => this.saveTextCb = cb}
-            toolbarItems={this.toolbarItems}
-          />
-        </div >
-      </div >
+      <Editor
+        previewStyle="tab"
+        height="auto"
+        initialEditType="wysiwyg"
+        useCommandShortcut={true}
+        extendedAutolinks={true}
+        ref={this.editorRef}
+        onChange={(cb) => this.onChange(cb)}
+        toolbarItems={this.toolbarItems}
+      />
     )
   }
+}
+
+// EditorApp;
+export default function EditorFn(props) {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => {
+        return (
+          < div className="container" >
+            <div className="row">
+              <EditorApp {...props} />
+            </div >
+          </div >)
+      }}
+    </BrowserOnly >
+  );
 }

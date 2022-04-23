@@ -8,8 +8,8 @@ const uploadFile = async (req, res) => {
   try {
     console.log("UploadFile requested");
     await upload(req, res);
-    res.status(200).send({
-      message: "File uploaded successfully",
+    res.status(204).send({
+      // message: "File uploaded successfully",
     });
   } catch (err) {
     console.log(err);
