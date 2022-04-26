@@ -54,7 +54,16 @@ class EditorApp extends React.Component {
   setEventListeners() {
     const cnt = document.getElementById("editor-container");
     cnt.addEventListener("keyup", (e) => this.keydown(e));
-    document.addEventListener("visibilitychange", () => this.saveClick());
+    document.addEventListener("visibilitychange", () => this.delayedSave());
+  }
+
+  delayedSave() {
+    // save on 20 secs after focus lost
+    setTimeout(() => {
+      if (document.visibilityState == "hidden") {
+        this.saveClick();
+      }
+    }, "20000");
   }
 
   keydown(e) {
