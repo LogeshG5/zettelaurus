@@ -53,7 +53,7 @@ class EditorApp extends React.Component {
 
   setEventListeners() {
     const cnt = document.getElementById("editor-container");
-    cnt.addEventListener("keyup", (e) => this.keydown(e));
+    cnt.addEventListener("keydown", (e) => this.keydown(e));
     document.addEventListener("visibilitychange", () => this.delayedSave());
   }
 
@@ -75,6 +75,24 @@ class EditorApp extends React.Component {
         editor.exec('strike');
       }
       this.saveClick();
+      return true;
+    }
+    else if (e.ctrlKey && e.key === '1') {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('heading', { level: 1 });
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && e.key === '2') {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('heading', { level: 2 });
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && e.key === '3') {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('heading', { level: 3 });
+      e.preventDefault();
       return true;
     }
   }
