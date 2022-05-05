@@ -5,6 +5,7 @@ const path = require("path");
 /**
 * directory where to find the md files
 */
+// oo
 const docsDir = "docs";
 
 /**
@@ -101,7 +102,7 @@ const plantuml = [
 const config = {
   title: 'Wiki',
 
-  tagline: "Dinosaurs are cool",
+  tagline: "",
   url: "http://localhost:3000/",
   baseUrl: "/",
   onBrokenLinks: "warn",
