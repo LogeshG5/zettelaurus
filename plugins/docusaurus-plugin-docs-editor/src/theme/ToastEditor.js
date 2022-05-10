@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
+import './ToastEditor.css';
+
 var Editor;
 if (ExecutionEnvironment.canUseDOM) {
   Editor = require('@toast-ui/react-editor').Editor;
