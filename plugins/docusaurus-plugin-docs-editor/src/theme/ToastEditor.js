@@ -39,8 +39,8 @@ class EditorApp extends React.Component {
   componentDidMount() {
     setTimeout(() => document.title = "Editor | " + this.path.fileName, 1000);
     this.editorRef.current?.getInstance().addHook('addImageBlobHook', (blob, callback) => {
-      this.uploadImage(blob).then(url => {
-        callback(url, 'img');
+      this.uploadImage(blob).then(ret => {
+        callback(ret.url, ret.fileName);
       });
     });
     this.setStyle();
@@ -181,13 +181,28 @@ class EditorApp extends React.Component {
   }
 
   async uploadImage(file) {
-    let timestamp = (new Date()).toJSON().replaceAll(":", "-");
-    var fileName = this.path.fileName + "-" + timestamp
-      + "-" + file.name;
+    const selectedText = this.editorRef.current?.getInstance().getSelectedText();
+    var fileName = "";
+
+    if (selectedText != "") {
+      const ext = file.name.split('.').pop();
+      fileName = selectedText + '.' + ext;
+    }
+    else {
+      const timestamp = (new Date()).toJSON()
+        .replaceAll(":", "-")
+        .replace("T", "-")
+        .replace(/\.[0-9]*z/i, '');
+      fileName = this.path.fileName.replace(".md", "")
+        + "-" + timestamp
+        + "-" + file.name;
+    }
+
     fileName = fileName.toLowerCase().split(" ").join("-");
     await this.uploadFile(file, this.path.dir, fileName);
     var uploadedUrl = this.serverUrl + "/files/" + this.path.dir + "/" + fileName;
-    return uploadedUrl;
+    // uploadedUrl is not needed as it can change, rather we need the relative path of the image
+    return { url: fileName, fileName: selectedText };
   }
 
   render() {
