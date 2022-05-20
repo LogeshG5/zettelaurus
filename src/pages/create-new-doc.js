@@ -16,6 +16,8 @@ async function uploadFile(url, blob, dir, fileName) {
     method: 'POST',
     body: formData
   });
+  // open url immediately so hotreload doesn't interfere
+  window.open('edit/docs/' + dir + fileName);
   let result = await response.json();
   console.log(result.message);
 }
@@ -28,7 +30,6 @@ function createNewDoc(url, dir, title) {
 }
 
 function createNew(url) {
-  console.log("click create");
   createNewDoc(url, document.getElementById("dirs").value, document.getElementById("fname").value);
 }
 
@@ -53,6 +54,7 @@ function HomepageHeader() {
     </header >
   );
 }
+
 function populateDirs(url) {
   fetch(url + "/dirs/")
     .then(response => response.text()) // Gets the response and returns it as a blob
@@ -67,6 +69,7 @@ function populateDirs(url) {
       }
     });
 }
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   useEffect(() => {
@@ -82,3 +85,4 @@ export default function Home() {
     </Layout>
   );
 }
+
