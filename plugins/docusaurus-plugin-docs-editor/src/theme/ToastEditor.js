@@ -163,6 +163,10 @@ class EditorApp extends React.Component {
     if (!this.editorRef.current || !this.loaded) return;
     let text = this.editorRef.current?.getInstance().getMarkdown();
     text = text.replaceAll("<br>", "");
+
+    // To protect against accidentally saving empty doc after pressing ctrl+z
+    if (text == "") return;
+
     if (text !== this.content) {
       this.content = text;
       let file = new File([text], this.path.fileName);
