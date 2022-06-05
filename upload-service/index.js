@@ -21,11 +21,19 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
 global.__base_dir = argv.root;
 global.__port = argv.port;
 
-var corsConfig = {
-  origin: "http://localhost:3000"
+// whitelist Docusaurus live, prod & editor urls
+var whitelist = ['http://localhost:3000', 'http://localhost:8585', 'http://localhost:8889'];
+var corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 };
 
-app.use(cors(corsConfig));
+app.use(cors(corsOptions));
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.raw());
