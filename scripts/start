@@ -3,7 +3,6 @@
 cd `dirname $0`/../
 
 # start upload-service
-
 node upload-service/index.js --port 8888 --root ./docs/ &
 
 # NPM global mode path
@@ -11,4 +10,8 @@ export NPM_CONFIG_PREFIX=~/.npm-global
 export PATH=$PATH:$(npm get prefix)/bin
 cloudcmd --port 8887 --root docs --no-open --no-contact &
 
+# start editor
+yarn --cwd ./editor start &
+
+# start live Docusaurus
 yarn start --port 3000

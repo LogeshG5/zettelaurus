@@ -1,0 +1,6 @@
+.toastui-editor-toolbar {
+  --top: 0;
+  position: sticky;
+  top: var(--top);
+  z-index: 50;
+}

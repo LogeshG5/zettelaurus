@@ -119,7 +119,7 @@ const config = {
         docs: {
           remarkPlugins: [wikilink, plantuml],
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: 'http://localhost:3000/edit/',
+          editUrl: 'http://localhost:8889/edit/',
         },
         blog: {
           showReadingTime: true,

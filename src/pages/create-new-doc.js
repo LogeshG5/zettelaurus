@@ -17,7 +17,7 @@ async function uploadFile(url, blob, dir, fileName) {
     body: formData
   });
   // open url immediately so hotreload doesn't interfere
-  window.open('edit/docs/' + dir + fileName);
+  window.open('http://localhost:8889/edit/docs/' + dir + fileName);
   let result = await response.json();
   console.log(result.message);
 }
