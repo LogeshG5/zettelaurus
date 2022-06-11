@@ -1,6 +1,3 @@
-// import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-// import BrowserOnly from '@docusaurus/BrowserOnly';
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import Toastify from 'toastify-js';
@@ -30,10 +27,20 @@ class EditorApp extends React.Component {
       ['code', 'codeblock'],
       // Using Option: Customize the last button
       [{
+        el: this.createWikiButton(),
+        popup: {
+          className: 'toastui-editor-popup-add-link',
+          body: this.createPopup(),
+          style: {}
+        },
+        tooltip: 'Create Wiki'
+      },
+      {
         el: this.createSaveButton(),
         command: '',
         tooltip: 'Save document'
-      }]
+      },
+      ]
     ];
 
   componentDidMount() {
@@ -54,6 +61,7 @@ class EditorApp extends React.Component {
   }
 
   setEventListeners() {
+    console.log("setting event listeners");
     const cnt = document.getElementById("editor-container");
     cnt.addEventListener("keydown", (e) => this.keydown(e));
     document.addEventListener("visibilitychange", () => this.delayedSave());
@@ -82,12 +90,12 @@ class EditorApp extends React.Component {
   keydown(e) {
     if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
       console.log("pressing save");
-      e.preventDefault();
       if (this.editorRef.current) {
         const editor = this.editorRef.current.getInstance();
         editor.exec('strike');
       }
       this.saveClick();
+      e.preventDefault();
       return true;
     }
     else if (e.ctrlKey && e.key === '1') {
@@ -116,16 +124,68 @@ class EditorApp extends React.Component {
 
   createSaveButton() {
     const button = document.createElement('button');
-
     button.className = 'toastui-editor-toolbar-icons last';
     button.style.backgroundImage = 'none';
     button.style.margin = '0';
     button.innerHTML = `<i>Save</i>`;
+
     button.addEventListener('click', () => {
       this.saveClick();
     });
-
     return button;
+  }
+
+  createWikiButton() {
+    const button = document.createElement('button');
+    button.className = 'toastui-editor-toolbar-icons last';
+    button.style.backgroundImage = 'none';
+    button.style.margin = '0';
+    button.innerHTML = `+`;
+    button.type = 'button';
+    return button;
+  }
+
+  createPopup() {
+    const el = document.createElement('div');
+    el.ariaLabel = "Create Wiki";
+    const label = document.createElement('label');
+    label.innerHTML = "Title";
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'create-wiki-name';
+    el.appendChild(label);
+    el.appendChild(input);
+    const cont = document.createElement('div');
+    cont.className = "toastui-editor-button-container";
+    const cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = "toastui-editor-close-button";
+    cancel.innerHTML = "Cancel";
+    const ok = document.createElement('button');
+    ok.type = 'button';
+    ok.className = "toastui-editor-ok-button";
+    ok.innerHTML = "Ok";
+    cont.appendChild(cancel);
+    cont.appendChild(ok);
+    el.appendChild(cont);
+    cancel.addEventListener("click", () => { this.editorRef.current?.getInstance().eventEmitter.emit('closePopup'); });
+    ok.addEventListener("click", () => { this.createWiki(); input.value = ""; });
+    return el;
+  }
+
+  createNewDoc(dir, title) {
+    const text = "# " + title;
+    const fileName = title.replaceAll(" ", "-").toLowerCase() + ".md";
+    let file = new File([text], fileName);
+    this.uploadFile(file, dir, fileName);
+    window.open('http://localhost:8889/edit/docs/' + dir + "/" + fileName);
+  }
+
+  createWiki() {
+    const title = document.getElementById("create-wiki-name").value;
+    this.createNewDoc(this.path.dir, title);
+    this.editorRef.current?.getInstance().eventEmitter.emit('closePopup');
+    this.editorRef.current?.getInstance().insertText("[[" + title + "]]");
   }
 
   parseFileDetails() {
