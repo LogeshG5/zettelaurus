@@ -40,6 +40,11 @@ class EditorApp extends React.Component {
         command: '',
         tooltip: 'Save document'
       },
+      {
+        el: this.createLivePreviewButton(),
+        command: '',
+        tooltip: 'Live preview'
+      },
       ]
     ];
 
@@ -142,6 +147,22 @@ class EditorApp extends React.Component {
     button.style.margin = '0';
     button.innerHTML = `+`;
     button.type = 'button';
+    return button;
+  }
+
+
+  createLivePreviewButton() {
+    const button = document.createElement('button');
+    button.className = 'toastui-editor-toolbar-icons';
+    button.style.backgroundImage = 'none';
+    button.style.margin = '0';
+    button.innerHTML = `Live`
+    button.type = 'button';
+    button.addEventListener('click', () => {
+      const editUrl = '/edit'
+      const url = window.location.pathname.slice(editUrl.length).replace(".md", "").replace(".mdx", "");
+      window.open("http://localhost:3000" + url, "_blank");
+    });
     return button;
   }
 
