@@ -13,5 +13,8 @@ cloudcmd --port 8887 --root docs --no-open --no-contact &
 # start editor
 yarn --cwd ./editor start &
 
+# start production Docusaurus
+yarn serve --port 8585 &
+
 # start live Docusaurus
 yarn start --port 3000

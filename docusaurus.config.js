@@ -103,7 +103,7 @@ const config = {
   title: 'Wiki',
 
   tagline: "",
-  url: "http://localhost:3000/",
+  url: "http://localhost:8585/",
   baseUrl: "/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
