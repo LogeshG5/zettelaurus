@@ -23,7 +23,7 @@ async function uploadFile(url, blob, dir, fileName) {
 }
 
 function createNewDoc(url, dir, title) {
-  const text = "# " + title;
+  const text = "# " + title + "\n\n";
   const fileName = title.replaceAll(" ", "-").toLowerCase() + ".md";
   let file = new File([text], fileName);
   uploadFile(url, file, dir, fileName);

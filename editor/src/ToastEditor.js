@@ -195,7 +195,7 @@ class EditorApp extends React.Component {
   }
 
   createNewDoc(dir, title) {
-    const text = "# " + title;
+    const text = "# " + title + "\n\n";
     const fileName = title.replaceAll(" ", "-").toLowerCase() + ".md";
     let file = new File([text], fileName);
     this.uploadFile(file, dir, fileName);
