@@ -17,4 +17,4 @@ yarn --cwd ./editor start &
 yarn serve --port 8585 &
 
 # start live Docusaurus
-yarn start --port 3000
+docusaurus start --port 3000

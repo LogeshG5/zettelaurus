@@ -45,7 +45,7 @@
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
     "serve": "docusaurus serve",
-    "start": "docusaurus start",
+    "start": "scripts/start",
     "swizzle": "docusaurus swizzle",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
