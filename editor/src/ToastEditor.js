@@ -97,9 +97,39 @@ class EditorApp extends React.Component {
       console.log("pressing save");
       if (this.editorRef.current) {
         const editor = this.editorRef.current.getInstance();
-        editor.exec('strike');
+        // Currently all shortcuts are disabled, so this is not needed
+        // editor.exec('strike'); 
       }
       this.saveClick();
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && (e.key === 'b' || e.key === 'B')) {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('bold');
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && (e.key === 'i' || e.key === 'I')) {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('italic');
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && (e.key === 'z' || e.key === 'Z')) {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('undo');
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && (e.key === 'y' || e.key === 'Y')) {
+      const editor = this.editorRef.current.getInstance();
+      editor.exec('redo');
+      e.preventDefault();
+      return true;
+    }
+    else if (e.ctrlKey && (e.key === 'p' || e.key === 'P')) {
+      this.openLive();
       e.preventDefault();
       return true;
     }
@@ -150,7 +180,6 @@ class EditorApp extends React.Component {
     return button;
   }
 
-
   createLivePreviewButton() {
     const button = document.createElement('button');
     button.className = 'toastui-editor-toolbar-icons';
@@ -158,11 +187,7 @@ class EditorApp extends React.Component {
     button.style.margin = '0';
     button.innerHTML = `Live`
     button.type = 'button';
-    button.addEventListener('click', () => {
-      const editUrl = '/edit'
-      const url = window.location.pathname.slice(editUrl.length).replace(".md", "").replace(".mdx", "");
-      window.open("http://localhost:3000" + url, "_blank");
-    });
+    button.addEventListener('click', this.openLive);
     return button;
   }
 
@@ -200,6 +225,12 @@ class EditorApp extends React.Component {
     let file = new File([text], fileName);
     this.uploadFile(file, dir, fileName);
     window.open('http://localhost:8889/edit/docs/' + dir + "/" + fileName);
+  }
+
+  openLive() {
+    const editUrl = '/edit'
+    const url = window.location.pathname.slice(editUrl.length).replace(".md", "").replace(".mdx", "");
+    window.open("http://localhost:3000" + url, "_blank");
   }
 
   createWiki() {
@@ -312,6 +343,7 @@ class EditorApp extends React.Component {
         ref={this.editorRef}
         onChange={(cb) => this.onChange(cb)}
         toolbarItems={this.toolbarItems}
+        useCommandShortcut={false}
       />
     )
   }
