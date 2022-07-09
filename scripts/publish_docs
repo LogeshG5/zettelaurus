@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+import glob
+import sys
+import re
+import os
+
+def plantuml_draw(content, dir, filename):
+    os.system("mkdir -p /tmp/pumldocexp/")
+    pumlfile = "/tmp/pumldocexp/" + filename
+
+    with open(pumlfile, "w") as f:
+        f.write(content)
+
+    print("Drawing %s/%s.png" %(dir, filename))
+    cmd = "java -DPLANTUML_LIMIT_SIZE=32768 -jar /usr/local/bin/plantuml.jar -tpng %s -o %s" %  (pumlfile, dir)
+    os.system(cmd)
+    os.system("rm -rf /tmp/pumldocexp/")
+
+
+def replaceWikiLinks(m):
+     return "[" + m.groups()[0] + "]" + "(" + m.groups()[0].lower().replace(" ", "-") + ".md)"
+
+
+def process_file(filename):
+    f = open(filename, "r")
+    data = f.read()
+    f.close()
+
+    data = re.sub(r"\[\[(.*?)\]\]", replaceWikiLinks, data)
+
+    # Draw diagram
+    pattern = r"```plantuml(.*?)```"
+    rx = re.compile(pattern, flags=re.MULTILINE|re.DOTALL)
+    matches = []
+    for match in rx.finditer(data):
+        matches.append(match)
+
+    if matches:
+        for i, m in enumerate(matches[::-1]):
+            dir = os.path.dirname(filename)
+            imageName = os.path.basename(filename).replace(".md", "-") + str(i)
+            plantuml_draw(m.group(1), dir, imageName)
+            data = data[:m.start()] + "![%s](%s.png)" % (imageName, imageName) + data[m.end():]
+
+    with open(filename, "w") as f:
+        f.write(data)
+
+
+# root_dir = "/home/gol2cob/gitp/docs_export/"
+root_dir = os.path.abspath(sys.argv[1])
+for filename in glob.iglob(root_dir + '/**/*.md', recursive=True):
+    process_file(filename)

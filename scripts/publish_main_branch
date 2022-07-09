@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd `dirname $0`/../docs
+
+git branch -D publish
+git branch publish main
+
+git worktree add /tmp/docs_publish publish
+
+../scripts/publish_docs /tmp/docs_publish
+cd /tmp/docs_publish
+git add . 
+git commit -m "Publishing main"
+git push origin publish -f
+cd -
+git worktree remove -f /tmp/docs_publish
