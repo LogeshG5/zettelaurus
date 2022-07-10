@@ -16,9 +16,35 @@ def plantuml_draw(content, dir, filename):
     os.system(cmd)
     os.system("rm -rf /tmp/pumldocexp/")
 
+def isBacklinksPresent(filename):
+    with open(filename, 'r') as f:
+        for line in f:
+            if "##### Back Links" in line:
+                return True
 
-def replaceWikiLinks(m):
-     return "[" + m.groups()[0] + "]" + "(" + m.groups()[0].lower().replace(" ", "-") + ".md)"
+def addToBackLinks(dest, source):
+    dir = os.path.dirname(source)
+    link = os.path.basename(source)
+    f = open(filename, "r")
+    title = f.readline()
+    f.close()
+    title = title.replace("# ", "").replace("\n", "")
+    titleLink = "[" + title + "]" + "(" + link + ")"
+    fileToWrite = dir + "/" + dest
+    with open(fileToWrite, "a") as f:
+        f.write("\n\n")
+        if not isBacklinksPresent(fileToWrite):
+            f.write("##### Back Links\n\n")
+        f.write("* " + titleLink + "\n")
+
+    print("In file %s/%s add a link to %s" % (dir, dest, title))
+
+
+def replaceWikiLinks(m, filename):
+    wiki = m.groups()[0]
+    slugfile = wiki.lower().replace(" ", "-") + ".md"
+    addToBackLinks(slugfile, filename)
+    return "[" + wiki + "]" + "(" + slugfile + ")"
 
 
 def process_file(filename):
@@ -26,7 +52,7 @@ def process_file(filename):
     data = f.read()
     f.close()
 
-    data = re.sub(r"\[\[(.*?)\]\]", replaceWikiLinks, data)
+    data = re.sub(r"\[\[(.*?)\]\]", lambda m: replaceWikiLinks(m, filename), data)
 
     # Draw diagram
     pattern = r"```plantuml(.*?)```"
@@ -36,8 +62,8 @@ def process_file(filename):
         matches.append(match)
 
     if matches:
+        dir = os.path.dirname(filename)
         for i, m in enumerate(matches[::-1]):
-            dir = os.path.dirname(filename)
             imageName = os.path.basename(filename).replace(".md", "-") + str(i)
             plantuml_draw(m.group(1), dir, imageName)
             data = data[:m.start()] + "![%s](%s.png)" % (imageName, imageName) + data[m.end():]
