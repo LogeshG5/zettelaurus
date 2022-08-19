@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import RMEditor from "rich-markdown-editor";
+import Editor from "rich-markdown-editor";
+// WARN
+// Owner does not maintain RM Editor, so deps are outdated and not usable. 
 
-// WARN: May be broken ! Merges from Toast editor is not tested !!!!
-// Owner does not maintain RM Editor
-
-export default class EditorApp extends React.Component {
+class EditorApp extends React.Component {
   constructor(props) {
     super(props);
-    this.serverUrl = "http://localhost:8888"
-    this.saveTextCb;
+    this.serverUrl = "http://localhost:8888";
+    this.saveTextCb = null;
     this.state = { mdText: "" };
     this.serverUrl = props.options.contentServer;
     this.path = this.parseFileDetails();
@@ -144,41 +143,48 @@ export default class EditorApp extends React.Component {
     const success = this.uploadFile(file, this.path.dir, this.path.fileName);
     if (success) {
       this.dirty = false;
-      Toastify({ text: "Saved", duration: 1000 }).showToast();
+      //Toastify({ text: "Saved", duration: 1000 }).showToast();
     }
     else {
-      Toastify({ text: "Save Failed", duration: 1000 }).showToast();
-    }
-
-  async uploadImage(file) {
-      const timestamp = (new Date()).toJSON()
-        .replaceAll(":", "-")
-        .replace("T", "-")
-        .replace(/\.[0-9]*z/i, '');
-      fileName = this.path.fileName.replace(".md", "")
-        + "-" + timestamp
-        + "-" + file.name;
-
-      fileName = fileName.toLowerCase().split(" ").join("-");
-      await this.uploadFile(file, this.path.dir, fileName);
-      var uploadedUrl = this.serverUrl + "/files/" + this.path.dir + "/" + fileName;
-      return fileName;
-    }
-
-    render() {
-      return (
-        <div className="container">
-          <div className="row">
-            <RMEditor
-              value={this.state.mdText}
-              readOnly={false}
-              onChange={(cb) => this.saveTextCb = cb}
-              onSave={(val) => this.saveClick()}
-              uploadImage={async (file) => await this.uploadImage(file)}
-            />
-          </div >
-        </div >
-      )
+      //Toastify({ text: "Save Failed", duration: 1000 }).showToast();
     }
   }
+
+  async uploadImage(file) {
+    const timestamp = (new Date()).toJSON()
+      .replaceAll(":", "-")
+      .replace("T", "-")
+      .replace(/\.[0-9]*z/i, '');
+    const fileName = this.path.fileName.replace(".md", "")
+      + "-" + timestamp
+      + "-" + file.name;
+
+    fileName = fileName.toLowerCase().split(" ").join("-");
+    await this.uploadFile(file, this.path.dir, fileName);
+    var uploadedUrl = this.serverUrl + "/files/" + this.path.dir + "/" + fileName;
+    return fileName;
+  }
+
+  render() {
+    return (
+      <Editor
+        value={this.state.mdText}
+        readOnly={false}
+        onChange={(cb) => this.saveTextCb = cb}
+        onSave={(val) => this.saveClick()}
+        uploadImage={async (file) => await this.uploadImage(file)}
+      />
+    )
+  }
+}
+
+// EditorApp;
+export default function EditorFn(props) {
+  return (
+    < div className="container" id="editor-container">
+      <div className="row">
+        <EditorApp {...props} />
+      </div >
+    </div >);
+}
 
