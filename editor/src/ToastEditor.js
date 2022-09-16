@@ -61,8 +61,6 @@ class EditorApp extends React.Component {
   }
 
   setStyle() {
-    const textEditor = document.getElementsByClassName('auto-height')[0];
-    textEditor.style.width = "100%";
   }
 
   setEventListeners() {
@@ -336,7 +334,7 @@ class EditorApp extends React.Component {
     return (
       <Editor
         previewStyle="tab"
-        height="auto"
+        height="100%"
         initialEditType="markdown"
         useCommandShortcut={true}
         extendedAutolinks={true}
@@ -352,9 +350,8 @@ class EditorApp extends React.Component {
 // EditorApp;
 export default function EditorFn(props) {
   return (
-    < div className="container" id="editor-container">
-      <div className="row">
-        <EditorApp {...props} />
-      </div >
-    </div >);
+    <div className="editorapp-container" id="editor-container" >
+      <EditorApp {...props} />
+    </div >
+  );
 }

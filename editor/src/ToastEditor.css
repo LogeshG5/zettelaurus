@@ -4,3 +4,8 @@
   top: var(--top);
   z-index: 50;
 }
+
+.editorapp-container {
+  height: 100vh;
+  overflow: hidden;
+}
