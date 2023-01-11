@@ -35,7 +35,13 @@
     "title": "^3.4.4",
     "toastify-js": "^1.11.2",
     "urijs": "^1.19.11",
-    "walk-sync": "^3.0.0"
+    "walk-sync": "^3.0.0",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "d3": "^7.6.1",
+    "markmap-common": "^0.14.2",
+    "markmap-lib": "^0.14.3",
+    "markmap-view": "^0.14.3"
   },
   "name": "my-wiki",
   "private": true,

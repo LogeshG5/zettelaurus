@@ -80,6 +80,13 @@ const docsEditor = [
     contentServer: "http://localhost:8888",
   }
 ];
+const mindmap = [
+  path.resolve(__dirname, "plugins", "docusaurus-plugin-mindmap"),
+  {
+    route: 'mindmap',
+    contentServer: "http://localhost:8888",
+  }
+];
 
 const wikilink = [
   require("remark-wiki-link"),
@@ -110,7 +117,7 @@ const config = {
   favicon: "img/favicon.ico",
   organizationName: "Logeshg5", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
-  plugins: [lunrSearch, wikiGraph, docsEditor],
+  plugins: [lunrSearch, wikiGraph, docsEditor, mindmap],
   presets: [
     [
       'classic',

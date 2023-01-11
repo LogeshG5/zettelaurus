@@ -20,6 +20,7 @@ export default function EditThisPage({ editUrl }) {
   };
 
   const editPath = getPath();
+  const mapUrl = editUrl.replace("8889", "3000").replace("/edit/", "/mindmap/");
   return (
     <>
       <a href={editUrl} target='_blank' rel='noreferrer noopener'>
@@ -30,6 +31,15 @@ export default function EditThisPage({ editUrl }) {
           Open in editor
         </Translate>
       </a>
+      {mapUrl && (
+        <>
+          <span className='margin-horiz--sm'>|</span>
+          <a href={mapUrl} target='_blank' rel='noreferrer noopener'>
+            Open in map
+          </a>
+
+        </>
+      )}
     </>
   );
 }
