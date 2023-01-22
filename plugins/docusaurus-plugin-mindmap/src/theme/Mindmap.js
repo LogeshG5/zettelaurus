@@ -1,24 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view/dist/index.esm';
+import { deriveOptions } from 'markmap-view';
 
 import './style.css';
 
 const transformer = new Transformer();
-const initValue = `# markmap
 
-- beautiful
-- useful
-- easy
-- interactive
-`;
-
-class EditorApp extends React.Component {
+class MindMap extends React.Component {
   constructor(props) {
     super(props);
     this.serverUrl = props.options.contentServer;
     this.path = this.parseFileDetails();
-    this.value = "";
+    this.value = "Loading...";
     this.loadContent(this.path.fullPath);
     this.refSvg = React.createRef(); // Ref for SVG element
     this.refMm = React.createRef(); // Ref for markmap object
@@ -26,9 +20,6 @@ class EditorApp extends React.Component {
 
   componentDidMount() {
     setTimeout(() => document.title = "MindMap | " + this.path.fileName, 1000);
-    console.log("mounted");
-
-
   }
 
   parseFileDetails() {
@@ -40,7 +31,6 @@ class EditorApp extends React.Component {
     let fileName = urlarr.pop();
     let dir = urlarr.join("/");
     const dict = { fileName: fileName, fullPath: fullPath, dir: dir };
-    // console.log("dict", dict);
     return dict;
   }
 
@@ -50,7 +40,11 @@ class EditorApp extends React.Component {
       .then(blob => {
         this.value = blob;
         console.log("value updated", this.value);
-        this.refMm.current = Markmap.create(this.refSvg.current);
+        const markmapOptions = deriveOptions({
+          "initialExpandLevel": 2,
+          "maxWidth": 300
+        });
+        this.refMm.current = Markmap.create(this.refSvg.current, markmapOptions);
         const { root } = transformer.transform(this.value);
         this.refMm.current.setData(root);
         this.refMm.current.fit();
@@ -71,11 +65,11 @@ class EditorApp extends React.Component {
   }
 }
 
-// EditorApp;
-export default function EditorFn(props) {
+// MindMap;
+export default function MindMapFn(props) {
   return (
     <div className="mindmap-container" id="mindmap-container">
-      <EditorApp {...props} />
+      <MindMap {...props} />
     </div >
   );
 }

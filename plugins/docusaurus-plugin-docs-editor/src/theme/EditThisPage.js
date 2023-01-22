@@ -18,8 +18,19 @@ export default function EditThisPage({ editUrl }) {
       return URI.joinPaths(editorBasePath, relativePath).toString();
     }
   };
-
   const editPath = getPath();
+
+  // Not yet implemented, workedaround by replacing urls
+  const getPathMap = () => {
+    if (activePlugin) {
+      const {
+        pluginData: { path },
+      } = activePlugin;
+      const relativePath = new URI(pathname).relativeTo(path + '/');
+      return URI.joinPaths(editorBasePath, relativePath).toString();
+    }
+  };
+  // const mapUrl = getPathMap();
   const mapUrl = editUrl.replace("8889", "3000").replace("/edit/", "/mindmap/");
   return (
     <>
@@ -28,14 +39,14 @@ export default function EditThisPage({ editUrl }) {
           id='theme.common.editThisPage'
           description='The link label to edit the current page'
         >
-          Open in editor
+          Edit
         </Translate>
       </a>
       {mapUrl && (
         <>
           <span className='margin-horiz--sm'>|</span>
           <a href={mapUrl} target='_blank' rel='noreferrer noopener'>
-            Open in map
+            Mindmap
           </a>
 
         </>
