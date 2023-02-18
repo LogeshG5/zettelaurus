@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Transformer } from 'markmap-lib';
-import { Markmap } from 'markmap-view/dist/index.esm';
-import { deriveOptions } from 'markmap-view';
-
-import './style.css';
-
+import BrowserOnly from '@docusaurus/BrowserOnly';
+var Transformer = require('markmap-lib').Transformer;
+var Markmap = require('markmap-view/dist/index.esm').Markmap;
+var deriveOptions = require('markmap-view').deriveOptions;
+console.log("canUseDOM");
+// import './style.css';
 const transformer = new Transformer();
+
 
 class MindMap extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class MindMap extends React.Component {
       .then(response => response.text()) // Gets the response and returns it as a blob
       .then(blob => {
         this.value = blob;
-        console.log("value updated", this.value);
+        // console.log("value updated", this.value);
         const markmapOptions = deriveOptions({
           "initialExpandLevel": 2,
           "maxWidth": 300
@@ -57,10 +58,15 @@ class MindMap extends React.Component {
 
   render() {
     return (
-      <div height="100%">
-        <svg height="100vh" width="100hh" ref={this.refSvg} />
-      </div>
-
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => {
+          return (
+            <div height="100%">
+              <svg height="100vh" width="100hh" ref={this.refSvg} />
+            </div>
+          )
+        }}
+      </BrowserOnly>
     );
   }
 }
@@ -68,8 +74,14 @@ class MindMap extends React.Component {
 // MindMap;
 export default function MindMapFn(props) {
   return (
-    <div className="mindmap-container" id="mindmap-container">
-      <MindMap {...props} />
-    </div >
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => {
+        return (
+          <div className="mindmap-container" id="mindmap-container">
+            <MindMap {...props} />
+          </div >
+        )
+      }}
+    </BrowserOnly>
   );
 }
