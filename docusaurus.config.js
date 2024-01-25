@@ -1,5 +1,4 @@
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+import {themes as prismThemes} from 'prism-react-renderer';
 const path = require("path");
 
 /**
@@ -73,7 +72,7 @@ const wikiGraph = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
   { slugMethod: sluggifyWikilink }
 ];
-const docsEditor = [
+/*const docsEditor = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-docs-editor"),
   {
     route: 'edit',
@@ -87,7 +86,7 @@ const mindmap = [
     contentServer: "http://localhost:8888",
   }
 ];
-
+*/
 const wikilink = [
   require("remark-wiki-link"),
   {
@@ -106,7 +105,7 @@ const plantuml = [
 
 
 /** @type {import('@docusaurus/types').Config} */
-const config = {
+export default {
   title: 'Wiki',
 
   tagline: "",
@@ -114,10 +113,12 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
+  markdown: {format: 'md'},
   favicon: "img/favicon.ico",
   organizationName: "Logeshg5", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
-  plugins: [lunrSearch, wikiGraph, docsEditor, mindmap],
+  //plugins: [lunrSearch, wikiGraph, docsEditor, mindmap],
+  plugins: [lunrSearch, wikiGraph],
   presets: [
     [
       'classic',
@@ -125,7 +126,7 @@ const config = {
       ({
         docs: {
           remarkPlugins: [wikilink, plantuml],
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: './sidebars.js',
           editUrl: 'http://localhost:8889/edit/',
         },
         blog: {
@@ -155,7 +156,7 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "Intro",
             position: "left",
             label: "Wiki",
           },
@@ -163,7 +164,7 @@ const config = {
             href: "/graph",
             label: "Graph",
             position: "left",
-          },
+          }/*,
           {
             href: '/create-new-doc',
             label: 'Create',
@@ -173,14 +174,14 @@ const config = {
             href: 'http://localhost:8887/',
             label: 'File Manager',
             position: 'right',
-          },
+          },*/
         ],
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
     }),
 };
 
-module.exports = config;
+//module.exports = config;

@@ -255,13 +255,14 @@ class GraphStateMachine {
       return;
     }
     const index = this.decIndex(this.focusedChildIndex);
+	  var ele=this.focusedChildren[index];
     this.selectNode(this.focusedChildren[index]);
     this.ui.putNodeInCenter(ele);
   }
 
   selectPrev() {
     if (this.selectedNodeHistory.length < 2) return;
-    this.selectedNodeHistory.pop();
+    var ele = this.selectedNodeHistory.pop();
     this.selectNode(this.selectedNodeHistory.pop());
     this.ui.putNodeInCenter(ele);
   }

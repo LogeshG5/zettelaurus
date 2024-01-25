@@ -1,65 +1,54 @@
 {
-  "browserslist": {
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ],
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ]
-  },
-  "engines": {
-    "node": ">=16.14"
+  "name": "my-website",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "2.3.1",
-    "@docusaurus/preset-classic": "2.3.1",
-    "@mdx-js/react": "^1.6.22",
-    "clsx": "^1.2.1",
-    "prism-react-renderer": "^1.3.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "@akebifiky/remark-simple-plantuml": "^1.0.2",
-    "@svgr/webpack": "^6.5.1",
-    "@toast-ui/react-editor": "3.2.3",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "cytoscape": "^3.23.0",
+    "@docusaurus/core": "3.1.0",
+    "@docusaurus/preset-classic": "3.1.0",
+    "@mdx-js/react": "^3.0.0",
+    "clsx": "^2.0.0",
+    "cytoscape": "^3.28.1",
     "cytoscape-fcose": "^2.2.0",
     "cytoscape-layout-utilities": "^1.1.1",
-    "d3": "^7.8.2",
-    "docusaurus-lunr-search": "^2.3.2",
-    "fs": "^0.0.1-security",
+    "docusaurus-lunr-search": "^3.3.2",
     "fuzzy-search": "^3.2.1",
-    "markmap-common": "^0.14.2",
-    "markmap-lib": "^0.14.4",
-    "markmap-view": "^0.14.4",
-    "prettier": "^2.8.4",
-    "remark-wiki-link": "0.0.4",
-    "styled-components": "^5.3.6",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remark-wiki-link": "2.0.1",
     "title": "^3.5.3",
-    "toastify-js": "^1.12.0",
     "urijs": "^1.19.11",
     "walk-sync": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.3.1"
+    "@docusaurus/module-type-aliases": "3.1.0",
+    "@docusaurus/types": "3.1.0"
   },
-  "name": "my-wiki",
-  "private": true,
-  "scripts": {
-    "build": "docusaurus build",
-    "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy",
-    "docusaurus": "docusaurus",
-    "serve": "docusaurus serve",
-    "start": "scripts/start",
-    "swizzle": "docusaurus swizzle",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "write-translations": "docusaurus write-translations"
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
   },
-  "version": "0.0.1"
+  "engines": {
+    "node": ">=18.0"
+  }
 }
