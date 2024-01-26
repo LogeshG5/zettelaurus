@@ -1,5 +1,6 @@
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 const path = require("path");
+const docusaurusData = require("./config/docusaurus/index.json");
 
 /**
 * directory where to find the md files
@@ -103,6 +104,95 @@ const plantuml = [
     */
 ];
 
+/**
+* Tinasaurus Config
+*/
+
+const getDocId = (doc) => {
+  return doc
+    .replace(/\.mdx?$/, "")
+    .split("/")
+    .slice(1)
+    .join("/");
+};
+
+const getPageRoute = (page) => {
+  return page
+    .replace(/\.mdx?$/, "")
+    .split("/")
+    .slice(2)
+    .join("/");
+};
+
+const getPath = (page) => {
+  return page.replace(/\.mdx?$/, "");
+};
+
+const formatFooterItem = (item) => {
+  if (item.title) {
+    return {
+      title: item.title,
+      items: item.items.map((subItem) => {
+        return formatFooterItem(subItem);
+      }),
+    };
+  } else {
+    let linkObject = {
+      label: item.label,
+    };
+
+    if (item.to) {
+      linkObject.to = getPath(item.to);
+    } else if (item.href) {
+      linkObject.href = item.href;
+    } else {
+      linkObject.to = "/blog";
+    }
+
+    return linkObject;
+  }
+};
+
+const formatNavbarItem = (item, subnav = false) => {
+  let navItem = {
+    label: item.label,
+  };
+
+  if (!subnav) {
+    navItem.position = item.position;
+  }
+
+  if (item.link === "external" && item.externalLink) {
+    navItem.href = item.externalLink;
+  }
+
+  if (item.link === "blog") {
+    navItem.to = "/blog";
+  }
+
+  if (item.link === "page" && item.pageLink) {
+    navItem.to = getPageRoute(item.pageLink);
+  }
+
+  if (item.link === "doc" && item.docLink) {
+    navItem.type = "doc";
+    navItem.docId = getDocId(item.docLink);
+  }
+
+  if (item.items) {
+    navItem.type = "dropdown";
+    navItem.items = item.items.map((subItem) => {
+      return formatNavbarItem(subItem, true);
+    });
+  }
+
+  return navItem;
+};
+/**
+* Tinasaurus Config Ends
+*/
+
+
 
 /** @type {import('@docusaurus/types').Config} */
 export default {
@@ -113,7 +203,7 @@ export default {
   baseUrl: "/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
-  markdown: {format: 'md'},
+  markdown: { format: 'md' },
   favicon: "img/favicon.ico",
   organizationName: "Logeshg5", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
@@ -127,11 +217,11 @@ export default {
         docs: {
           remarkPlugins: [wikilink, plantuml],
           sidebarPath: './sidebars.js',
-          editUrl: 'http://localhost:8889/edit/',
+          editUrl: docusaurusData.url + "/admin/#/collections/doc",
         },
         blog: {
           showReadingTime: true,
-          editUrl: "https://github.com/facebook/docusaurus/edit/main/website/blog/",
+          editUrl: docusaurusData.url + "/admin/#/collections/post",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

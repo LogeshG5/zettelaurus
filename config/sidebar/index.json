@@ -1,0 +1,2299 @@
+{
+  "label": "Docs Sidebar",
+  "items": [
+    {
+      "title": "Archive",
+      "_template": "category",
+      "link": "generated",
+      "items": [
+        {
+          "title": "ADS",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/ADS/Bit Manipulation.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Books",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Books/Happily Healthy.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Books/How To Decide.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Books/The Psychology of Money.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Books/The Richest Man In Babylon.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Books/The Subtle Art of Not Giving a Fuck.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Engineering",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "title": "DRBFM",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/DRBFM/Design Review.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/DRBFM/DRBFM Standard.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/DRBFM/DRBFM Steps.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/DRBFM/DRBFM.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "FMEA",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Failure Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/FMEA.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Functional Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Planning and Preparation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Process Steps.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Risk Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Structural Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/FMEA/Types of FMEA.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "functional-safety",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/functional-safety/Functional Safety.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Requirements-Engineering",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/AB tests.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Activities in RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Ad Hoc Prioritization Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Alpha and Beta tests.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Analogies.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Apprenticing.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Artifact Based Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Attributes.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Brainstorming.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Change Control Board.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Change Management Process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Change Requests.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Configuration of Requirements Engineering Process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Configurations and Baselines.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Conflict analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Conflict resolution supporting techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Conflict resolution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Constraints.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Context Model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Context.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Contractual RE process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Cooperation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Dedicated RM Tools.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Design Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Design Thinking.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Document Templates.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Documentation in Agile Context Guidelines.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Documentation of conflict resolution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Elicitation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Elicitation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Evaluating and Introducing Tools for RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Evaluating Tools for RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Evolution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Explorative Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Exploratory Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Factors influencing the RE process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Field Observation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Form Templates.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Function and flow Model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Functional requirements.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Fundamental Principles of RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Further Tools for RM.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Gathering Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Generic Tools for RM.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Glossaries.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Guideline for Requirements Management in Agile Context.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Guidelines for Process in Agile Context.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Harvard Concept of Negotiating Fairly and Effectively.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Idea Generating Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Informal Reviews.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Innovation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Inspections.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Interview.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Investigation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Kano model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Minimum Viable Product.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Model Based Work Products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Modeling Tools for RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Motivation of Requirements Engineering.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Natural Language Based Work Products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Negotiation and Conflict Resolution Topic.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Negotiation and Conflict Resolution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Observation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Other Work Products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Participatory RE process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Phrase Templates.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Principles of requirements validation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Problem-Requirement-Solution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Product Oriented RE process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Prototype based validation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Prototypes.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Prototyping.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Quality Criteria.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Quality requirements.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Questioning Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Questionnaire.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/RE Budget.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/RE Process based on Purpose.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/RE Process based on Target.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/RE Process based on Time.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Representing Work products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirement Categories.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirement Defects.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirement sources.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Change Management.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements documentation Products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Engineering Process Facets.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Engineering.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Life Cycle Management.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Management.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Prioritization.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Traceability.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Validation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements Version Control.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements View.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Requirements.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Review Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Role of a requirements engineer.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Sample Development.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Scenarios.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Selection of Elicitation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Selection of Validation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Shared Understanding.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Stakeholder Satisfaction.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Stakeholders as Requirements Sources.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Stakeholders.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/State and behavior.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Storyboards.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Structure and data Model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Systematic and disciplined work.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Systems in context of RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Template Based Work Products.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/The Cynefin Framework.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Tools in RE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Types of requirements.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Validation Techniques Guideline for Agile Development.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Validation Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Validation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Value Orientation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Walkthroughs.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Wiki as RM Tool.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Requirements-Engineering/Work Products.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Risk-Analysis",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Non Technical Risk.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk Based Decision Making.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk Evaluation Matrix.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk Management Process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk Response Planning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Risk.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Risk-Analysis/Technical Risk.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Security-Engineering-Process",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/2021-08-27.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Applicability Check.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Attack Tree.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Data Protection Relevance Assessment.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Development Interface Agreement.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/IoT Principles.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Operation and Maintenance.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Concept.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Engineering Process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Implementation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Process Steps.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Relevance Assessment.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Security Verification and Validation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/State Of The ART.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/Security-Engineering-Process/Threat and Risk Analysis.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "SW-ReEngineering",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/Horseshoe Model for ReEngineering.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/ReEngineering Lifecycle.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/ReEngineering Process.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/Sommerville ReEngineering Approach.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/SW Evolution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SW-ReEngineering/SW ReEngineering.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "SysML",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/SysML/Activity diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Architecture and design.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Behavioral diagrams.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Block definition diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Comparison of Modelling Languages.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Component diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Cross cutting diagrams.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Deployment diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Functional analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Interaction modelling.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Internal block diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Levels of Modelling.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Modelling Iteration.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Requirements analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Requirements diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Rhapsody.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Sequence diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Stakeholders in System Acquisition.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/State chart diagram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Structural diagrams.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/SysML Diagram Types.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/SysML.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Tools.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Engineering/SysML/Usecase diagram.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Systems-Engineering-Fundamentals",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Engineering/Systems-Engineering-Fundamentals/Systems Engineering.md",
+                  "_template": "doc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Finance",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Finance/Car Insurance.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/ELSS Vs PPF.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Finance Insights.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Form16.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Health Insurance.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Mutual Funds.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Sector or Thematic Funds.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/Tax Planning.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Finance/VPF.md",
+              "_template": "doc"
+            },
+            {
+              "title": "wealth",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Finance/wealth/5 Forces by Porter.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Akshat Portfolio.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Asset Allocation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Avoid High Debt Companies.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Basics of Small cap - Mid cap.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Build a Portfolio.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Buyback.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Commodity Stocks.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Debt Bubble.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/FIIs DIIs.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/FIRE Money.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/GDP.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Good Asset.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Government Drives Economy.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Have a Hypothesis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/History of Money.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Industry Types.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Inflation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Intrinsic Value.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Investment Goals.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Investment System.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Investor Type.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/List of Good Assets.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Macro Economics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Market Mood.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Mutual Funds.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/My Rich Life.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Myths.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Nature of Product.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Nifty 50.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/PE Ratio.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Portfolio journey.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Portfolio Types.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Premiumization.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Public Sector Stocks.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Quantitative Easing.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Quantitative Tightening.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Red Ocean vs Blue Ocean Strategy.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/ROCE.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Rotate Capital.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Screen Stocks by Query.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Stock Market is Designed to Go Up.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Stock Market Principles.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Stock Market Stakeholders.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Stock Market.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Supply and Demand.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Tech Industry.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Timing Net Buy and Net Sell.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Timing The Market.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/US Stock Market.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Value Capture.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Value of Gold.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Wealth.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Finance/wealth/Zomato.md",
+                  "_template": "doc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Health",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Health/Blue Zone Learnings.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Health/Health.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Health/Review Body Parts.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Logalizer",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Logalizer/How to Configure.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Logalizer/Logalizer GUI.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Logalizer/Logalizer Next Steps.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Management",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Management/Product Management.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Programming",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "title": "cpp",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Programming/cpp/Concurrency Patterns.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Concurrency.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Const Constexpr.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/CPP Exceptions.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/CPP Move Semantics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/CPP Undefined Behavior.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Designing Classes.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Guidelines For Class Design.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Guidelines For Class Implementation.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Object Oriented Programming.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Reporting and Handling Errors.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/cpp/Templates.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Nodejs",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Programming/Nodejs/Node JS.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Python",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Programming/Python/NumPy.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/Python/Pandas.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/Python/Python.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/Python/Scikit Learn.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Programming/Python/SciPy.md",
+                  "_template": "doc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Projects/Autonomous Grand Prix.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Bike.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Break Thy Work.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Buying Mobile.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Capstone Project System Engineering.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Fish Tank.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/GSM Starter.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Home Furniture.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/MCU Comparision.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Personal Wiki.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Projects/Wiki Setup.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Soft-Skills",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Archive/Soft-Skills/Becoming a More Confident Leader.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Being Doing Having.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Emotional Intelligence.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Focus on Solution.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/How to Begin A Worthy Pursuit.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Influence with Emotions.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Influence with Illusion of Choice.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Influencing by Making Unknown Known.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Influencing Without Authority.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Leadership Traits.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Meeting Checklist.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Mindful Resilience.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Negotiation Skills.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Presentation Guidelines.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Science of Persuasion.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Skill Will Matrix.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/Start with Why.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Archive/Soft-Skills/SWOT Analysis.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Tech",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "title": "Blockchain",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Bitcoin Transaction.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Bitcoin.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Blockchain.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Consensus.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Distributed Ledger Technology.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Ethereum.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Miners.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/Mining.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/Blockchain/References.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "IoT",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Tech/IoT/Analytics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Application Layer Communication Models.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Basics of Electronics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Benefiting Industries.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Capacitor.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Cloud Computing Service Model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Cloud Computing.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/DC-DC Converter.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Diodes.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/How To Choose Things.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Internet of Everything.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT Architecture.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT Benefits.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT Difficulties.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT Networking.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT Progression.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT World Forum Reference Model.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/IoT.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Networking Protocols.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Networking Stack.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Raspberry Pi.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Reference Architecture.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Regulator.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Resistor.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/RPi As Gateway.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/RPI Face Detection.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/RPI LED Kernel Driver.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/RPI Smart Mirror.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/RPI Switch And LED CPP.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/SMPS.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/The Ideal IoT Solution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Transistor.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/Typical IoT Architecture.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/IoT/WiringPi Command Line.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "ML",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/Archive/Tech/ML/Accuracy.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Algorithms of ML.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Alternate Hypothesis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Application of Statistics in Business.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Applications of AI.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Applications of Inferential statistics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Applications of ML.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Artificial General Intelligence.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Artificial Intelligence.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Artificial Narrow Intelligence.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Artificial Neural Network.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Artificial Super Intelligence.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Big Data.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Calculus.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Central Tendency.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Chi-Square Test.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Classification.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Conclusion or Prediction.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Confusion Matrix.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data acquisition.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Analytics Communication.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Analytics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Distribution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Exploration.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data for Hypothesis Testing.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Science Applications in Different Sectors.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data sources.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data Visualization.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Data wrangling.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/data-science.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Deep Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Descriptive statistics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Dimensionality Reduction.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Dimentionality Reduction.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/EDA Graphical Technique.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/EDA Quantitative Technique.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Effects of AI on Society.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Eigenvalues.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Exploratory Data Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/F1 Score.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Harmonic mean.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Histogram.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Hypothesis Errors.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Hypothesis Testing.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Hypothesis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Inferential statistics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Linear Algebra.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Linear Regression.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Logistic Regression.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Machine Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Maths.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Mean.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Measure of Central Tendency.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Measurement of Spread.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Median.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/ML Techniques.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Mode.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Normal distribution.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Null Hypothesis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/p value.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Performance Metrics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Precision.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Probability.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Process of ML.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/R-Square.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Recall.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Regression.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Reinforcement Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Relation between Variables.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Scatter plots.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Semi-Supervised Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Specificity.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Statistical Analysis.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Statistics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Supervised Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Three stages of AI.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Types of ML.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Types of Statistics.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Understanding data.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Unsupervised Learning.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Variance.md",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/Archive/Tech/ML/Workflow.md",
+                  "_template": "doc"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Goals",
+      "_template": "category",
+      "link": "generated",
+      "items": [
+        {
+          "title": "2022",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Goals/2022/Goals.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2022/Health.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2022/Learning.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2022/Personal Brand.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "2024",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Goals/2024/2024 Career.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/2024 Goals.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/CAD.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/Health.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/Routine.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/Skills.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/2024/Worst Case Plan.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "title": "Template",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Goals/Template/Fear Setting.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/Template/Goal Guide.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/Template/Goal Template.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/Template/Goals Template.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/Goals/Template/Ready Reckoner.md",
+              "_template": "doc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "document": "docs/Intro.md",
+      "_template": "doc"
+    },
+    {
+      "title": "Projects",
+      "_template": "category",
+      "link": "generated",
+      "items": [
+        {
+          "document": "docs/Projects/Fitness Challenge.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/Health.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/Hindi.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/New Idea.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/Personal Finance.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/PI Planning.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/Projects/RPI5.md",
+          "_template": "doc"
+        },
+        {
+          "title": "Software Defined Vehicle",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/Projects/Software Defined Vehicle/Software Defined Vehicle.md",
+              "_template": "doc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "SW-Update",
+      "_template": "category",
+      "link": "generated",
+      "items": [
+        {
+          "title": "Acquisitions",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "title": "Ferrari",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/SW-Update/Acquisitions/Ferrari/ferrari.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "title": "Suzuki",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/SW-Update/Acquisitions/Suzuki/suzuki-sis-g4.md",
+                  "_template": "doc"
+                }
+              ]
+            },
+            {
+              "document": "docs/SW-Update/Acquisitions/VW MaaS Blade.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "document": "docs/SW-Update/career.md",
+          "_template": "doc"
+        },
+        {
+          "title": "ccs",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "title": "ccs-docs",
+              "_template": "category",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/SW-Update/ccs/ccs-docs/ublox-firmware-update-procedure.md",
+                  "_template": "doc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "common",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/SW-Update/common/android-epic.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/apertispro-pipefail.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/apertispro.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/fcswupdate-apertis.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/fcswupdate-ctrl-states.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/fcswupdate-ctrl.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/fcswupdate_asf_isolation.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/functional-safety-at-xc-ct.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/hmi-configurator-redesign.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/hw-less-testing.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/lua-simulation.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/major-issues.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/osd5-issue.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/parser-refactor.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/production-images-stages-update-task.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/sw-update-features.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/sw-update-in-docker.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/testing.md",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/SW-Update/common/update-use-cases.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "document": "docs/SW-Update/contacts.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/cpm-handover.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/da3-rollback.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/Daily.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/GM CEM.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/igpm-mcr-manage-projects.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/index.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/interview.md",
+          "_template": "doc"
+        },
+        {
+          "title": "Projects",
+          "_template": "category",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/SW-Update/Projects/da3-usecases.md",
+              "_template": "doc"
+            }
+          ]
+        },
+        {
+          "document": "docs/SW-Update/references.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/Roles and Responsibilities.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/sw-update-framework-thoughts.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/tcq-advance-project.md",
+          "_template": "doc"
+        },
+        {
+          "document": "docs/SW-Update/updating-psc.md",
+          "_template": "doc"
+        }
+      ]
+    }
+  ]
+}

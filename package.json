@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "tina": "tinacms dev -c \"yarn start\" ",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "tinacms build && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -17,7 +18,8 @@
     "@akebifiky/remark-simple-plantuml": "^1.0.2",
     "@docusaurus/core": "3.1.0",
     "@docusaurus/preset-classic": "3.1.0",
-    "@mdx-js/react": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",    
+    "@tinacms/cli": "^1.5.29",
     "clsx": "^2.0.0",
     "cytoscape": "^3.28.1",
     "cytoscape-fcose": "^2.2.0",
@@ -29,6 +31,7 @@
     "react-dom": "^18.0.0",
     "remark-wiki-link": "2.0.1",
     "title": "^3.5.3",
+    "tinacms": "^1.5.20",
     "urijs": "^1.19.11",
     "walk-sync": "^3.0.0"
   },
