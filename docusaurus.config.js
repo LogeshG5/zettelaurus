@@ -1,11 +1,14 @@
+// @ts-check
+// `@type` JSDoc annotations allow editor autocompletion and type checking
+// (when paired with `@ts-check`).
+// There are various equivalent ways to declare your Docusaurus config.
+// See: https://docusaurus.io/docs/api/docusaurus-config
+
 import { themes as prismThemes } from 'prism-react-renderer';
 const path = require("path");
-const docusaurusData = require("./config/docusaurus/index.json");
-
 /**
 * directory where to find the md files
 */
-// oo
 const docsDir = "docs";
 
 /**
@@ -22,10 +25,10 @@ function sluggifyWikilink(wikilink) {
   const slug = wikilink.replace(/ /g, '-').toLowerCase();
   return slug;
 
-  /**
-  * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
-  * so there should be 'Some Fancy Title.md' file in docs
-    */
+  // /**
+  // * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
+  // * so there should be 'Some Fancy Title.md' file in docs
+  //   */
   // return wikilink;
 }
 
@@ -73,21 +76,7 @@ const wikiGraph = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
   { slugMethod: sluggifyWikilink }
 ];
-/*const docsEditor = [
-  path.resolve(__dirname, "plugins", "docusaurus-plugin-docs-editor"),
-  {
-    route: 'edit',
-    contentServer: "http://localhost:8888",
-  }
-];
-const mindmap = [
-  path.resolve(__dirname, "plugins", "docusaurus-plugin-mindmap"),
-  {
-    route: 'mindmap',
-    contentServer: "http://localhost:8888",
-  }
-];
-*/
+
 const wikilink = [
   require("remark-wiki-link"),
   {
@@ -104,111 +93,36 @@ const plantuml = [
     */
 ];
 
-/**
-* Tinasaurus Config
-*/
-
-const getDocId = (doc) => {
-  return doc
-    .replace(/\.mdx?$/, "")
-    .split("/")
-    .slice(1)
-    .join("/");
-};
-
-const getPageRoute = (page) => {
-  return page
-    .replace(/\.mdx?$/, "")
-    .split("/")
-    .slice(2)
-    .join("/");
-};
-
-const getPath = (page) => {
-  return page.replace(/\.mdx?$/, "");
-};
-
-const formatFooterItem = (item) => {
-  if (item.title) {
-    return {
-      title: item.title,
-      items: item.items.map((subItem) => {
-        return formatFooterItem(subItem);
-      }),
-    };
-  } else {
-    let linkObject = {
-      label: item.label,
-    };
-
-    if (item.to) {
-      linkObject.to = getPath(item.to);
-    } else if (item.href) {
-      linkObject.href = item.href;
-    } else {
-      linkObject.to = "/blog";
-    }
-
-    return linkObject;
-  }
-};
-
-const formatNavbarItem = (item, subnav = false) => {
-  let navItem = {
-    label: item.label,
-  };
-
-  if (!subnav) {
-    navItem.position = item.position;
-  }
-
-  if (item.link === "external" && item.externalLink) {
-    navItem.href = item.externalLink;
-  }
-
-  if (item.link === "blog") {
-    navItem.to = "/blog";
-  }
-
-  if (item.link === "page" && item.pageLink) {
-    navItem.to = getPageRoute(item.pageLink);
-  }
-
-  if (item.link === "doc" && item.docLink) {
-    navItem.type = "doc";
-    navItem.docId = getDocId(item.docLink);
-  }
-
-  if (item.items) {
-    navItem.type = "dropdown";
-    navItem.items = item.items.map((subItem) => {
-      return formatNavbarItem(subItem, true);
-    });
-  }
-
-  return navItem;
-};
-/**
-* Tinasaurus Config Ends
-*/
-
-
-
 /** @type {import('@docusaurus/types').Config} */
-export default {
-  title: 'Wiki',
+const config = {
+  title: 'My Wiki',
+  tagline: 'Dinosaurs are cool',
+  favicon: 'img/favicon.ico',
 
-  tagline: "",
-  url: "http://localhost:8585/",
-  baseUrl: "/",
-  onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
+  // Set the production url of your site here
+  url: 'http://localhost:3000',
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
+  baseUrl: '/',
+
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
+  organizationName: 'Docs', // Usually your GitHub org/user name.
+  projectName: 'docusaurus', // Usually your repo name.
+
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   markdown: { format: 'md' },
-  favicon: "img/favicon.ico",
-  organizationName: "Logeshg5", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
-  //plugins: [lunrSearch, wikiGraph, docsEditor, mindmap],
-  plugins: [lunrSearch, wikiGraph],
+
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+
+  plugins: [wikiGraph, lunrSearch],
   presets: [
     [
       'classic',
@@ -217,55 +131,62 @@ export default {
         docs: {
           remarkPlugins: [wikilink, plantuml],
           sidebarPath: './sidebars.js',
-          editUrl: docusaurusData.url + "/admin/#/collections/doc",
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          // editUrl: ({ docPath }) => {
+          //   let stripedPath = docPath.replace("docs/", "").replace(".md", "").replace(".mdx", "")
+          //   return `http://localhost:3000/admin/index.html#/collections/edit/doc/${stripedPath}`
+          // }
+          editUrl: ({ docPath }) => {
+            return `http://localhost:8889/edit/docs/${docPath}`
+          }
+          ,
         },
         blog: {
           showReadingTime: true,
-          editUrl: docusaurusData.url + "/admin/#/collections/post",
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl:
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: './src/css/custom.css',
         },
       }),
     ],
   ],
-  customFields: {
-    contentServer: "http://localhost:8888",
-  },
-  stylesheets: [
-  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // Replace with your project's social card
+      image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: "Wiki",
+        title: 'My Wiki',
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: 'My Site Logo',
+          src: 'img/logo.svg',
         },
         items: [
           {
-            type: "doc",
-            docId: "Intro",
-            position: "left",
-            label: "Wiki",
+            type: 'docSidebar',
+            sidebarId: 'wikiSidebar',
+            position: 'left',
+            label: 'Wiki',
           },
           {
             href: "/graph",
             label: "Graph",
             position: "left",
-          }/*,
-          {
-            href: '/create-new-doc',
-            label: 'Create',
-            position: 'right',
           },
-          {
-            href: 'http://localhost:8887/',
-            label: 'File Manager',
-            position: 'right',
-          },*/
         ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
@@ -274,4 +195,4 @@ export default {
     }),
 };
 
-//module.exports = config;
+export default config;

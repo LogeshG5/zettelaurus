@@ -1,8 +1,8 @@
 import React from "react";
 import { defineConfig, TextField } from "tinacms";
 import { ReferenceField } from "tinacms";
-import { FeaturesBlockTemplate } from "../src/components/Features/template";
-import { HeroBlockTemplate } from "../src/components/Hero/template";
+//import { FeaturesBlockTemplate } from "../src/components/Features/template";
+//import { HeroBlockTemplate } from "../src/components/Hero/template";
 import { MDXTemplates } from "../src/theme/template";
 import { docusaurusDate, titleFromSlug } from "../util";
 import title from "title";
@@ -138,6 +138,13 @@ const DocsCollection = {
   format: "md",
   fields: [
     {
+      type: "rich-text",
+      name: "body",
+      label: "Body",
+      isBody: true,
+      templates: [...MDXTemplates],
+    },
+    {
       type: "string",
       name: "description",
       label: "Description",
@@ -150,13 +157,6 @@ const DocsCollection = {
       ui: {
         component: "tags",
       },
-    },
-    {
-      type: "rich-text",
-      name: "body",
-      label: "Body",
-      isBody: true,
-      templates: [...MDXTemplates],
     },
   ],
 };
@@ -730,58 +730,58 @@ const SettingsCollection = {
   ],
 };
 
-const HomepageCollection = {
-  name: "homepage",
-  label: "Homepage",
-  description:
-    "To see settings changes reflected on your site, you must restart the Tina CLI after saving changes (local development only).",
-  path: "config/homepage",
-  format: "json",
-  ui: {
-    allowedActions: {
-      create: false,
-      delete: false,
-    },
-  },
-  fields: [
-    {
-      type: "string",
-      name: "_warning",
-      ui: {
-        component: () => {
-          return <RestartWarning />;
-        },
-      },
-    },
-    {
-      type: "string",
-      label: "Label",
-      name: "label",
-      required: true,
-      isTitle: true,
-      ui: {
-        component: "hidden",
-      },
-    },
-    {
-      type: "string",
-      name: "title",
-      label: "Title",
-    },
-    {
-      type: "string",
-      name: "description",
-      label: "Description",
-    },
-    {
-      type: "object",
-      list: true,
-      name: "blocks",
-      label: "Blocks",
-      templates: [HeroBlockTemplate, FeaturesBlockTemplate],
-    },
-  ],
-};
+// const HomepageCollection = {
+//   name: "homepage",
+//   label: "Homepage",
+//   description:
+//     "To see settings changes reflected on your site, you must restart the Tina CLI after saving changes (local development only).",
+//   path: "config/homepage",
+//   format: "json",
+//   ui: {
+//     allowedActions: {
+//       create: false,
+//       delete: false,
+//     },
+//   },
+//   fields: [
+//     {
+//       type: "string",
+//       name: "_warning",
+//       ui: {
+//         component: () => {
+//           return <RestartWarning />;
+//         },
+//       },
+//     },
+//     {
+//       type: "string",
+//       label: "Label",
+//       name: "label",
+//       required: true,
+//       isTitle: true,
+//       ui: {
+//         component: "hidden",
+//       },
+//     },
+//     {
+//       type: "string",
+//       name: "title",
+//       label: "Title",
+//     },
+//     {
+//       type: "string",
+//       name: "description",
+//       label: "Description",
+//     },
+//     {
+//       type: "object",
+//       list: true,
+//       name: "blocks",
+//       label: "Blocks",
+//       templates: [HeroBlockTemplate, FeaturesBlockTemplate],
+//     },
+//   ],
+// };
 
 const PagesCollection = {
   name: "pages",
@@ -821,18 +821,18 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "img",
-      publicFolder: "static",
+      mediaRoot: "docs",
+      publicFolder: "",
     },
   },
   schema: {
     collections: [
       DocsCollection,
-      PostCollection,
-      HomepageCollection,
+      //PostCollection,
+      //HomepageCollection,
       PagesCollection,
-      SidebarCollection,
-      SettingsCollection,
+      //SidebarCollection,
+      //SettingsCollection,
     ],
   },
 });

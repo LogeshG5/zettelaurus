@@ -2,24 +2,26 @@
   "label": "Docs Sidebar",
   "items": [
     {
+      "document": "docs/intro.md",
+      "_template": "doc"
+    },
+    {
       "title": "Archive",
-      "_template": "category",
       "link": "generated",
       "items": [
         {
           "title": "ADS",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "document": "docs/Archive/ADS/Bit Manipulation.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Books",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -42,16 +44,15 @@
               "document": "docs/Archive/Books/The Subtle Art of Not Giving a Fuck.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Engineering",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "title": "DRBFM",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -70,11 +71,11 @@
                   "document": "docs/Archive/Engineering/DRBFM/DRBFM.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "FMEA",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -109,22 +110,22 @@
                   "document": "docs/Archive/Engineering/FMEA/Types of FMEA.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "functional-safety",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/Archive/Engineering/functional-safety/Functional Safety.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Requirements-Engineering",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -615,11 +616,11 @@
                   "document": "docs/Archive/Engineering/Requirements-Engineering/Work Products.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Risk-Analysis",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -654,11 +655,11 @@
                   "document": "docs/Archive/Engineering/Risk-Analysis/Technical Risk.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Security-Engineering-Process",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -721,11 +722,11 @@
                   "document": "docs/Archive/Engineering/Security-Engineering-Process/Threat and Risk Analysis.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "SW-ReEngineering",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -752,11 +753,11 @@
                   "document": "docs/Archive/Engineering/SW-ReEngineering/SW ReEngineering.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "SysML",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -855,24 +856,25 @@
                   "document": "docs/Archive/Engineering/SysML/Usecase diagram.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Systems-Engineering-Fundamentals",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/Archive/Engineering/Systems-Engineering-Fundamentals/Systems Engineering.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Finance",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -913,7 +915,6 @@
             },
             {
               "title": "wealth",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1132,13 +1133,14 @@
                   "document": "docs/Archive/Finance/wealth/Zomato.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Health",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -1153,11 +1155,11 @@
               "document": "docs/Archive/Health/Review Body Parts.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Logalizer",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -1172,27 +1174,26 @@
               "document": "docs/Archive/Logalizer/Logalizer Next Steps.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Management",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "document": "docs/Archive/Management/Product Management.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Programming",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "title": "cpp",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1243,22 +1244,22 @@
                   "document": "docs/Archive/Programming/cpp/Templates.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Nodejs",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/Archive/Programming/Nodejs/Node JS.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Python",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1281,13 +1282,14 @@
                   "document": "docs/Archive/Programming/Python/SciPy.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Projects",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -1334,11 +1336,11 @@
               "document": "docs/Archive/Projects/Wiki Setup.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Soft-Skills",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -1413,16 +1415,15 @@
               "document": "docs/Archive/Soft-Skills/SWOT Analysis.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Tech",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "title": "Blockchain",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1461,11 +1462,11 @@
                   "document": "docs/Archive/Tech/Blockchain/References.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "IoT",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1604,11 +1605,11 @@
                   "document": "docs/Archive/Tech/IoT/WiringPi Command Line.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "ML",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
@@ -1939,20 +1940,21 @@
                   "document": "docs/Archive/Tech/ML/Workflow.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             }
-          ]
+          ],
+          "_template": "category"
         }
-      ]
+      ],
+      "_template": "category"
     },
     {
       "title": "Goals",
-      "_template": "category",
       "link": "generated",
       "items": [
         {
           "title": "2022",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -1971,11 +1973,11 @@
               "document": "docs/Goals/2022/Personal Brand.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "2024",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -2006,11 +2008,11 @@
               "document": "docs/Goals/2024/Worst Case Plan.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "Template",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -2033,17 +2035,14 @@
               "document": "docs/Goals/Template/Ready Reckoner.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         }
-      ]
-    },
-    {
-      "document": "docs/Intro.md",
-      "_template": "doc"
+      ],
+      "_template": "category"
     },
     {
       "title": "Projects",
-      "_template": "category",
       "link": "generated",
       "items": [
         {
@@ -2076,54 +2075,54 @@
         },
         {
           "title": "Software Defined Vehicle",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "document": "docs/Projects/Software Defined Vehicle/Software Defined Vehicle.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         }
-      ]
+      ],
+      "_template": "category"
     },
     {
       "title": "SW-Update",
-      "_template": "category",
       "link": "generated",
       "items": [
         {
           "title": "Acquisitions",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "title": "Ferrari",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/SW-Update/Acquisitions/Ferrari/ferrari.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "title": "Suzuki",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/SW-Update/Acquisitions/Suzuki/suzuki-sis-g4.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             },
             {
               "document": "docs/SW-Update/Acquisitions/VW MaaS Blade.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "document": "docs/SW-Update/career.md",
@@ -2131,25 +2130,24 @@
         },
         {
           "title": "ccs",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "title": "ccs-docs",
-              "_template": "category",
               "link": "generated",
               "items": [
                 {
                   "document": "docs/SW-Update/ccs/ccs-docs/ublox-firmware-update-procedure.md",
                   "_template": "doc"
                 }
-              ]
+              ],
+              "_template": "category"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "title": "common",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
@@ -2161,7 +2159,7 @@
               "_template": "doc"
             },
             {
-              "document": "docs/SW-Update/common/apertispro.md",
+              "document": "docs/SW-Update/common/apertispro.mdx",
               "_template": "doc"
             },
             {
@@ -2228,7 +2226,8 @@
               "document": "docs/SW-Update/common/update-use-cases.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "document": "docs/SW-Update/contacts.md",
@@ -2264,14 +2263,14 @@
         },
         {
           "title": "Projects",
-          "_template": "category",
           "link": "generated",
           "items": [
             {
               "document": "docs/SW-Update/Projects/da3-usecases.md",
               "_template": "doc"
             }
-          ]
+          ],
+          "_template": "category"
         },
         {
           "document": "docs/SW-Update/references.md",
@@ -2293,7 +2292,8 @@
           "document": "docs/SW-Update/updating-psc.md",
           "_template": "doc"
         }
-      ]
+      ],
+      "_template": "category"
     }
   ]
 }
