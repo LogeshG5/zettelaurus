@@ -20,8 +20,8 @@
   "dependencies": {
     "@akebifiky/remark-simple-plantuml": "^1.0.2",
     "@algolia/client-search": "^4.22.1",
-    "@docusaurus/core": "3.1.1",
-    "@docusaurus/preset-classic": "3.1.1",
+    "@docusaurus/core": "3.4.0",
+    "@docusaurus/preset-classic": "3.4.0",
     "@mdx-js/react": "^3.0.0",
     "@tinacms/cli": "^1.5.39",
     "@types/react": "^18.2.48",
@@ -44,8 +44,8 @@
     "walk-sync": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.1.1",
-    "@docusaurus/types": "3.1.1",
+    "@docusaurus/module-type-aliases": "3.4.0",
+    "@docusaurus/types": "3.4.0",
     "concurrently": "^8.2.2"
   },
   "browserslist": {
