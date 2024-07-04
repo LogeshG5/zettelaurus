@@ -38,33 +38,33 @@ class GraphUI {
       "text-outline-width": 0,
       "text-outline-color": "#888",
       "background-color": "#ffdead",
-      "background-opacity": "0.2",
+      "background-opacity": "0.3",
       width: "13px",
       height: "13px",
       "text-valign": "bottom",
       "text-halign": "center",
     });
     this.style.selector(":selected").style({
-      "background-color": "#ffa500",
-      "background-opacity": "0.5",
+      "background-color": "#ffb703",
+      "background-opacity": "0.7",
       width: "14px",
       height: "14px",
     });
     this.style
       .selector("node.highlight")
-      .style({ "background-color": "#ffa500" })
+      .style({ "background-color": "#ffb703" })
       .update();
     this.style
       .selector("node.highlight-ring")
       .style({
-        "background-color": "#ff8c00",
+        "background-color": "#fb8500",
         "border-width": "1",
-        "border-color": "#ff8c00",
+        "border-color": "#fb8500",
       })
       .update();
     this.style
       .selector("node.highlight-preview")
-      .style({ "background-color": "#ff8c00" })
+      .style({ "background-color": "#fb8500" })
       .update();
     this.style.selector("node.semitransp").style({ opacity: "0.2" }).update();
 
@@ -255,7 +255,7 @@ class GraphStateMachine {
       return;
     }
     const index = this.decIndex(this.focusedChildIndex);
-	  var ele=this.focusedChildren[index];
+    var ele = this.focusedChildren[index];
     this.selectNode(this.focusedChildren[index]);
     this.ui.putNodeInCenter(ele);
   }
@@ -353,15 +353,15 @@ class GraphStateMachine {
       key.preventDefault();
       document.getElementById("nodeSearch").focus();
       return;
-    } else if (key.key == "j") {
+    } else if (key.key == "j" || key.key == 'ArrowLeft') {
       this.previewNext();
-    } else if (key.key == "k") {
+    } else if (key.key == "k" || key.key == 'ArrowRight') {
       this.previewPrev();
-    } else if (key.key == "h") {
+    } else if (key.key == "h" || key.key == 'ArrowUp') {
       this.selectPrev();
-    } else if (key.key == "l") {
+    } else if (key.key == "l" || key.key == 'ArrowDown') {
       this.selectNext();
-    } else if (key.key == "o") {
+    } else if (key.key == "o" || key.key == 'Enter') {
       this.openUrl();
     }
   }
