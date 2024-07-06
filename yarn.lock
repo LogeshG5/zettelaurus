@@ -14534,6 +14534,15 @@ remark-stringify@^11.0.0:
     mdast-util-to-markdown "^2.0.0"
     unified "^11.0.0"
 
+remark-sync-plantuml@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/remark-sync-plantuml/-/remark-sync-plantuml-0.0.4.tgz#75d6786a978c529e0cf1e97b8395fe2ef689cf25"
+  integrity sha512-fEGI2YbYMRW0RbsBnzgD/e2UAF+NEiXCIowTEb/BKLHNpQMoRfuHGUPIpEXP8ChvhIp9nBLtBjfqz4R2f7Bejw==
+  dependencies:
+    sync-plantuml "^0.0.4"
+    unified "^10.1.2"
+    unist-util-visit "^4.1.2"
+
 remark-wiki-link@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/remark-wiki-link/-/remark-wiki-link-2.0.1.tgz#52ffdcfe16e3e018874b890387ea02668e882d10"
@@ -15567,6 +15576,11 @@ swap-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
+sync-plantuml@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/sync-plantuml/-/sync-plantuml-0.0.4.tgz#1534c491466237279f4765b9585f98029c9fba5c"
+  integrity sha512-jG4qpweBPG31b+LGTkoadF9KnsJrVtgUyQUJy059rN0BnM5F+b24Vkx7+pjUdyUtDGYC0MDqAMcDb8ODvyJYbQ==
+
 tabbable@^6.0.1:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
@@ -16021,7 +16035,7 @@ unicode-property-aliases-ecmascript@^2.0.0:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz#43d41e3be698bd493ef911077c9b131f827e8ccd"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
 
-unified@^10.0.0:
+unified@^10.0.0, unified@^10.1.2:
   version "10.1.2"
   resolved "https://registry.yarnpkg.com/unified/-/unified-10.1.2.tgz#b1d64e55dafe1f0b98bb6c719881103ecf6c86df"
   integrity sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==
@@ -16193,7 +16207,7 @@ unist-util-visit-parents@^6.0.0:
     "@types/unist" "^3.0.0"
     unist-util-is "^6.0.0"
 
-unist-util-visit@4.1.2, unist-util-visit@^4.0.0:
+unist-util-visit@4.1.2, unist-util-visit@^4.0.0, unist-util-visit@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-4.1.2.tgz#125a42d1eb876283715a3cb5cceaa531828c72e2"
   integrity sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==

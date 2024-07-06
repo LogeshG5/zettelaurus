@@ -84,7 +84,16 @@ const wikilink = [
   },
 ];
 
-const localPlantUML = require("@mstroppel/remark-local-plantuml");
+const onlinePlantUML = [
+  require("@akebifiky/remark-simple-plantuml"),
+  { baseUrl: "https://www.plantuml.com/plantuml/png" },
+  /**
+   * Ensure to start plantuml local server or replace baseUrl with plantuml online server
+   * java -jar plantuml.jar -picoweb:8000:127.0.0.1
+   */
+];
+
+const localPlantUML = require("remark-sync-plantuml");
 
 import rehypeRaw from "rehype-raw";
 const rehyperaw = [
