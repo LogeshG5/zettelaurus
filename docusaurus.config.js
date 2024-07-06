@@ -4,25 +4,25 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import { themes as prismThemes } from 'prism-react-renderer';
+import { themes as prismThemes } from "prism-react-renderer";
 const path = require("path");
 /**
-* directory where to find the md files
-*/
+ * directory where to find the md files
+ */
 const docsDir = "docs";
 
 /**
-* Method to get the corresponding md file name for a given wikilink
-*
-* @param {string} wikilink The text between [[]] in an md file
-* Returns the file name corresponding to [[wiki link]]
-*/
+ * Method to get the corresponding md file name for a given wikilink
+ *
+ * @param {string} wikilink The text between [[]] in an md file
+ * Returns the file name corresponding to [[wiki link]]
+ */
 function sluggifyWikilink(wikilink) {
   /**
-  * [[Some Fancy Title]] gets converted to 'some-fancy-title'
-  * so there should be some-fancy-title.md file in docs
-    */
-  const slug = wikilink.replace(/ /g, '-').toLowerCase();
+   * [[Some Fancy Title]] gets converted to 'some-fancy-title'
+   * so there should be some-fancy-title.md file in docs
+   */
+  const slug = wikilink.replace(/ /g, "-").toLowerCase();
   return slug;
 
   // /**
@@ -33,12 +33,12 @@ function sluggifyWikilink(wikilink) {
 }
 
 /**
-* Wiki might be under a subdirectory and the file name might be sluggified
-* Enable remark-wiki-link plugin to find such md files
-*
-* @param {string} wikilink The text between [[]] in an md file
-* Returns list of paths to help resolve a [[wiki link]]
-*/
+ * Wiki might be under a subdirectory and the file name might be sluggified
+ * Enable remark-wiki-link plugin to find such md files
+ *
+ * @param {string} wikilink The text between [[]] in an md file
+ * Returns list of paths to help resolve a [[wiki link]]
+ */
 function wikilinkToUrl(wikilink) {
   const slug = sluggifyWikilink(wikilink);
   const walkSync = require("walk-sync");
@@ -57,24 +57,23 @@ function wikilinkToUrl(wikilink) {
 }
 
 /**
-* Returns the url to the wiki
-*
-* @param {string} permalink url to the md file
-* Return the path to the wiki
-*/
+ * Returns the url to the wiki
+ *
+ * @param {string} permalink url to the md file
+ * Return the path to the wiki
+ */
 function toDocsUrl(permalink) {
   return `/${docsDir}/${permalink}`;
 }
 
-
 /**
-* Plugin declarations
-*
-*/
+ * Plugin declarations
+ *
+ */
 const lunrSearch = require.resolve("docusaurus-lunr-search");
 const wikiGraph = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
-  { slugMethod: sluggifyWikilink }
+  { slugMethod: sluggifyWikilink },
 ];
 
 const wikilink = [
@@ -84,57 +83,66 @@ const wikilink = [
     hrefTemplate: toDocsUrl,
   },
 ];
-const plantuml = [
-  require("@akebifiky/remark-simple-plantuml"),
-  { baseUrl: "http://127.0.0.1:8000/plantuml/svg" }
-  /**
-  * Ensure to start plantuml local server or replace baseUrl with plantuml online server
-  * java -jar plantuml.jar -picoweb:8000:127.0.0.1
-    */
+
+const localPlantUML = require("@mstroppel/remark-local-plantuml");
+
+import rehypeRaw from "rehype-raw";
+const rehyperaw = [
+  rehypeRaw,
+  {
+    passThrough: [
+      "mdxFlowExpression",
+      "mdxJsxFlowElement",
+      "mdxJsxTextElement",
+      "mdxTextExpression",
+      "mdxjsEsm",
+    ],
+  },
 ];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Wiki',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: "My Wiki",
+  tagline: "Dinosaurs are cool",
+  favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: 'http://localhost:3000',
+  url: "http://localhost:3000",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Docs', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: "Docs", // Usually your GitHub org/user name.
+  projectName: "docusaurus", // Usually your repo name.
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  markdown: { format: 'md' },
-  
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
+  markdown: { format: "md" },
+
   future: {
-    experimental_router: 'hash',
+    experimental_router: "hash",
   },
-  
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   plugins: [wikiGraph, lunrSearch],
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          remarkPlugins: [wikilink, plantuml],
-          sidebarPath: './sidebars.js',
+          remarkPlugins: [wikilink, localPlantUML],
+          rehypePlugins: [rehyperaw],
+          sidebarPath: "./sidebars.js",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl: ({ docPath }) => {
@@ -142,19 +150,18 @@ const config = {
           //   return `http://localhost:3000/admin/index.html#/collections/edit/doc/${stripedPath}`
           // }
           editUrl: ({ docPath }) => {
-            return `http://localhost:8889/edit/docs/${docPath}`
-          }
-          ,
+            return `http://localhost:8889/edit/docs/${docPath}`;
+          },
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       }),
     ],
@@ -164,19 +171,19 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: 'My Wiki',
+        title: "My Wiki",
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: "My Site Logo",
+          src: "img/logo.svg",
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'wikiSidebar',
-            position: 'left',
-            label: 'Wiki',
+            type: "docSidebar",
+            sidebarId: "wikiSidebar",
+            position: "left",
+            label: "Wiki",
           },
           {
             href: "/graph",
@@ -186,10 +193,8 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
-        links: [
-
-        ],
+        style: "dark",
+        links: [],
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
