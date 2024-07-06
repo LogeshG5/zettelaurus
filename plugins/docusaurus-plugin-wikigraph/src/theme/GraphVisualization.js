@@ -33,10 +33,10 @@ class GraphUI {
     this.style.selector("node").style({
       content: "data(name)",
       "text-valign": "center",
-      color: "black",
+      color: "#2e8555",
       "font-size": "12px",
       "text-outline-width": 0,
-      "text-outline-color": "#888",
+      "text-outline-color": "#2e8555",
       "background-color": "#ffdead",
       "background-opacity": "0.3",
       width: "13px",
@@ -45,36 +45,36 @@ class GraphUI {
       "text-halign": "center",
     });
     this.style.selector(":selected").style({
-      "background-color": "#ffb703",
+      "background-color": "#2e8555",
       "background-opacity": "0.7",
       width: "14px",
       height: "14px",
     });
     this.style
       .selector("node.highlight")
-      .style({ "background-color": "#ffb703" })
+      .style({ "background-color": "#2e8555" })
       .update();
     this.style
       .selector("node.highlight-ring")
       .style({
-        "background-color": "#fb8500",
+        "background-color": "#2e8555",
         "border-width": "1",
-        "border-color": "#fb8500",
+        "border-color": "#2e8555",
       })
       .update();
     this.style
       .selector("node.highlight-preview")
-      .style({ "background-color": "#fb8500" })
+      .style({ "background-color": "#2e8555" })
       .update();
     this.style.selector("node.semitransp").style({ opacity: "0.2" }).update();
 
     this.style
       .selector("edge")
-      .style({ width: 1, "line-color": "#ffdead" })
+      .style({ width: 1, "line-color": "#888", opacity: "0.7" })
       .update();
     this.style
       .selector("edge.highlight")
-      .style({ "target-arrow-color": "#ffa500", "line-color": "#ffdead" })
+      .style({ "target-arrow-color": "#2e8555", "line-color": "#aaa" })
       .update();
     this.style.selector("edge.semitransp").style({ opacity: "0.2" }).update();
   }
@@ -344,7 +344,7 @@ class GraphStateMachine {
     }
   }
 
-  keypress(key) { }
+  keypress(key) {}
 
   keydown(key) {
     if (document.activeElement.id == "nodeSearch") return;
@@ -353,15 +353,15 @@ class GraphStateMachine {
       key.preventDefault();
       document.getElementById("nodeSearch").focus();
       return;
-    } else if (key.key == "j" || key.key == 'ArrowLeft') {
+    } else if (key.key == "j" || key.key == "ArrowLeft") {
       this.previewNext();
-    } else if (key.key == "k" || key.key == 'ArrowRight') {
+    } else if (key.key == "k" || key.key == "ArrowRight") {
       this.previewPrev();
-    } else if (key.key == "h" || key.key == 'ArrowUp') {
+    } else if (key.key == "h" || key.key == "ArrowUp") {
       this.selectPrev();
-    } else if (key.key == "l" || key.key == 'ArrowDown') {
+    } else if (key.key == "l" || key.key == "ArrowDown") {
       this.selectNext();
-    } else if (key.key == "o" || key.key == 'Enter') {
+    } else if (key.key == "o" || key.key == "Enter") {
       this.openUrl();
     }
   }
