@@ -29,7 +29,7 @@
     "cytoscape": "^3.28.1",
     "cytoscape-fcose": "^2.2.0",
     "cytoscape-layout-utilities": "^1.1.1",
-    "docusaurus-lunr-search": "^3.3.2",
+    "docusaurus-lunr-search": "3.4.0",
     "fuzzy-search": "^3.2.1",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
