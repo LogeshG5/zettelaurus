@@ -163,6 +163,7 @@ const config = {
           editUrl: ({ docPath }) => {
             return `http://localhost:8889/edit/docs/${docPath}`;
           },
+          exclude: ["Library", "silverbullet", "Journal"],
         },
         blog: {
           showReadingTime: true,
