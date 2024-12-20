@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd $1
+
+echo "changing to dir $1"
+
+rm -rf Library silverbullet
+rm -f index.md PLUGS.md SETTINGS.md 
+
+cd -

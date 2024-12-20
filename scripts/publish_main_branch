@@ -4,10 +4,11 @@ set -e
 
 cd `dirname $0`/../docs
 
-git branch -D publish
+git branch -D publish || echo
 git branch publish main
 
 git worktree add /tmp/docs_publish publish
+../scripts/rm_silverbullet_files /tmp/docs_publish
 
 ../scripts/publish_docs /tmp/docs_publish
 cd /tmp/docs_publish
