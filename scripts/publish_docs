@@ -3,60 +3,31 @@ import glob
 import sys
 import re
 import os
+import pprint
 
-def plantuml_draw(content, dir, filename):
+
+root_dir = os.path.abspath(sys.argv[1])
+pumljar = "/usr/local/bin/plantuml.jar"
+
+
+def plantuml_draw(content, directory, filename):
     os.system("mkdir -p /tmp/pumldocexp/")
     pumlfile = "/tmp/pumldocexp/" + filename
 
     with open(pumlfile, "w") as f:
         f.write(content)
+    f.close()
 
-    print("Drawing %s/%s.png" %(dir, filename))
-    cmd = "java -DPLANTUML_LIMIT_SIZE=32768 -jar /usr/local/bin/plantuml.jar -tpng %s -o %s" %  (pumlfile, dir)
+    print("Drawing %s/%s.png" % (directory, filename))
+    cmd = f"java -DPLANTUML_LIMIT_SIZE=32768 -jar {pumljar} -tpng '{pumlfile}' -o '{directory}'"
+    print(cmd)
     os.system(cmd)
     os.system("rm -rf /tmp/pumldocexp/")
 
-def isBacklinksPresent(filename):
-    with open(filename, 'r') as f:
-        for line in f:
-            if "##### Back Links" in line:
-                return True
 
-def addToBackLinks(dest, source):
-    dir = os.path.dirname(source)
-    link = os.path.basename(source)
-    f = open(filename, "r")
-    title = f.readline()
-    f.close()
-    title = title.replace("# ", "").replace("\n", "")
-    titleLink = "[" + title + "]" + "(" + link + ")"
-    fileToWrite = dir + "/" + dest
-    with open(fileToWrite, "a") as f:
-        f.write("\n\n")
-        if not isBacklinksPresent(fileToWrite):
-            f.write("##### Back Links\n\n")
-        f.write("* " + titleLink + "\n")
-
-    print("In file %s/%s add a link to %s" % (dir, dest, title))
-
-
-def replaceWikiLinks(m, filename):
-    wiki = m.groups()[0]
-    slugfile = wiki.lower().replace(" ", "-") + ".md"
-    addToBackLinks(slugfile, filename)
-    return "[" + wiki + "]" + "(" + slugfile + ")"
-
-
-def process_file(filename):
-    f = open(filename, "r")
-    data = f.read()
-    f.close()
-
-    data = re.sub(r"\[\[(.*?)\]\]", lambda m: replaceWikiLinks(m, filename), data)
-
-    # Draw diagram
+def plantUmlDraw(data, filename):
     pattern = r"```plantuml(.*?)```"
-    rx = re.compile(pattern, flags=re.MULTILINE|re.DOTALL)
+    rx = re.compile(pattern, flags=re.MULTILINE | re.DOTALL)
     matches = []
     for match in rx.finditer(data):
         matches.append(match)
@@ -66,13 +37,74 @@ def process_file(filename):
         for i, m in enumerate(matches[::-1]):
             imageName = os.path.basename(filename).replace(".md", "-") + str(i)
             plantuml_draw(m.group(1), dir, imageName)
-            data = data[:m.start()] + "![%s](%s.png)" % (imageName, imageName) + data[m.end():]
+            data = (
+                data[: m.start()]
+                + "![%s](%s.png)" % (imageName, imageName)
+                + data[m.end() :]
+            )
 
-    with open(filename, "w") as f:
-        f.write(data)
+    return data
 
 
-# root_dir = "/home/gol2cob/gitp/docs_export/"
-root_dir = os.path.abspath(sys.argv[1])
-for filename in glob.iglob(root_dir + '/**/*.md', recursive=True):
-    process_file(filename)
+def isBacklinksPresent(filename):
+    with open(filename, "r") as f:
+        for line in f:
+            if "##### Back Links" in line:
+                return True
+
+
+def writeBackLink(linkText, filename):
+    print(f"   BL in {filename}: {linkText}")
+    if os.path.exists(filename):
+        with open(filename, "a") as f:
+            f.write("\n\n")
+            if not isBacklinksPresent(filename):
+                f.write("##### Back Links\n\n")
+            f.write("* " + linkText + "\n")
+
+
+def replaceLinksGithub(m, filename, filepath, files_dict):
+    wiki = m.groups()[0]
+    slugfile = wiki.replace(" ", "%20")
+    filepath = (
+        filepath.replace("\\", "/").replace(root_dir + "/", "").replace(" ", "%20")
+    )
+    if wiki in files_dict:
+        backlink = f"[{filename}]({filepath})"
+        writeBackLink(backlink, files_dict[wiki])
+    else:
+        print(f"   File {wiki}.md not found")
+
+    return f"[{wiki}]({slugfile}.md)"
+
+
+def processFiles(files_dict):
+    for filename, filepath in files_dict.items():
+        print(filename, filepath)
+        f = open(filepath, "r", encoding="utf-8")
+        data = f.read()
+        f.close()
+
+        data = re.sub(
+            r"\[\[(.*?)\]\]",
+            lambda m: replaceLinksGithub(m, filename, filepath, files_dict),
+            data,
+        )
+
+        # Draw diagram
+        data = plantUmlDraw(data, filepath)
+
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(data)
+
+
+def getFilesDict(root_dir):
+    files_dict = {}
+    for filename in glob.iglob(root_dir + "/**/*.md", recursive=True):
+        if os.path.isfile(filename):
+            files_dict[os.path.basename(filename).replace(".md", "")] = filename
+    return files_dict
+
+
+filesDict = getFilesDict(root_dir)
+processFiles(filesDict)
