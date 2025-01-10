@@ -1,3 +1,3 @@
 @REM START /b launch-plantuml-server
-cd ../../
-yarn startall
+cd /d %~dp0..\..\
+yarn start
