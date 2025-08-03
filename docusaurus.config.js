@@ -95,6 +95,8 @@ const onlinePlantUML = [
 
 const localPlantUML = require("remark-sync-plantuml");
 
+const githubAlerts = require("remark-github-blockquote-alert");
+
 import rehypeRaw from "rehype-raw";
 const rehyperaw = [
   rehypeRaw,
@@ -128,13 +130,14 @@ const config = {
 
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
-  markdown: { format: "md" },
-
-  // This is only useful in PC broswer where file:// is allowed
-  // file:// protocol is not allowed in mobiles
-  // future: {
-  //   experimental_router: "hash",
-  // },
+  markdown: { format: "md", mermaid: true },
+  themes: ["@docusaurus/theme-mermaid"],
+  future: {
+    // This is only useful in PC broswer where file:// is allowed
+    // file:// protocol is not allowed in mobiles
+    // experimental_router: "hash", // breaks search plugin
+    experimental_faster: false,
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -161,24 +164,18 @@ const config = {
           //   return `http://localhost:3000/admin/index.html#/collections/edit/doc/${stripedPath}`
           // }
           editUrl: ({ docPath }) => {
-            return `http://localhost:8889/edit/docs/${docPath}`;
+            return `http://localhost:3030/${docPath}`;
           },
           exclude: [
             "Library",
             "silverbullet",
+            "_plug",
             "Journal",
             "PLUGS.md",
             "SETTINGS.md",
           ],
-          sidebarCollapsible: true,
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        },
+        blog: false,
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -211,14 +208,20 @@ const config = {
           },
         ],
       },
-      footer: {
-        style: "dark",
-        links: [],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
       },
+      footer: {},
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        darkTheme: prismThemes.oneDark,
+      },
+      mermaid: {
+        theme: { light: "light", dark: "neutral" },
       },
     }),
 };
