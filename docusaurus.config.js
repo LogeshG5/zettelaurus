@@ -136,7 +136,10 @@ const config = {
     // This is only useful in PC broswer where file:// is allowed
     // file:// protocol is not allowed in mobiles
     // experimental_router: "hash", // breaks search plugin
-    experimental_faster: false,
+    experimental_faster: true,
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true, // required
+    },
   },
 
   // Even if you don't use internationalization, you can use this field to set
@@ -173,6 +176,8 @@ const config = {
             "Journal",
             "PLUGS.md",
             "SETTINGS.md",
+            "Update",
+            "6.Archive"
           ],
         },
         blog: false,
