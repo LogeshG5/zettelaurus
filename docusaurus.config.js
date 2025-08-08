@@ -73,7 +73,7 @@ function toDocsUrl(permalink) {
  *
  */
 const lunrSearch = require.resolve("docusaurus-lunr-search");
-const backlinks = require.resolve('docusaurus-plugin-backlinks');
+// const backlinks = require.resolve('docusaurus-plugin-backlinks');
 const wikiGraph = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
   { slugMethod: sluggifyWikilink },
@@ -189,7 +189,7 @@ const config = {
       }),
     ],
   ],
-  plugins: [wikiGraph, lunrSearch, backlinks],
+  plugins: [wikiGraph, lunrSearch],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
