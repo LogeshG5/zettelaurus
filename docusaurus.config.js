@@ -52,7 +52,7 @@ function wikilinkToUrl(wikilink) {
       directories: false,
     });
   }
-  paths = paths.map((path) => path.replace(".mdx", "").replace(".md", ""));
+  paths = paths.map((path) => path.replace(".mdx", "").replace(".md", "").replace(/[0-9]\./g, ""));
   return paths;
 }
 
@@ -63,7 +63,9 @@ function wikilinkToUrl(wikilink) {
  * Return the path to the wiki
  */
 function toDocsUrl(permalink) {
-  return `/${docsDir}/${permalink}`;
+  let path = `/${docsDir}/${permalink}`;
+  return path;
+  // return `/${docsDir}/${permalink}`.replaceAll("[0-9]\.", "");
 }
 
 /**
@@ -71,6 +73,7 @@ function toDocsUrl(permalink) {
  *
  */
 const lunrSearch = require.resolve("docusaurus-lunr-search");
+const backlinks = require.resolve('docusaurus-plugin-backlinks');
 const wikiGraph = [
   path.resolve(__dirname, "plugins", "docusaurus-plugin-wikigraph"),
   { slugMethod: sluggifyWikilink },
@@ -128,8 +131,8 @@ const config = {
   organizationName: "Docs", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
 
-  onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: "log",
+  onBrokenMarkdownLinks: "log",
   markdown: { format: "md", mermaid: true },
   themes: ["@docusaurus/theme-mermaid"],
   future: {
@@ -150,7 +153,6 @@ const config = {
     locales: ["en"],
   },
 
-  plugins: [wikiGraph, lunrSearch],
   presets: [
     [
       "classic",
@@ -187,6 +189,7 @@ const config = {
       }),
     ],
   ],
+  plugins: [wikiGraph, lunrSearch, backlinks],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
