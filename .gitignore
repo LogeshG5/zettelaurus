@@ -10,6 +10,8 @@ docs
 # Generated files
 .docusaurus
 .cache-loader
+src/data/backlinks.json
+src/data/filenames.json
 
 # Misc
 .DS_Store
