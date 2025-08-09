@@ -1,30 +1,239 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+/*
+NOT MY STYLE. SOURCE:
+https://github.com/vendure-ecommerce/vendure/blob/cc4826dfb7c1a2f4e6ed8daa13eb017090d8bd9a/docs/src/css/layout.css
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+	--ifm-font-family-base: "Inter"
+}
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+	/* Colors */
+	--ifm-color-primary: #17c1ff;
+	--ifm-color-primary-dark: #008ece;
+	--ifm-color-primary-darker: #0072a7;
+	--ifm-color-primary-darkest: #084f72;
+	--ifm-color-primary-light: #78daff;
+	--ifm-color-primary-lighter: #b8eaff;
+	--ifm-color-primary-lightest: #dff3ff;
+	--ifm-navbar-background-color: #ffffff11;
+	--navbar-background-color-mobile: #ffffffee;
+	--ifm-heading-color: #000212;
+	--ifm-color-content: var(--ifm-color-emphasis-800);
+	--ifm-code-font-size: 95%;
+	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+	--color-graphql-comment: #47954d;
+	--color-graphql-identifier: rgb(227, 17, 108);
+	--color-members-border: var(--ifm-color-secondary);
+	--docusaurus-highlighted-code-line-bg: #e0f1ff;
+	--ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>');
+	--body-background: white;
+	--ifm-footer-background-color: #edf2f5;
+	--color-docsearch-border: #b7b7c3;
+
+	/* Fonts */
+	--ifm-heading-font-family: 'Plus Jakarta Sans', var(--ifm-font-family-base);
+	--ifm-heading-font-weight: 700;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+html[data-theme='dark']{
+	--ifm-background-color: #000212;
+	--ifm-heading-color: #ffffff;
+	--ifm-navbar-background-color: transparent;
+	--navbar-background-color-mobile: transparent;
+	--ifm-card-background-color: transparent;
+	--ifm-color-content: hsla(0,0%,100%,.7);
+	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+	--color-graphql-comment: #6ea372;
+
+	--color-graphql-identifier: rgb(255, 121, 198);
+	--color-members-border: #333;
+	--docusaurus-highlighted-code-line-bg: rgba(15, 71, 117, 0.5);
+	--body-background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79, 208, 255, 0.3), transparent);
+	--ifm-footer-background-color: var(--ifm-background-color);
+	--color-docsearch-border: #232347;
+	--ifm-footer-title-color: #ffffff;
+}
+
+/* Увеличение шрифтов текста и уменьшение размера заголовков постов */
+@media screen and (max-width: 996px) {
+	:root {
+		--ifm-font-size-base: 18px;
+	}
+	article header h1 {
+		font-size: 1.5rem !important;
+	}
+	.hero .hero__title {
+		font-size: 2.5rem;
+	}
+}
+
+@media screen and (min-width: 997px) {
+	:root {
+		--ifm-font-size-base: 17px;
+	}
+	article header h1 {
+		font-size: 2rem !important;
+	}
+}
+
+/* Умеьшает ширину основного блока текста */
+/* article {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+} */
+
+/* Увеличивает размер шрифта в выпадающем списке навигации */
+/* .dropdown__link {
+	font-size: inherit;
+} */
+
+html[data-theme='light'] {
+	--ifm-background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	letter-spacing: -0.05rem;
+}
+
+.markdown h2:not(:first-of-type) {
+	--ifm-h2-vertical-rhythm-top: 5;
+}
+
+.markdown img {
+	border-radius: 4px;
+}
+
+
+.members-wrapper {
+	border-left: 1px solid var(--color-members-border);
+	padding-left: 32px;
+}
+
+.members-wrapper > h3 {
+	margin-top: 42px;
+}
+
+.sidebar-section-header {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	opacity: 0.8;
+	color: #afafaf;
+	padding: var(--ifm-menu-link-padding-vertical)
+		var(--ifm-menu-link-padding-horizontal);
+}
+
+.sidebar-section-divider {
+	border-bottom: 1px solid var(--ifm-font-color-base);
+	opacity: 0.2;
+	margin: 6px 12px;
+}
+
+.limited-height-code-block pre.prism-code {
+	max-height: 800px;
+}
+
+.header-github-link:hover {
+	opacity: 0.6;
+}
+
+.header-github-link::before {
+	content: '';
+	width: 24px;
+	height: 24px;
+	display: flex;
+	background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+	no-repeat;
+}
+
+[data-theme='dark'] .header-github-link::before {
+	background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+	no-repeat;
+}
+
+[class*=iconExternalLink] {
+	display: none;
+}
+
+/* Размер табуляции. По умолчанию 8, кажется */
+pre[class*="language-"] {
+	tab-size: 4;
+}
+/* .navbar__inner { */
+/* 	margin-left: auto; */
+/* 	margin-right: auto; */
+/* 	max-width: 1419px; */
+/* } */
+/**/
+/* .main-wrapper { */
+/* 	margin-left: auto; */
+/* 	margin-right: auto; */
+/* 	max-width: 1419px; */
+/* 	width: 100%; */
+/* } */
+body {
+	background: var(--body-background);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+
+.menu__link--sublist-caret:after {
+	background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+	opacity: 0.6;
+}
+
+.menu__link--sublist-caret:hover:after {
+	opacity: 1;
+}
+
+.theme-doc-sidebar-item-category-level-1 {
+	font-size: 15px;
+}
+.theme-doc-sidebar-item-category-level-2 {
+	font-size: 14px;
+}
+.theme-doc-sidebar-item-link-level-3, .theme-doc-sidebar-item-link-level-4, .theme-doc-sidebar-item-link-level-5 {
+	font-size: 13px;
+	word-break: break-all;
+}
+
+.menu__caret:before {
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>');
+	opacity: 0.6;
+}
+
+.navbar-sidebar {
+	background-color: var(--ifm-background-color);
+}
+
+.navbar {
+	background-color: var(--navbar-background-color-mobile);
+}
+
+@media screen and (min-width: 996px) {
+	.docs-wrapper article:not(.col) {
+		margin-left: 32px;
+	}
+	.navbar {
+		backdrop-filter: blur(20px);
+		background-color: var(--ifm-navbar-background-color);
+	}
+}
+
+
+.hero--primary {
+	--ifm-hero-background-color: transparent;
+	--ifm-hero-text-color: var(--ifm-font-color-base);
+}
+
+button.DocSearch-Button {
+	border-radius: 6px;
+	width: 250px;
+	border: 1px solid var(--color-docsearch-border);
 }
