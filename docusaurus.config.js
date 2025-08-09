@@ -177,9 +177,10 @@ const config = {
             "_plug",
             "Journal",
             "PLUGS.md",
+            "CONFIG",
             "SETTINGS.md",
             "Update",
-            "6.Archive"
+            //"6.Archive"
           ],
         },
         blog: false,
