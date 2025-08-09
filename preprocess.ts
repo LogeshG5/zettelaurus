@@ -535,11 +535,11 @@ async function main(): Promise<void> {
   const outTs = path.join(REPO, 'src', 'data')
   const assets = path.join(research, 'assets')
 
-  await sanitiseMd(docs)
+  // await sanitiseMd(docs)
   // await processBlog(postsSrc, blogEn, blogKo, cfg)
   await buildBacklinks(docs, outTs)
   // await processDocs(research, docs)
-  await fixImgAlt(docs)
+  // await fixImgAlt(docs)
 
   if (values.clean) {
     await cleanupAssets(assets, research)
