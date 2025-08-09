@@ -44,11 +44,11 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
   let wikis = {};
 
   // Collect all wikis data
-  mdFiles.forEach(function (filePath, i) {
+  mdFiles.forEach(function(filePath, i) {
     const fileName = fileNameWithoutExtension(filePath)
     const title = getTitle(fileName);
     const slug = slugMethod(fileName);
-    const url = docsUrl + filePath.replace(".md", "");
+    const url = docsUrl + filePath.replace(".md", "").replace(/[0-9]\./g, "");
 
     wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };
   });
@@ -62,7 +62,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
   // Get all [[wikilinks]] in an md file and create edges from that md file to wikilink file
   for (const [_, sourceWiki] of Object.entries(wikis)) {
     const wikilinks = getWikiLinks(docsDir + sourceWiki.path);
-    wikilinks.forEach(function (wikilink) {
+    wikilinks.forEach(function(wikilink) {
       const slug = slugMethod(wikilink[1]);
       const linkedWiki = wikis[slug];
       try {
@@ -75,7 +75,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
   }
   // Write the graph contents into cy.json
   let graphContents = JSON.stringify(cy.json());
-  fs.writeFile(cyJsonFile, graphContents, function (err) {
+  fs.writeFile(cyJsonFile, graphContents, function(err) {
     if (err) throw err;
   });
 }
@@ -83,7 +83,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
 // A JavaScript function that returns an object.
 // `context` is provided by Docusaurus. Example: siteConfig can be accessed from context.
 // `opts` is the user-defined options.
-module.exports = function (context, opts) {
+module.exports = function(context, opts) {
   // Merge defaults with user-defined options.
 
   return {
