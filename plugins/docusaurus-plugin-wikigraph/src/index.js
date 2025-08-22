@@ -48,6 +48,7 @@ function createGraph(docsDir, docsUrl, cyJsonFile) {
     const fileName = fileNameWithoutExtension(filePath)
     const title = getTitle(fileName);
     const slug = slugMethod(fileName);
+    // Docusaurus removes the numbers from file and dir names in links as it uses it to sort for sidebar
     const url = docsUrl + filePath.replace(".md", "").replace(/[0-9]\./g, "");
 
     wikis[slug] = { id: i, path: filePath, title: title, slug: slug, url: url };

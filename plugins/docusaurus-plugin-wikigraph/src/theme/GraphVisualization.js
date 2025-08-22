@@ -17,7 +17,7 @@ class GraphUI {
 
     this.cy = cytoscape({
       container: document.getElementById("cy"),
-      zoom: 3,
+      zoom: 6,
       pan: { x: 0, y: 0 },
       wheelSensitivity: 0.3,
     });
@@ -344,7 +344,7 @@ class GraphStateMachine {
     }
   }
 
-  keypress(key) {}
+  keypress(key) { }
 
   keydown(key) {
     if (document.activeElement.id == "nodeSearch") return;
