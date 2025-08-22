@@ -109,7 +109,7 @@ module.exports = function(context, opts) {
       }
 
       let docsDir = context.siteDir + "/docs/";
-      const docsUrl = context.siteConfig.url + "/docs/";
+      const docsUrl = context.siteConfig.baseUrl + "/docs/";
 
       // Create dir if not exists
       if (!fs.existsSync(context.generatedFilesDir)) {

@@ -19,7 +19,7 @@ class GraphUI {
       container: document.getElementById("cy"),
       zoom: 6,
       pan: { x: 0, y: 0 },
-      wheelSensitivity: 0.3,
+      // wheelSensitivity: 0.3, //mouse not behaving properly
     });
 
     this.style = this.cy.style();
@@ -267,14 +267,19 @@ class GraphStateMachine {
     this.ui.putNodeInCenter(ele);
   }
 
+  getUrl(nodeLink) {
+    const siteUrl = window.location.href.replace("graph/", "");
+    const url = siteUrl + nodeLink.substring(2); // remove '//'
+    return url;
+  }
+
   openUrl() {
     if (this.selectedNodeHistory.length < 1) return;
     this.doubletap(
       this.selectedNodeHistory[this.selectedNodeHistory.length - 1]
     );
-    window.open(
-      this.selectedNodeHistory[this.selectedNodeHistory.length - 1].data("href")
-    );
+    const nodeLink = this.selectedNodeHistory[this.selectedNodeHistory.length - 1].data("href")
+    window.open(this.getUrl(nodeLink));
   }
 
   /* Callbacks */
@@ -337,7 +342,7 @@ class GraphStateMachine {
     try {
       // your browser may block popups
       if (ele.target.selected() == true) {
-        window.open(ele.target.data("href"));
+        window.open(this.getUrl(ele.target.data("href")));
       }
     } catch (e) {
       // fall back on url change
