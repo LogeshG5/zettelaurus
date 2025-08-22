@@ -114,6 +114,48 @@ const rehyperaw = [
   },
 ];
 
+
+function extractHashtags(md) {
+  // 1. Remove fenced code blocks ``` ... ```
+  md = md.replace(/```[\s\S]*?```/g, "");
+
+  // 2. Remove inline code `...`
+  md = md.replace(/`[^`]*`/g, "");
+
+  // 3. Remove markdown links [text](url)
+  md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "");
+
+  // 4. Extract hashtags from remaining text
+  const hashtagRegex = /(^|\s)#([a-zA-Z0-9_]+)/g;
+  const hashtags = [];
+  let match;
+  while ((match = hashtagRegex.exec(md)) !== null) {
+    hashtags.push(match[2]);
+  }
+
+  return hashtags;
+}
+
+/* Extend default frontmatter parser 
+ * https://docusaurus.io/docs/markdown-features#front-matter
+ */
+const parseFrontMatterCustom = async (params) => {
+  // Reuse the default parser
+  const result = await params.defaultParseFrontMatter(params);
+
+  // Extract hash tags from content and add to frontmatter
+  const tags = extractHashtags(result.content);
+  if (tags.length == 0) return result;
+
+  if (Array.isArray(result.frontMatter.tags)) {
+    result.frontMatter.tags.push(tags);
+  } else {
+    result.frontMatter.tags = tags;
+  }
+
+  return result;
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "My Wiki",
@@ -133,7 +175,7 @@ const config = {
 
   onBrokenLinks: "log",
   onBrokenMarkdownLinks: "log",
-  markdown: { format: "md", mermaid: true },
+  markdown: { format: "md", mermaid: true, parseFrontMatter: async (params) => parseFrontMatterCustom(params) },
   themes: ["@docusaurus/theme-mermaid"],
   future: {
     // This is only useful in PC broswer where file:// is allowed
@@ -213,6 +255,11 @@ const config = {
           {
             href: "/graph",
             label: "Graph",
+            position: "left",
+          },
+          {
+            href: "/docs/tags",
+            label: "Tags",
             position: "left",
           },
         ],
