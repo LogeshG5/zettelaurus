@@ -116,16 +116,13 @@ const rehyperaw = [
 
 
 function extractHashtags(md) {
-  // 1. Remove fenced code blocks ``` ... ```
-  md = md.replace(/```[\s\S]*?```/g, "");
 
-  // 2. Remove inline code `...`
-  md = md.replace(/`[^`]*`/g, "");
+  // Remove fenced code blocks ``` ... ``` Regex: /```[\s\S]*?```/g
+  // Remove inline code `...` Regex: /`[^`]*`/g
+  // Remove markdown links [text](url) Regex: /\[([^\]]+)\]\(([^)]+)\)/g
+  md = md.replace(/```[\s\S]*?```|`[^`]*`|\[([^\]]+)\]\(([^)]+)\)/g, "");
 
-  // 3. Remove markdown links [text](url)
-  md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "");
-
-  // 4. Extract hashtags from remaining text
+  // Extract hashtags from remaining text
   const hashtagRegex = /(^|\s)#([a-zA-Z0-9_]+)/g;
   const hashtags = [];
   let match;
