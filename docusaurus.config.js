@@ -157,7 +157,7 @@ const parseFrontMatterCustom = async (params) => {
 const config = {
   title: "My Wiki",
   tagline: "Dinosaurs are cool",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.png",
 
   // Set the production url of your site here
   url: "http://localhost:3000",
