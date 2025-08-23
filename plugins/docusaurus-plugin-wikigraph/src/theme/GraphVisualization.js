@@ -268,8 +268,9 @@ class GraphStateMachine {
   }
 
   getUrl(nodeLink) {
-    const siteUrl = window.location.href.replace("graph/", "");
-    const url = siteUrl + nodeLink.substring(2); // remove '//'
+    const siteUrl = window.location.href.replace("graph", "");
+    let url = siteUrl + nodeLink;
+    url = url.replace(/(?<!:)\/{2,}/g, '/');
     return url;
   }
 
