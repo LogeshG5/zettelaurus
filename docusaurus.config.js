@@ -175,13 +175,14 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "Docs", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
-
   onBrokenLinks: "log",
-  onBrokenMarkdownLinks: "log",
   markdown: {
     format: "md",
     mermaid: true,
     parseFrontMatter: async (params) => parseFrontMatterCustom(params),
+    hooks: {
+      onBrokenMarkdownLinks: "log",
+    },
   },
   themes: ["@docusaurus/theme-mermaid"],
   future: {

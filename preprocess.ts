@@ -361,7 +361,8 @@ async function buildBacklinks(root: string, outDir: string): Promise<void> {
     const wikilinks = [...txt.matchAll(WIKILINK_RE)]
     for (const match of wikilinks) {
       linkCount++
-      const source = match[1].split('|')[0]
+      let source = match[1].split('|')[0]
+      source = source.split('/').pop() ?? source;
 
       if (!backlinkMap[source]) {
         backlinkMap[source] = {}
