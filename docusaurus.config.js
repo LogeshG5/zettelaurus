@@ -22,37 +22,36 @@ function sluggifyWikilink(wikilink) {
    * [[Some Fancy Title]] gets converted to 'some-fancy-title'
    * so there should be some-fancy-title.md file in docs
    */
-  const slug = wikilink.replace(/ /g, "-").toLowerCase();
-  return slug;
+  // const slug = wikilink.replace(/ /g, "-").toLowerCase();
+  // return slug;
 
   // /**
   // * [[Some Fancy Title]] gets converted to 'Some Fancy Title'
   // * so there should be 'Some Fancy Title.md' file in docs
   //   */
-  // return wikilink;
+  return wikilink;
 }
 
 /**
  * Wiki might be under a subdirectory and the file name might be sluggified
  * Enable remark-wiki-link plugin to find such md files
  *
- * @param {string} wikilink The text between [[]] in an md file
  * Returns list of paths to help resolve a [[wiki link]]
  */
-function wikilinkToUrl(wikilink) {
-  const slug = sluggifyWikilink(wikilink);
+function wikilinkToUrl() {
   const walkSync = require("walk-sync");
   let paths = walkSync(docsDir, {
-    globs: ["**/" + slug + ".md*"],
+    globs: ["**/" + "*.md*"],
     directories: false,
   });
-  if (paths == null || paths.length == 0) {
-    paths = walkSync(docsDir, {
-      globs: ["**/" + wikilink + ".md*"],
-      directories: false,
-    });
-  }
-  paths = paths.map((path) => path.replace(".mdx", "").replace(".md", "").replace(/[0-9]\./g, ""));
+  // Docusaurus uses numbers in files to order them in sidebar
+  // 2.Journal/1.Happy/Day.md -> Journal/Happy/Day
+  paths = paths.map((path) =>
+    path
+      .replace(".mdx", "")
+      .replace(".md", "")
+      .replace(/[0-9]\./g, ""),
+  );
   return paths;
 }
 
@@ -63,9 +62,18 @@ function wikilinkToUrl(wikilink) {
  * Return the path to the wiki
  */
 function toDocsUrl(permalink) {
-  let path = `/${docsDir}/${permalink}`;
+  let path = `/${docsDir}/${permalink}`.replace(/[0-9]\./g, "");
+
+  // Docusaurus shortens the url: Journal/Happy/Happy.md -> Journal/Happy
+  // So if the dir name and file name are the same, shorten it
+  const fragments = path.split("/").filter((fragment) => fragment !== "");
+  if (
+    fragments.length > 1 &&
+    fragments[fragments.length - 1] === fragments[fragments.length - 2]
+  ) {
+    path = fragments.slice(-1).join("/");
+  }
   return path;
-  // return `/${docsDir}/${permalink}`.replaceAll("[0-9]\.", "");
 }
 
 /**
@@ -80,25 +88,25 @@ const wikiGraph = [
 ];
 
 const wikilink = [
-  require("remark-wiki-link"),
+  require("@flowershow/remark-wiki-link"),
   {
-    pageResolver: wikilinkToUrl,
-    hrefTemplate: toDocsUrl,
+    permalinks: wikilinkToUrl(),
+    urlResolver: toDocsUrl,
   },
-];
-
-const onlinePlantUML = [
-  require("@akebifiky/remark-simple-plantuml"),
-  { baseUrl: "https://www.plantuml.com/plantuml/png" },
-  /**
-   * Ensure to start plantuml local server or replace baseUrl with plantuml online server
-   * java -jar plantuml.jar -picoweb:8000:127.0.0.1
-   */
 ];
 
 const localPlantUML = require("remark-sync-plantuml");
 
-const githubAlerts = require("remark-github-blockquote-alert");
+// const onlinePlantUML = [
+//   require("@akebifiky/remark-simple-plantuml"),
+//   { baseUrl: "https://www.plantuml.com/plantuml/png" },
+//   /**
+//    * Ensure to start plantuml local server or replace baseUrl with plantuml online server
+//    * java -jar plantuml.jar -picoweb:8000:127.0.0.1
+//    */
+// ];
+
+// const githubAlerts = require("remark-github-blockquote-alert");
 
 import rehypeRaw from "rehype-raw";
 const rehyperaw = [
@@ -114,9 +122,7 @@ const rehyperaw = [
   },
 ];
 
-
 function extractHashtags(md) {
-
   // Remove fenced code blocks ``` ... ``` Regex: /```[\s\S]*?```/g
   // Remove inline code `...` Regex: /`[^`]*`/g
   // Remove markdown links [text](url) Regex: /\[([^\]]+)\]\(([^)]+)\)/g
@@ -133,7 +139,7 @@ function extractHashtags(md) {
   return hashtags;
 }
 
-/* Extend default frontmatter parser 
+/* Extend default frontmatter parser
  * https://docusaurus.io/docs/markdown-features#front-matter
  */
 const parseFrontMatterCustom = async (params) => {
@@ -151,7 +157,7 @@ const parseFrontMatterCustom = async (params) => {
   }
 
   return result;
-}
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -172,7 +178,11 @@ const config = {
 
   onBrokenLinks: "log",
   onBrokenMarkdownLinks: "log",
-  markdown: { format: "md", mermaid: true, parseFrontMatter: async (params) => parseFrontMatterCustom(params) },
+  markdown: {
+    format: "md",
+    mermaid: true,
+    parseFrontMatter: async (params) => parseFrontMatterCustom(params),
+  },
   themes: ["@docusaurus/theme-mermaid"],
   future: {
     // This is only useful in PC broswer where file:// is allowed
